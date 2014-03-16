@@ -12,4 +12,5 @@ A VDX file can be easily imported with the web-application [LucidChart](www.luci
 
 # Test
 
-![](https://github.com/ercoppa/HadoopDiagrams/raw/master/sources/png/MapReduce%20Input.png)
+<a>![](https://github.com/ercoppa/HadoopDiagrams/raw/master/sources/png/MapReduce%20Input.png)</a>
+
