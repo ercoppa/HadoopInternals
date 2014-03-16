@@ -7,9 +7,17 @@ This document is an easy-index of all the diagrams. In the source directory, you
 * PNG
 * Visio (VDX)
 
-A VDX file can be easily imported with the web-application editor [LucidChart](www.lucidchart.com). Moreover, if requested I can share my files using Google Drive and you can help me in this project. 
+A VDX file can be opened with many VISIO editors (e.g., I am using the web-application editor [LucidChart](www.lucidchart.com) but unfortunately only pro users can edit an imported file). If requested, I can share LucicChart files using Google Drive and you can help me in this project (in this case, the free account on LucidChart is enough for editing). 
 
-# Test
+### Diagram notational conventions
 
+The style of the diagrams is not very strict and formal but these are some conventions:
+
+<a>![](https://github.com/ercoppa/HadoopDiagrams/raw/master/extra/conventions-1.png)</a>
+<a>![](https://github.com/ercoppa/HadoopDiagrams/raw/master/extra/conventions-2.png)</a>
+<a>![](https://github.com/ercoppa/HadoopDiagrams/raw/master/extra/conventions-3.png)</a>
+<a>![](https://github.com/ercoppa/HadoopDiagrams/raw/master/extra/conventions-4.png)</a>
+
+<!---
 <a>![](https://github.com/ercoppa/HadoopDiagrams/raw/master/sources/png/MapReduce%20Input.png)</a>
-
+-->
