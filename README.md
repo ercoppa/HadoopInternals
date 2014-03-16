@@ -7,4 +7,5 @@ This document is an easy-index of all the diagrams. In the source directory, you
 * PNG
 * PDF
 * Visio (VDX)
+
 A VDX file can be easily imported with the web-application [LucidChart](www.lucidchart.com). Moreover, if requested I can share my files using Google Drive and you can help me in this project. 
