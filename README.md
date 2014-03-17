@@ -12,8 +12,8 @@ A VDX file can be opened with many VISIO editors (e.g., I am using the web-appli
 #### Table of contents:
 * [Diagram notational conventions](#diagram-notational-conventions)
 * [Job](Job.md)
- * [Finite State Machine](Job.md#finite-state-machine) 
- * [*NEW => INITED*](Job.md#transition-new--inited)
+ * [Finite State Machine](JOB.md#finite-state-machine) 
+ * [*NEW => INITED*](JOB.md#transition-new--inited)
  * [*INITTED => SETUP*](JOB.md#transitions-initted--setup-setup--running-running--running-committing-fail-abort-running--running)
  * [*SETUP => RUNNING*](JOB.md#transitions-initted--setup-setup--running-running--running-committing-fail-abort-running--running)
  * [*RUNNING => RUNNING*](JOB.md#transitions-initted--setup-setup--running-running--running-committing-fail-abort-running--running)
