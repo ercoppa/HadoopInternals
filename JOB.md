@@ -1,6 +1,13 @@
 Apache Hadoop (MapReduce): Job 
 ==============
-
+#### Table of contents:
+ * [Finite State Machine](#finite-state-machine) 
+ * [*NEW => INITED*](#transition-new--inited)
+ * [*INITTED => SETUP*](#transitions-initted--setup-setup--running-running--running-committing-fail-abort-running--running)
+ * [*SETUP => RUNNING*](#transitions-initted--setup-setup--running-running--running-committing-fail-abort-running--running)
+ * [*RUNNING => RUNNING*](#transitions-initted--setup-setup--running-running--running-committing-fail-abort-running--running)
+ * [*RUNNING => {RUNNING, COMMITTING, FAIL ABORT}*](#transitions-initted--setup-setup--running-running--running-committing-fail-abort-running--running)
+ * [*COMMITTING => SUCCEEDED*](#transition-committing--succeeded)
 
 ### Finite State Machine
 <a>![](sources/png/Yarn_(5)_-_Job_Execution_FSM_(1).png)</a>
