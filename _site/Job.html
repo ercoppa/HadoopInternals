@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+
+  <title>
+    Job &middot; 
+    Hadoop Internals
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="public/css/hyde.css">
+  <link rel="stylesheet" href="public/css/syntax.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400italic,400,600,700|Abril+Fatface">
+
+  <!-- Icons -->
+  <link rel="shortcut icon" href="public/favicon.png">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="atom.xml">
+
+  <!-- CSS menu -->
+  <link href="public/menu_source/styles.css" rel="stylesheet" type="text/css">
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script type='text/javascript' src='public/menu_source/menu_jquery.js'></script>
+  
+</head>
+
+
+  <body>
+
+    <header class="masthead">
+      <div class="masthead-inner">
+        <div class="center"><h1>Hadoop Internals</h1></div>
+        <div id='cssmenu'>
+            <ul>
+               <li class='active'><a href='./'><span>Home</span></a></li>
+               <li class='has-sub'><a href='#'><span>Actors</span></a>
+                  <ul>
+                     <li><a href='JobSubmitter.html'><span>Job Submitter</span></a></li>
+                     <li><a href='NodeManager.html'><span>Node Manager</span></a></li>
+                     <li><a href='ResourceManager.html'><span>Resource Manager</span></a></li>
+                     <li class='last'><a href='ApplicationMaster.html'><span>Application Master</span></a></li>
+                  </ul>
+               </li>
+               <li class='has-sub'><a href='#'><span>Tasks</span></a>
+                  <ul>
+                     <li><a href='MapTask.html'><span>Map Task</span></a></li>
+                     <li><a href='ReduceTask.html'><span>Reduce Task</span></a></li>
+                     <li class='last'><a href='MapReduceMerge.html'><span>Merger</span></a></li>
+                  </ul>
+               </li>
+               <li class='has-sub'><a href='#'><span>Model of Computation</span></a>
+                  <ul>
+                     <li><a href='Job.html'><span>Job</span></a></li>
+                     <li><a href='Task.html'><span>Task</span></a></li>
+                     <li><a href='TaskAttempt.html'><span>Task Attempt</span></a></li>
+                     <li><a href='Container.html'><span>Container</span></a></li>
+                     <li class='last'><a href='Application.html'><span>Application</span></a></li>
+                  </ul>
+               </li>
+               <li class='has-sub'><a href='#'><span>Extra</span></a>
+                  <ul>
+                     <li><a href='AsyncDispatcher.html'><span>Async Dispatcher</span></a></li>
+                     <li><a href='LocalizedResource.html'><span>Localized Resource</span></a></li>
+                     <li><a href='ContainerAllocator.html'><span>Container Allocator [AM]</span></a></li>
+                     <li><a href='ContainerLauncher.html'><span>Container Launcher [AM]</span></a></li>
+                     <li class='last'><a href='ContainersLauncher.html'><span>Containers Launcher [NM]</span></a></li>
+                  </ul>
+               </li>
+               <li class='last'><a href='HadoopConfigurationParameters.html'><span>Configuration Parameters</span></a></li>
+            </ul>
+        </div>
+
+        <div class="colophon">
+          <ul class="colophon-links">
+            
+            <li>
+              <a href="https://sites.google.com/a/di.uniroma1.it/coppa/">Emilio Coppa</a>
+            </li>
+            <li>ercoppa [at] gmail [dot] com</li>
+            <li>
+              <a href="https://github.com/ercoppa/HadoopDiagrams">GitHub project</a>
+            </li>
+          </ul>
+          <br />
+          <div class="center"><iframe src="http://ghbtns.com/github-btn.html?user=ercoppa&repo=hadoopdiagrams&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px"></iframe></div>
+        </div>
+
+      </div>
+    </header>
+
+    <a href="https://github.com/ercoppa/HadoopDiagrams/"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="title">Job</h1>
+  <br />
+  <h4>Table of contents:</h4>
+
+<ul>
+<li><a href="#finite-state-machine">Finite State Machine</a></li>
+<li><a href="#new-inited-job-init"><em>NEW => INITED</em> [<em>JOB_INIT</em>]</a></li>
+<li><a href="#initted-setup-job-start"><em>INITTED => SETUP</em> [<em>JOB_START</em>]</a></li>
+<li><a href="#setup-running-job-setup-completed"><em>SETUP => RUNNING</em> [<em>JOB_SETUP_COMPLETED</em>]</a></li>
+<li><a href="#running-running-committing-fail-abort-job-task-completed"><em>RUNNING => {RUNNING, COMMITTING, FAIL ABORT}</em> [<em>JOB_TASK_COMPLETED</em>]</a></li>
+<li><a href="#running-running-job-task-attempt-completed"><em>RUNNING => RUNNING</em> [<em>JOB_TASK_ATTEMPT_COMPLETED</em>]</a></li>
+<li><a href="#committing-succeeded-job-commit-completed"><em>COMMITTING => SUCCEEDED</em> [<em>JOB_COMMIT_COMPLETED</em>]</a></li>
+</ul>
+
+
+<h3><a href="#finite-state-machine" id="finite-state-machine">Finite State Machine</a></h3>
+
+<p><img src="public/images/5330528e-f8fc-47c3-a285-3b170a004683.png" alt="Hadoop (MapReduce): Job - Finite State Machine" /></p>
+
+<h3><a href="#new-inited-job-init" id="new-inited-job-init"><em>NEW => INITED</em> [<em>JOB_INIT</em>]</a></h3>
+
+<p><img src="public/images/533052cd-e434-4013-a881-31b60a00da32.png" alt="Hadoop (MapReduce): Job - NEW =&gt; INITED - JOB_INIT" /></p>
+
+<h3><a href="#initted-setup-job-start" id="initted-setup-job-start"><em>INITTED => SETUP</em> [<em>JOB_START</em>]</a></h3>
+
+<p><img src="public/images/53305310-d370-491c-b842-2f320a009433.png" alt="Hadoop (MapReduce): Job - INITTED =&gt; SETUP - JOB_START" /></p>
+
+<h3><a href="#setup-running-job-setup-completed" id="setup-running-job-setup-completed"><em>SETUP => RUNNING</em> [<em>JOB_SETUP_COMPLETED</em>]</a></h3>
+
+<p><img src="public/images/53305392-374c-4ab6-ab2a-7f660a009433.png" alt="Hadoop (MapReduce): Job - SETUP =&gt; RUNNING - JOB_SETUP_COMPLETED" /></p>
+
+<h3><a href="#running-running-committing-fail-abort-job-task-completed" id="running-running-committing-fail-abort-job-task-completed"><em>RUNNING => {RUNNING, COMMITTING, FAIL ABORT}</em> [<em>JOB_TASK_COMPLETED</em>]</a></h3>
+
+<p><img src="public/images/53305441-e19c-455d-9571-125a0a00da32.png" alt="Hadoop (MapReduce): Job - RUNNING =&gt; RUNNING, COMMITTING, FAIL ABORT - JOB_TASK_COMPLETED" /></p>
+
+<h3><a href="#running-running-job-task-attempt-completed" id="running-running-job-task-attempt-completed"><em>RUNNING => RUNNING</em> [<em>JOB_TASK_ATTEMPT_COMPLETED</em>]</a></h3>
+
+<p><img src="public/images/53305406-7c44-463e-a456-33740a004cb7.png" alt="Hadoop (MapReduce): Job - RUNNING =&gt; RUNNING - JOB_TASK_ATTEMPT_COMPLETED" /></p>
+
+<h3><a href="#committing-succeeded-job-commit-completed" id="committing-succeeded-job-commit-completed"><em>COMMITTING => SUCCEEDED</em> [<em>JOB_COMMIT_COMPLETED</em>]</a></h3>
+
+<p><img src="public/images/53300917-07ac-4950-aa31-29d90a004cb7.png" alt="Hadoop (MapReduce): Job - COMMITTED =&gt; SUCCEEDED - JOB_COMMIT_COMPLETED" /></p>
+
+</div>
+
+    </div>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-49049378-1', 'ercoppa.github.io');
+      ga('send', 'pageview');
+
+    </script>
+
+  </body>
+</html>
