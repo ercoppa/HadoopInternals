@@ -231,9 +231,11 @@ a:focus {
 
 /* Masthead content */
 .masthead h1 {
-/*  font-family: "Abril Fatface";
-*/
+/*  font-family: "Abril Fatface";*/
+  font-size: 24px;
+  color: white;
 }
+
 .masthead .lead {
 /*  margin-bottom: 0;*/
 }
@@ -275,15 +277,12 @@ a:focus {
     right: 0;
     left: 0;
   }
-  .masthead h1 {
-    font-size: 24px;
-    color: white;
-  }
   .colophon {
     margin-top: 40px;
     margin-left: 8%;
   }
 }
+
 
 
 /* Container
