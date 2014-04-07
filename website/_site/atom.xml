@@ -1,0 +1,752 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+ <title>Hadoop Internals</title>
+ <link href="http://ercoppa.org/atom.xml" rel="self"/>
+ <link href="http://ercoppa.org/"/>
+ <updated>2014-04-07T19:54:29+02:00</updated>
+ <id>http://ercoppa.org</id>
+ <author>
+   <name>Emilio Coppa</name>
+   <email>ercoppa [at] gmail [dot] com</email>
+ </author>
+
+ 
+ <entry>
+   <title>_Header</title>
+   <link href="http://ercoppa.org/_Header.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/_Header</id>
+   <content type="html">&lt;p&gt;Home Job&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Task Attempt</title>
+   <link href="http://ercoppa.org/TaskAttempt.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/TaskAttempt</id>
+   <content type="html">&lt;h4&gt;Table of contents:&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#finite-state-machine&quot;&gt;Finite State Machine&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#new-unassigned-ta-schedule&quot;&gt;&lt;em&gt;NEW =&gt; UNASSIGNED&lt;/em&gt; [&lt;em&gt;TA_SCHEDULE&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#unassigned-assigned-ta-assigned&quot;&gt;&lt;em&gt;UNASSIGNED =&gt; ASSIGNED&lt;/em&gt; [&lt;em&gt;TA_ASSIGNED&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#assigned-running-ta-container-launched&quot;&gt;&lt;em&gt;ASSIGNED =&gt; RUNNING&lt;/em&gt; [&lt;em&gt;TA_CONTAINER_LAUNCHED&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#running-success-container-cleanup-ta-done-commit-pending-success-container-cleanup-ta-done&quot;&gt;&lt;em&gt;RUNNING =&gt; SUCCESS_CONTAINER_CLEANUP&lt;/em&gt; [&lt;em&gt;TA_DONE&lt;/em&gt;], &lt;em&gt;COMMIT_PENDING =&gt; SUCCESS_CONTAINER_CLEANUP&lt;/em&gt; [&lt;em&gt;TA_DONE&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#success-container-cleanup-succeedeed-ta-container-cleaned&quot;&gt;&lt;em&gt;SUCCESS_CONTAINER_CLEANUP =&gt; SUCCEEDEED&lt;/em&gt; [&lt;em&gt;TA_CONTAINER_CLEANED&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;&lt;a href=&quot;#finite-state-machine&quot; id=&quot;finite-state-machine&quot;&gt;Finite State Machine&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/5330591e-64f4-49d1-a118-54e30a004cb7.png&quot; alt=&quot;Hadoop (MapReduce): Task Attempt - Finite State Machine&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#new-unassigned-ta-schedule&quot; id=&quot;new-unassigned-ta-schedule&quot;&gt;&lt;em&gt;NEW =&gt; UNASSIGNED&lt;/em&gt; [&lt;em&gt;TA_SCHEDULE&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53305997-5638-43c0-92e2-018c0a00da32.png&quot; alt=&quot;Hadoop (MapReduce): Task Attempt - NEW =&amp;gt; UNASSIGNED - TA_SCHEDULE&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#unassigned-assigned-ta-assigned&quot; id=&quot;unassigned-assigned-ta-assigned&quot;&gt;&lt;em&gt;UNASSIGNED =&gt; ASSIGNED&lt;/em&gt; [&lt;em&gt;TA_ASSIGNED&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/533059e9-9d18-4042-aae5-4ffe0a00da8d.png&quot; alt=&quot;Hadoop (MapReduce): Task Attempt - UNASSIGNED =&amp;gt; ASSIGNED - TA_ASSIGNED&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#assigned-running-ta-container-launched&quot; id=&quot;assigned-running-ta-container-launched&quot;&gt;&lt;em&gt;ASSIGNED =&gt; RUNNING&lt;/em&gt; [&lt;em&gt;TA_CONTAINER_LAUNCHED&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53305a1a-1d10-4811-889d-2df60a00d013.png&quot; alt=&quot;Hadoop (MapReduce): Task Attempt - ASSIGNED =&amp;gt; RUNNING - TA_CONTAINER_LAUNCHED&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#running-success-container-cleanup-ta-done-commit-pending-success-container-cleanup-ta-done&quot; id=&quot;running-success-container-cleanup-ta-done-commit-pending-success-container-cleanup-ta-done&quot;&gt;&lt;em&gt;RUNNING =&gt; SUCCESS_CONTAINER_CLEANUP&lt;/em&gt; [&lt;em&gt;TA_DONE&lt;/em&gt;], &lt;em&gt;COMMIT_PENDING =&gt; SUCCESS_CONTAINER_CLEANUP&lt;/em&gt; [&lt;em&gt;TA_DONE&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53305ad5-8d54-460e-893a-3a880a004683.png&quot; alt=&quot;Hadoop (MapReduce): Task Attempt - RUNNING =&amp;gt; SUCCESS_CONTAINER_CLEANUP - TA_DONE - COMMIT_PENDING =&amp;gt; SUCCESS_CONTAINER_CLEANUP&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#success-container-cleanup-succeedeed-ta-container-cleaned&quot; id=&quot;success-container-cleanup-succeedeed-ta-container-cleaned&quot;&gt;&lt;em&gt;SUCCESS_CONTAINER_CLEANUP =&gt; SUCCEEDEED&lt;/em&gt; [&lt;em&gt;TA_CONTAINER_CLEANED&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53305b06-4494-41e6-8baf-42c90a009b9f.png&quot; alt=&quot;Hadoop (MapReduce): Task Attempt - SUCCESS_CONTAINER_CLEANUP =&amp;gt; SUCCEEDEED - TA_CONTAINER_CLEANED&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Task</title>
+   <link href="http://ercoppa.org/Task.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/Task</id>
+   <content type="html">&lt;h4&gt;Table of contents:&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#finite-state-machine&quot;&gt;Finite State Machine&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#new-scheduled-t-schedule&quot;&gt;&lt;em&gt;NEW =&gt; SCHEDULED&lt;/em&gt; [&lt;em&gt;T_SCHEDULE&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#scheduled-running-t-attempt-launched&quot;&gt;&lt;em&gt;SCHEDULED =&gt; RUNNING&lt;/em&gt; [&lt;em&gt;T_ATTEMPT_LAUNCHED&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#running-succedeed-t-attempt-succedeed&quot;&gt;&lt;em&gt;RUNNING =&gt; SUCCEDEED&lt;/em&gt; [&lt;em&gt;T_ATTEMPT_SUCCEDEED&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;&lt;a href=&quot;#finite-state-machine&quot; id=&quot;finite-state-machine&quot;&gt;Finite State Machine&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53305696-1660-41a2-8080-75a50a009107.png&quot; alt=&quot;Hadoop (MapReduce): Task - Finite State Machine&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#new-scheduled-t-schedule&quot; id=&quot;new-scheduled-t-schedule&quot;&gt;&lt;em&gt;NEW =&gt; SCHEDULED&lt;/em&gt; [&lt;em&gt;T_SCHEDULE&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/5330585f-a3ac-4399-8c7b-03e10a00d013.png&quot; alt=&quot;Hadoop (MapReduce): Task - NEW =&amp;gt; SCHEDULED - T_SCHEDULE&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#scheduled-running-t-attempt-launched&quot; id=&quot;scheduled-running-t-attempt-launched&quot;&gt;&lt;em&gt;SCHEDULED =&gt; RUNNING&lt;/em&gt; [&lt;em&gt;T_ATTEMPT_LAUNCHED&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/533056bc-1b94-48af-977b-15150a009433.png&quot; alt=&quot;Hadoop (MapReduce): Task - SCHEDULED =&amp;gt; RUNNING - T_ATTEMPT_LAUNCHED&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#running-succedeed-t-attempt-succedeed&quot; id=&quot;running-succedeed-t-attempt-succedeed&quot;&gt;&lt;em&gt;RUNNING =&gt; SUCCEDEED&lt;/em&gt; [&lt;em&gt;T_ATTEMPT_SUCCEDEED&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53305758-6ed8-415e-9513-46940a009107.png&quot; alt=&quot;Hadoop (MapReduce): Task - RUNNING =&amp;gt; SUCCEDEED - T_ATTEMPT_SUCCEDEED&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>ResourceManager</title>
+   <link href="http://ercoppa.org/ResourceManager.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/ResourceManager</id>
+   <content type="html">&lt;p&gt;&lt;img src=&quot;public/images/533015e0-c19c-4fd3-8787-521a0a004cb7.png&quot; alt=&quot;Hadoop (MapReduce): ResourceManager&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>ReduceTask</title>
+   <link href="http://ercoppa.org/ReduceTask.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/ReduceTask</id>
+   <content type="html">&lt;h4&gt;Table of contents:&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#startup&quot;&gt;Startup&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#shuffle&quot;&gt;Shuffle&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#local-fetcher&quot;&gt;Local Fetcher&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#fetcher&quot;&gt;Fetcher&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#shuffle-merge&quot;&gt;Shuffle - Merge&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#execution&quot;&gt;Execution&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;&lt;a href=&quot;#startup&quot; id=&quot;startup&quot;&gt;Startup&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53300d53-15e0-4614-b4ad-27020a00da8d.png&quot; alt=&quot;Hadoop (MapReduce): ReduceTask - Startup&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#shuffle&quot; id=&quot;shuffle&quot;&gt;Shuffle&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53300d8a-1bf0-4836-b70f-015f0a009433.png&quot; alt=&quot;Hadoop (MapReduce): ReduceTask - Shuffle&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#local-fetcher&quot; id=&quot;local-fetcher&quot;&gt;Local Fetcher&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53300db6-0708-4f09-b67c-4a430a00da8d.png&quot; alt=&quot;Hadoop (MapReduce): ReduceTask - Local Fetcher&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#fetcher&quot; id=&quot;fetcher&quot;&gt;Fetcher&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53300e6a-7438-4871-b2cc-3f380a00da8d.png&quot; alt=&quot;Hadoop (MapReduce): ReduceTask - Fetcher&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#shuffle-merge&quot; id=&quot;shuffle-merge&quot;&gt;Shuffle - Merge&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/533aa18d-2f50-4d3a-a23f-66af0a00da32.png&quot; alt=&quot;Hadoop (MapReduce): ReduceTask - Shuffle Merge&quot; /&gt;
+&lt;img src=&quot;public/images/53396377-6e7c-4b02-9333-11c70a009b9f.png&quot; alt=&quot;Hadoop (MapReduce): ReduceTask - Shuffle Merge (2)&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#execution&quot; id=&quot;execution&quot;&gt;Execution&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53300e98-44d0-4c4f-8c6b-70d80a009433.png&quot; alt=&quot;Hadoop (MapReduce): ReduceTask - Execution&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Node Manager</title>
+   <link href="http://ercoppa.org/NodeManager.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/NodeManager</id>
+   <content type="html">&lt;h4&gt;Table of contents:&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#startup&quot;&gt;Startup&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#container-manager-start-containers&quot;&gt;Container Manager: start containers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#container-manager&quot;&gt;Container Manager&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#resource-localization&quot;&gt;Resource Localization&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#node-status-updater&quot;&gt;Node Status Updater&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#non-aggregating-log-handler&quot;&gt;Non Aggregating Log Handler&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;&lt;a href=&quot;#startup&quot; id=&quot;startup&quot;&gt;Startup&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53303229-027c-4028-a97d-1d740a009b9f.png&quot; alt=&quot;Hadoop (MapReduce): Node Manager - Startup&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#container-manager-start-containers&quot; id=&quot;container-manager-start-containers&quot;&gt;Container Manager: start containers&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/533045b5-3370-4531-94df-643b0a00da32.png&quot; alt=&quot;Hadoop (MapReduce): Node Manager - start containers&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#container-manager&quot; id=&quot;container-manager&quot;&gt;Container Manager&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/533046b6-aea8-408d-aafe-34c20a009b9f.png&quot; alt=&quot;Hadoop (MapReduce): Node Manager - Container Manager&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#resource-localization&quot; id=&quot;resource-localization&quot;&gt;Resource Localization&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/5330460a-3b28-44f7-95da-63050a004cb7.png&quot; alt=&quot;Hadoop (MapReduce): Node Manager - Resource Localization&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#node-status-updater&quot; id=&quot;node-status-updater&quot;&gt;Node Status Updater&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53304648-6b6c-4226-8011-58bd0a00da8d.png&quot; alt=&quot;Hadoop (MapReduce): Node Manager - Node Status Updater&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#non-aggregating-log-handler&quot; id=&quot;non-aggregating-log-handler&quot;&gt;Non Aggregating Log Handler&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53304678-16d4-4725-beec-28b80a009107.png&quot; alt=&quot;Hadoop (MapReduce): Node Manager - Non Aggregating Log Handler&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>MapTask</title>
+   <link href="http://ercoppa.org/MapTask.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/MapTask</id>
+   <content type="html">&lt;h4&gt;Table of contents:&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#startup&quot;&gt;Startup&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#execution&quot;&gt;Execution&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#post-execution-shuffle&quot;&gt;Post Execution - Shuffle&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;&lt;a href=&quot;#startup&quot; id=&quot;startup&quot;&gt;Startup&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53300c20-1764-4137-9036-656c0a009107.png&quot; alt=&quot;Hadoop (MapReduce): MapTask - Startup&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#execution&quot; id=&quot;execution&quot;&gt;Execution&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53300c93-aa34-448d-91ac-44c80a009107.png&quot; alt=&quot;Hadoop (MapReduce): MapTask - Execution&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#post-execution-shuffle&quot; id=&quot;post-execution-shuffle&quot;&gt;Post Execution - Shuffle&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53300d09-fad8-4078-b0be-26910a00da8d.png&quot; alt=&quot;Hadoop (MapReduce): MapTask - Shuffle&quot; /&gt;
+&lt;img src=&quot;public/images/53300ccc-c608-4d82-add0-4a9a0a00da8d.png&quot; alt=&quot;Hadoop (MapReduce): MapTask - Shuffle (2)&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Merger</title>
+   <link href="http://ercoppa.org/MapReduceMerge.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/MapReduceMerge</id>
+   <content type="html">&lt;p&gt;&lt;img src=&quot;public/images/53300b37-5a58-4e1d-8871-55340a00d013.png&quot; alt=&quot;Hadoop (MapReduce): Merger&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>MapReduce Input</title>
+   <link href="http://ercoppa.org/MapReduceInput.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/MapReduceInput</id>
+   <content type="html">&lt;p&gt;&lt;img src=&quot;public/images/53300bb3-feb8-49c9-b10d-7e330a004cb7.png&quot; alt=&quot;Hadoop (MapReduce): Input&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Localized Resource</title>
+   <link href="http://ercoppa.org/LocalizedResource.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/LocalizedResource</id>
+   <content type="html">&lt;h4&gt;Table of contents:&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#finite-state-machine&quot;&gt;Finite State Machine&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#downloading-localized&quot;&gt;&lt;em&gt;DOWNLOADING =&gt; LOCALIZED&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;&lt;a href=&quot;#finite-state-machine&quot; id=&quot;finite-state-machine&quot;&gt;Finite State Machine&lt;/a&gt;&lt;/h3&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#downloading-localized&quot; id=&quot;downloading-localized&quot;&gt;&lt;em&gt;DOWNLOADING =&gt; LOCALIZED&lt;/em&gt;&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53305ed2-15e4-444e-9c40-08480a009107.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Job Submitter</title>
+   <link href="http://ercoppa.org/JobSubmitter.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/JobSubmitter</id>
+   <content type="html">&lt;p&gt;&lt;img src=&quot;public/images/53301531-b380-4305-81ab-51c70a00da8d.png&quot; alt=&quot;Hadoop (MapReduce): Job Submitter&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Job</title>
+   <link href="http://ercoppa.org/Job.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/Job</id>
+   <content type="html">&lt;h4&gt;Table of contents:&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#finite-state-machine&quot;&gt;Finite State Machine&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#new-inited-job-init&quot;&gt;&lt;em&gt;NEW =&gt; INITED&lt;/em&gt; [&lt;em&gt;JOB_INIT&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#initted-setup-job-start&quot;&gt;&lt;em&gt;INITTED =&gt; SETUP&lt;/em&gt; [&lt;em&gt;JOB_START&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#setup-running-job-setup-completed&quot;&gt;&lt;em&gt;SETUP =&gt; RUNNING&lt;/em&gt; [&lt;em&gt;JOB_SETUP_COMPLETED&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#running-running-committing-fail-abort-job-task-completed&quot;&gt;&lt;em&gt;RUNNING =&gt; {RUNNING, COMMITTING, FAIL ABORT}&lt;/em&gt; [&lt;em&gt;JOB_TASK_COMPLETED&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#running-running-job-task-attempt-completed&quot;&gt;&lt;em&gt;RUNNING =&gt; RUNNING&lt;/em&gt; [&lt;em&gt;JOB_TASK_ATTEMPT_COMPLETED&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#committing-succeeded-job-commit-completed&quot;&gt;&lt;em&gt;COMMITTING =&gt; SUCCEEDED&lt;/em&gt; [&lt;em&gt;JOB_COMMIT_COMPLETED&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;&lt;a href=&quot;#finite-state-machine&quot; id=&quot;finite-state-machine&quot;&gt;Finite State Machine&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/5330528e-f8fc-47c3-a285-3b170a004683.png&quot; alt=&quot;Hadoop (MapReduce): Job - Finite State Machine&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#new-inited-job-init&quot; id=&quot;new-inited-job-init&quot;&gt;&lt;em&gt;NEW =&gt; INITED&lt;/em&gt; [&lt;em&gt;JOB_INIT&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/533052cd-e434-4013-a881-31b60a00da32.png&quot; alt=&quot;Hadoop (MapReduce): Job - NEW =&amp;gt; INITED - JOB_INIT&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#initted-setup-job-start&quot; id=&quot;initted-setup-job-start&quot;&gt;&lt;em&gt;INITTED =&gt; SETUP&lt;/em&gt; [&lt;em&gt;JOB_START&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53305310-d370-491c-b842-2f320a009433.png&quot; alt=&quot;Hadoop (MapReduce): Job - INITTED =&amp;gt; SETUP - JOB_START&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#setup-running-job-setup-completed&quot; id=&quot;setup-running-job-setup-completed&quot;&gt;&lt;em&gt;SETUP =&gt; RUNNING&lt;/em&gt; [&lt;em&gt;JOB_SETUP_COMPLETED&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53305392-374c-4ab6-ab2a-7f660a009433.png&quot; alt=&quot;Hadoop (MapReduce): Job - SETUP =&amp;gt; RUNNING - JOB_SETUP_COMPLETED&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#running-running-committing-fail-abort-job-task-completed&quot; id=&quot;running-running-committing-fail-abort-job-task-completed&quot;&gt;&lt;em&gt;RUNNING =&gt; {RUNNING, COMMITTING, FAIL ABORT}&lt;/em&gt; [&lt;em&gt;JOB_TASK_COMPLETED&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53305441-e19c-455d-9571-125a0a00da32.png&quot; alt=&quot;Hadoop (MapReduce): Job - RUNNING =&amp;gt; RUNNING, COMMITTING, FAIL ABORT - JOB_TASK_COMPLETED&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#running-running-job-task-attempt-completed&quot; id=&quot;running-running-job-task-attempt-completed&quot;&gt;&lt;em&gt;RUNNING =&gt; RUNNING&lt;/em&gt; [&lt;em&gt;JOB_TASK_ATTEMPT_COMPLETED&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53305406-7c44-463e-a456-33740a004cb7.png&quot; alt=&quot;Hadoop (MapReduce): Job - RUNNING =&amp;gt; RUNNING - JOB_TASK_ATTEMPT_COMPLETED&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#committing-succeeded-job-commit-completed&quot; id=&quot;committing-succeeded-job-commit-completed&quot;&gt;&lt;em&gt;COMMITTING =&gt; SUCCEEDED&lt;/em&gt; [&lt;em&gt;JOB_COMMIT_COMPLETED&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53300917-07ac-4950-aa31-29d90a004cb7.png&quot; alt=&quot;Hadoop (MapReduce): Job - COMMITTED =&amp;gt; SUCCEEDED - JOB_COMMIT_COMPLETED&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Hadoop Configuration parameters</title>
+   <link href="http://ercoppa.org/HadoopConfigurationParameters.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/HadoopConfigurationParameters</id>
+   <content type="html">&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Parameter &lt;/th&gt;
+&lt;th&gt; File &lt;/th&gt;
+&lt;th&gt; Default &lt;/th&gt;
+&lt;th&gt; Diagram(s)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mapreduce.task.io.sort.mb&lt;/code&gt;  &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;mapred-site.xml&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; 100 &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;MapTask.html#post-execution-shuffle&quot;&gt;MapTask &gt; Shuffle&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt; &lt;/td&gt;
+&lt;td&gt; &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;MapTask.html#execution&quot;&gt;MapTask &gt; Execution&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mapreduce.map.sort.spill.percent&lt;/code&gt;  &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;mapred-site.xml&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; 0.80 &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;MapTask.html#post-execution-shuffle&quot;&gt;MapTask &gt; Shuffle&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt; &lt;/td&gt;
+&lt;td&gt; &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;MapTask.html#execution&quot;&gt;MapTask &gt; Execution&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mapreduce.task.io.sort.factor&lt;/code&gt;   &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;mapred-site.xml&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; 100 &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;MapTask.html#post-execution-shuffle&quot;&gt;MapTask &gt; Shuffle&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt; &lt;/td&gt;
+&lt;td&gt; &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;MapReduceMerge.html&quot;&gt;Merge&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt; &lt;/td&gt;
+&lt;td&gt; &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;ReduceTask.html#shuffle-merge&quot;&gt;ReduceTask &gt; Shuffle&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mapreduce.map.combine.minspills&lt;/code&gt;  &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;mapred-site.xml&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; 3 &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;MapTask.html#post-execution-shuffle&quot;&gt;MapTask &gt; Shuffle&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mapreduce.job.reduces&lt;/code&gt;  &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;mapred-site.xml&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; 1 &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;MapTask.html#post-execution-shuffle&quot;&gt;MapTask &gt; Shuffle&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt; &lt;/td&gt;
+&lt;td&gt; 0 &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;Job.html#new-inited-job-init&quot;&gt;Job &gt; NEW =&gt; INITED&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mapreduce.cluster.local.dir&lt;/code&gt;  &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;mapred-site.xml&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;${hadoop.tmp.dir}&lt;/code&gt;/mapred/local &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;MapTask.html#post-execution-shuffle&quot;&gt;MapTask &gt; Shuffle&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mapreduce.reduce.merge.memtomem.enabled&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;mapred-site.xml&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; False &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;ReduceTask.html#shuffle&quot;&gt;Reduce Task &gt; Shuffle&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mapreduce.framework.name&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;mapred-site.xml&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;yarn&lt;/code&gt;/&lt;code&gt;local&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;ReduceTask.html#shuffle&quot;&gt;Reduce Task &gt; Shuffle&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mapreduce.reduce.shuffle.parallelcopies&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;mapred-site.xml&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; 5 &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;ReduceTask.html#shuffle&quot;&gt;Reduce Task &gt; Shuffle&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mapreduce.reduce.memory.totalbytes&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;mapred-site.xml&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;Runtime.maxMemory()&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;ReduceTask.html#local-fetcher&quot;&gt;Reduce Task &gt; Fetcher&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mapreduce.reduce.shuffle.memory.limit.percent&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;mapred-site.xml&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; 0.25 &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;ReduceTask.html#local-fetcher&quot;&gt;Reduce Task &gt; Fetcher&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mapreduce.job.ubertask.enable&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;mapred-site.xml&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; False &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;Job.html#new-inited-job-init&quot;&gt;Job &gt; NEW =&gt; INITED&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mapreduce.job.ubertask.maxmaps&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;mapred-site.xml&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; 9 &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;Job.html#new-inited-job-init&quot;&gt;Job &gt; NEW =&gt; INITED&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mapreduce.job.ubertask.maxreduces&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;mapred-site.xml&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; 1 &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;Job.html#new-inited-job-init&quot;&gt;Job &gt; NEW =&gt; INITED&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mapreduce.job.ubertask.maxbytes&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;mapred-site.xml&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;dfs.block.size&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;Job.html#new-inited-job-init&quot;&gt;Job &gt; NEW =&gt; INITED &lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mapreduce.map. failures.maxpercent&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;mapred-site.xml&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; 0 &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;Job.html#running-running-committing-fail-abort-job-task-completed&quot;&gt;Job &gt; RUNNING =&gt; {RUNNING, COMMITTING, FAIL ABORT}&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mapreduce.reduce. failures.maxpercent&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;mapred-site.xml&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; 0 &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;Job.html#running-running-committing-fail-abort-job-task-completed&quot;&gt;Job &gt; RUNNING =&gt; {RUNNING, COMMITTING, FAIL ABORT}&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mapreduce.map.memory.mb&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;mapred-site.xml&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; 1024 &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;TaskAttempt.html#new-unassigned-ta-schedule&quot;&gt;Task Attempt &gt; NEW =&gt; UNASSIGNED&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mapreduce.reduce.memory.mb&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;mapred-site.xml&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; 1024 &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;TaskAttempt.html#new-unassigned-ta-schedule&quot;&gt;Task Attempt &gt; NEW =&gt; UNASSIGNED&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;scheduler.maximum-allocation-mb&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;yarn-site.xml&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; 8192 &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;ContainerAllocator.html&quot;&gt;Container Allocator&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mapreduce.reduce.shuffle.merge.percent&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;mapred-site.xml&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; 0.90 &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;ReduceTask.html#shuffle-merge&quot;&gt;Reduce Task &gt; Shuffle&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;yarn.resourcemanager.scheduler.class&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;yarn-site.xml&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;code&gt;CapacityScheduler&lt;/code&gt; &lt;/td&gt;
+&lt;td&gt; &lt;a href=&quot;ResourceManager.html&quot;&gt;Resource Manager&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Diagram notation conventions</title>
+   <link href="http://ercoppa.org/DiagramConventions.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/DiagramConventions</id>
+   <content type="html">&lt;p&gt;The style of the diagrams is not very strict and formal but these are some conventions:&lt;/p&gt;
+
+&lt;h2&gt;&lt;a href=&quot;#flow-diagram&quot; id=&quot;flow-diagram&quot;&gt;Flow diagram&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/533009fb-55b0-4ed9-ac6e-2f8d0a009433.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;public/images/533a997c-192c-44a4-9e6d-7cef0a005bed.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;public/images/53300a12-0a94-4528-aca1-41a50a009107.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;&lt;a href=&quot;#finite-state-machine-diagram&quot; id=&quot;finite-state-machine-diagram&quot;&gt;Finite State Machine diagram&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53300a29-eadc-4d01-b577-33090a009107.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;&lt;a href=&quot;#class-diagram&quot; id=&quot;class-diagram&quot;&gt;Class diagram&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53300a1e-13bc-4e71-a23c-31110a00d013.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Containers Launcher [Node Manager]</title>
+   <link href="http://ercoppa.org/ContainersLauncher.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/ContainersLauncher</id>
+   <content type="html">&lt;p&gt;&lt;img src=&quot;public/images/53306128-fc64-4287-8f9f-4d080a00da8d.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Container Launcher [Application Master]</title>
+   <link href="http://ercoppa.org/ContainerLauncher.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/ContainerLauncher</id>
+   <content type="html">&lt;p&gt;&lt;img src=&quot;public/images/533060b8-3138-485f-9ca0-4db40a00da8d.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Container Allocator</title>
+   <link href="http://ercoppa.org/ContainerAllocator.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/ContainerAllocator</id>
+   <content type="html">&lt;h3&gt;&lt;a href=&quot;#event-container-req&quot; id=&quot;event-container-req&quot;&gt;Event: &lt;em&gt;CONTAINER_REQ&lt;/em&gt;&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53305f84-2148-41e9-91d7-5de20a009433.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#events-container-deallocate-and-container-failed&quot; id=&quot;events-container-deallocate-and-container-failed&quot;&gt;Events: &lt;em&gt;CONTAINER_DEALLOCATE&lt;/em&gt; and &lt;em&gt;CONTAINER_FAILED&lt;/em&gt;&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53305fb7-bab8-4db2-a85a-075a0a00da32.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#hearbeat&quot; id=&quot;hearbeat&quot;&gt;Hearbeat&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53305fea-d334-4a5b-bcad-64240a00d013.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;public/images/5330601e-86ac-444f-b4e4-54de0a004cb7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Container</title>
+   <link href="http://ercoppa.org/Container.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/Container</id>
+   <content type="html">&lt;h4&gt;Table of contents:&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#finite-state-machine&quot;&gt;Finite State Machine&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#new-localized-localizing-localization-failed-init-container&quot;&gt;&lt;em&gt;NEW =&gt; {LOCALIZED; LOCALIZING, LOCALIZATION_FAILED}&lt;/em&gt; [&lt;em&gt;INIT_CONTAINER&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#localizing-localizing-localized-resource-localized&quot;&gt;&lt;em&gt;LOCALIZING =&gt; {LOCALIZING, LOCALIZED}&lt;/em&gt; [&lt;em&gt;RESOURCE_LOCALIZED&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#localized-running-container-launched&quot;&gt;&lt;em&gt;LOCALIZED =&gt; RUNNING&lt;/em&gt; [&lt;em&gt;CONTAINER_LAUNCHED&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#running-exited-with-success-container-exited-with-success&quot;&gt;&lt;em&gt;RUNNING =&gt; EXITED_WITH_SUCCESS&lt;/em&gt; [&lt;em&gt;CONTAINER_EXITED_WITH_SUCCESS&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#exited-with-success-done-container-resources-cleanedup&quot;&gt;&lt;em&gt;EXITED_WITH_SUCCESS =&gt; DONE&lt;/em&gt; [&lt;em&gt;CONTAINER_RESOURCES_CLEANEDUP&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;&lt;a href=&quot;#finite-state-machine&quot; id=&quot;finite-state-machine&quot;&gt;Finite State Machine&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53305c19-5c74-4f55-bba8-01b60a00da32.png&quot; alt=&quot;Hadoop (MapReduce): Container - Finite State Machine&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#new-localized-localizing-localization-failed-init-container&quot; id=&quot;new-localized-localizing-localization-failed-init-container&quot;&gt;&lt;em&gt;NEW =&gt; {LOCALIZED; LOCALIZING, LOCALIZATION_FAILED}&lt;/em&gt; [&lt;em&gt;INIT_CONTAINER&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53305c9a-b260-4b62-b3c3-017d0a00da32.png&quot; alt=&quot;Hadoop (MapReduce): Container - NEW =&amp;gt; {LOCALIZED; LOCALIZING, LOCALIZATION_FAILED} - INIT_CONTAINER&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#localizing-localizing-localized-resource-localized&quot; id=&quot;localizing-localizing-localized-resource-localized&quot;&gt;&lt;em&gt;LOCALIZING =&gt; {LOCALIZING, LOCALIZED}&lt;/em&gt; [&lt;em&gt;RESOURCE_LOCALIZED&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53305cc0-1b2c-4212-ab2a-3e890a00d013.png&quot; alt=&quot;Hadoop (MapReduce): Container - LOCALIZING =&amp;gt; {LOCALIZING, LOCALIZED} - RESOURCE_LOCALIZED&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#localized-running-container-launched&quot; id=&quot;localized-running-container-launched&quot;&gt;&lt;em&gt;LOCALIZED =&gt; RUNNING&lt;/em&gt; [&lt;em&gt;CONTAINER_LAUNCHED&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53305d0e-1d28-408f-abea-742f0a004cb7.png&quot; alt=&quot;Hadoop (MapReduce): Container - LOCALIZED =&amp;gt; RUNNING - CONTAINER_LAUNCHED&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#running-exited-with-success-container-exited-with-success&quot; id=&quot;running-exited-with-success-container-exited-with-success&quot;&gt;&lt;em&gt;RUNNING =&gt; EXITED_WITH_SUCCESS&lt;/em&gt; [&lt;em&gt;CONTAINER_EXITED_WITH_SUCCESS&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53305d4e-7d3c-47bc-9535-5dfd0a009107.png&quot; alt=&quot;Hadoop (MapReduce): Container - RUNNING =&amp;gt; EXITED_WITH_SUCCESS - CONTAINER_EXITED_WITH_SUCCESS&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#exited-with-success-done-container-resources-cleanedup&quot; id=&quot;exited-with-success-done-container-resources-cleanedup&quot;&gt;&lt;em&gt;EXITED_WITH_SUCCESS =&gt; DONE&lt;/em&gt; [&lt;em&gt;CONTAINER_RESOURCES_CLEANEDUP&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53305d94-593c-4bed-ab56-297f0a00da8d.png&quot; alt=&quot;Hadoop (MapReduce): Container - EXITED_WITH_SUCCESS =&amp;gt; DONE - CONTAINER_RESOURCES_CLEANEDUP&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>AsyncDispatcher</title>
+   <link href="http://ercoppa.org/AsyncDispatcher.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/AsyncDispatcher</id>
+   <content type="html">&lt;p&gt;&lt;img src=&quot;public/images/53304af3-2000-4f02-9d9b-2da80a00d013.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Application Master</title>
+   <link href="http://ercoppa.org/ApplicationMaster.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/ApplicationMaster</id>
+   <content type="html">&lt;p&gt;&lt;img src=&quot;public/images/53304837-a6e0-47e8-b9b4-23110a00d013.png&quot; alt=&quot;Hadoop (MapReduce): Application Master&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Application</title>
+   <link href="http://ercoppa.org/Application.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/Application</id>
+   <content type="html">&lt;h4&gt;Table of contents:&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#finite-state-machine&quot;&gt;Finite State Machine&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#new-initting-init-application&quot;&gt;&lt;em&gt;NEW =&gt; INITTING&lt;/em&gt; [&lt;em&gt;INIT_APPLICATION&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#new-new-initting-initting-running-running-init-container&quot;&gt;&lt;em&gt;NEW =&gt; NEW&lt;/em&gt;, &lt;em&gt;INITTING =&gt; INITTING&lt;/em&gt;, &lt;em&gt;RUNNING =&gt; RUNNING&lt;/em&gt; [&lt;em&gt;INIT_CONTAINER&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#initting-initting-application-log-handling-inited&quot;&gt;&lt;em&gt;INITTING =&gt; INITTING&lt;/em&gt; [&lt;em&gt;APPLICATION_LOG_HANDLING_INITED&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#initting-running-application-inited&quot;&gt;&lt;em&gt;INITTING =&gt; RUNNING&lt;/em&gt; [&lt;em&gt;APPLICATION_INITED&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#running-running-application-container-finished&quot;&gt;&lt;em&gt;RUNNING =&gt; RUNNING&lt;/em&gt; [&lt;em&gt;APPLICATION_CONTAINER_FINISHED&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#running-application-resources-cleainingup-application-containers-wait-finish-application&quot;&gt;&lt;em&gt;RUNNING =&gt; {APPLICATION_RESOURCES_CLEAININGUP, APPLICATION_CONTAINERS_WAIT}&lt;/em&gt; [&lt;em&gt;FINISH_APPLICATION&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#finishing-containers-wait-application-container-finished-application-resources-cleaningup-application-container-finished&quot;&gt;&lt;em&gt;FINISHING_CONTAINERS_WAIT =&gt; {APPLICATION_CONTAINER_FINISHED, APPLICATION_RESOURCES_CLEANINGUP} &lt;/em&gt; [&lt;em&gt;APPLICATION_CONTAINER_FINISHED&lt;/em&gt;]&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;&lt;a href=&quot;#finite-state-machine&quot; id=&quot;finite-state-machine&quot;&gt;Finite State Machine&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53304bf7-2904-481c-9a7a-3f890a00da32.png&quot; alt=&quot;Hadoop (MapReduce): Application - Finite State Machine&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#new-initting-init-application&quot; id=&quot;new-initting-init-application&quot;&gt;&lt;em&gt;NEW =&gt; INITTING&lt;/em&gt; [&lt;em&gt;INIT_APPLICATION&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53304c35-a748-499c-bce7-25910a004cb7.png&quot; alt=&quot;Hadoop (MapReduce): Application - NEW =&amp;gt; INITTING - INIT_APPLICATION&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#new-new-initting-initting-running-running-init-container&quot; id=&quot;new-new-initting-initting-running-running-init-container&quot;&gt;&lt;em&gt;NEW =&gt; NEW&lt;/em&gt;, &lt;em&gt;INITTING =&gt; INITTING&lt;/em&gt;, &lt;em&gt;RUNNING =&gt; RUNNING&lt;/em&gt; [&lt;em&gt;INIT_CONTAINER&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53304cde-0c94-44a3-a7b4-3fc60a00da32.png&quot; alt=&quot;Hadoop (MapReduce): Application - NEW =&amp;gt; NEW - INIT_CONTAINER&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#initting-initting-application-log-handling-inited&quot; id=&quot;initting-initting-application-log-handling-inited&quot;&gt;&lt;em&gt;INITTING =&gt; INITTING&lt;/em&gt; [&lt;em&gt;APPLICATION_LOG_HANDLING_INITED&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53304d5d-529c-4546-8ac2-74ad0a00d013.png&quot; alt=&quot;Hadoop (MapReduce): Application - INITTING =&amp;gt; INITTING - APPLICATION_LOG_HANDLING_INITED&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#initting-running-application-inited&quot; id=&quot;initting-running-application-inited&quot;&gt;&lt;em&gt;INITTING =&gt; RUNNING&lt;/em&gt; [&lt;em&gt;APPLICATION_INITED&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53304daf-0028-42c5-b080-2ab30a004cb7.png&quot; alt=&quot;Hadoop (MapReduce): Application - INITTING =&amp;gt; RUNNING - APPLICATION_INITED&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#running-running-application-container-finished&quot; id=&quot;running-running-application-container-finished&quot;&gt;&lt;em&gt;RUNNING =&gt; RUNNING&lt;/em&gt; [&lt;em&gt;APPLICATION_CONTAINER_FINISHED&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53304dfa-5658-408d-a013-15510a00da32.png&quot; alt=&quot;Hadoop (MapReduce): Application - RUNNING =&amp;gt; RUNNING - APPLICATION_CONTAINER_FINISHED&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#running-application-resources-cleainingup-application-containers-wait-finish-application&quot; id=&quot;running-application-resources-cleainingup-application-containers-wait-finish-application&quot;&gt;&lt;em&gt;RUNNING =&gt; {APPLICATION_RESOURCES_CLEAININGUP, APPLICATION_CONTAINERS_WAIT}&lt;/em&gt; [&lt;em&gt;FINISH_APPLICATION&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53304ece-c78c-4b7d-b0fb-039e0a00d013.png&quot; alt=&quot;Hadoop (MapReduce): Application - RUNNING =&amp;gt; {APPLICATION_RESOURCES_CLEAININGUP, APPLICATION_CONTAINERS_WAIT} - FINISH_APPLICATION&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#finishing-containers-wait-application-container-finished-application-resources-cleaningup-application-container-finished&quot; id=&quot;finishing-containers-wait-application-container-finished-application-resources-cleaningup-application-container-finished&quot;&gt;&lt;em&gt;FINISHING_CONTAINERS_WAIT =&gt; {APPLICATION_CONTAINER_FINISHED, APPLICATION_RESOURCES_CLEANINGUP} &lt;/em&gt; [&lt;em&gt;APPLICATION_CONTAINER_FINISHED&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53304f82-e294-4565-9eb8-21eb0a00da32.png&quot; alt=&quot;Hadoop (MapReduce): Application - FINISHING_CONTAINERS_WAIT =&amp;gt; {APPLICATION_CONTAINER_FINISHED, APPLICATION_RESOURCES_CLEANINGUP} - APPLICATION_CONTAINER_FINISHED&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>AllFiles</title>
+   <link href="http://ercoppa.org/AllFiles.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/AllFiles</id>
+   <content type="html">
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Home</title>
+   <link href="http://ercoppa.org/Home.html"/>
+   <updated>2014-04-01T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/Home</id>
+   <content type="html">&lt;p&gt;This project contains several diagrams describing &lt;a href=&quot;http://hadoop.apache.org/.html&quot;&gt;Apache Hadoop&lt;/a&gt; internals (2.3.0 or later). Even if these diagrams are NOT specified in any formal or unambiguous language (e.g., UML), they should be reasonably understandable (here some &lt;strong&gt;&lt;a href=&quot;DiagramConventions.html&quot;&gt;diagram notation conventions&lt;/a&gt;&lt;/strong&gt;) and useful for any person who want to grasp the main ideas behind Hadoop. Unfortunately, not all the internal details are covered by these diagrams. You are free to help :)&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;table&gt;
+&lt;tr&gt;
+
+&lt;th&gt;Actors&lt;/th&gt;
+&lt;th&gt;Tasks&lt;/th&gt;
+&lt;th&gt;Model of computation&lt;/th&gt;
+&lt;th&gt;Extra&lt;/th&gt;
+
+&lt;/tr&gt;
+&lt;tr&gt;
+
+&lt;td&gt;
+  &lt;li&gt;&lt;a href=&quot;JobSubmitter.html&quot;&gt;Job Submitter&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;NodeManager.html&quot;&gt;Node Manager&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;ResourceManager.html&quot;&gt;Resource Manager&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;ApplicationMaster.html&quot;&gt;Application Master&lt;/a&gt;&lt;/li&gt; 
+  &lt;br /&gt; 
+&lt;/td&gt;
+
+&lt;td&gt;
+  &lt;li&gt;&lt;a href=&quot;MapTask.html&quot;&gt;Map Task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;ReduceTask.html&quot;&gt;Reduce Task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;MapReduceMerge.html&quot;&gt;Merger&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;MapReduceInput.html&quot;&gt;Input&lt;/a&gt;&lt;/li&gt;
+  &lt;br /&gt;
+&lt;/td&gt;
+
+&lt;td&gt;
+  &lt;li&gt;&lt;a href=&quot;Job.html&quot;&gt;Job&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;Task.html&quot;&gt;Task&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;TaskAttempt.html&quot;&gt;Task Attempt&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;Application.html&quot;&gt;Application&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;Container.html&quot;&gt;Container&lt;/a&gt;&lt;/li&gt;
+&lt;/td&gt;
+
+&lt;td&gt;
+  &lt;li&gt;&lt;a href=&quot;AsyncDispatcher.html&quot;&gt;Async Dispatcher&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;LocalizedResource.html&quot;&gt;Localized Resource&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;ContainerAllocator.html&quot;&gt;Container Allocator [AM]&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;ContainerLauncher.html&quot;&gt;Container Launcher [AM]&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;ContainersLauncher.html&quot;&gt;Containers Launcher [NM]&lt;/a&gt;&lt;/li&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#architecture-overview&quot; id=&quot;architecture-overview&quot;&gt;Architecture Overview&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53302af2-7d38-412b-8275-6ffe0a009433.png&quot; alt=&quot;Hadoop- Yarn MapReduce - Architecture Overview&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+
+</feed>
