@@ -1,0 +1,17 @@
+title:        Hadoop Internals
+tagline:      'Hadoop Internals'
+description:  ''
+url:          http://ercoppa.org
+version:      0.1
+author:
+  name:       'Emilio Coppa'
+  email:      'ercoppa [at] gmail [dot] com'
+markdown:     rdiscount
+permalink:    pretty
+pygments:     true
+permalink:    /:title.html
+rdiscount:
+  extensions:
+    - autolink      # greedily urlify links
+    - footnotes     # footnotes
+    - smart         # typographic substitutions with SmartyPants

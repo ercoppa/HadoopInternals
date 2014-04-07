@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  {% include head.html %}
+
+  <body>
+
+    <header class="masthead">
+      <div class="masthead-inner">
+        <div class="center"><h1>{{ site.title }}</h1></div>
+        <div id='cssmenu'>
+            <ul>
+               <li class='active'><a href='/'><span>Home</span></a></li>
+               <li class='has-sub'><a href='#'><span>Actors</span></a>
+                  <ul>
+                     <li><a href='JobSubmitter.html'><span>Job Submitter</span></a></li>
+                     <li><a href='NodeManager.html'><span>Node Manager</span></a></li>
+                     <li><a href='ResourceManager.html'><span>Resource Manager</span></a></li>
+                     <li class='last'><a href='ApplicationMaster.html'><span>Application Master</span></a></li>
+                  </ul>
+               </li>
+               <li class='has-sub'><a href='#'><span>Tasks</span></a>
+                  <ul>
+                     <li><a href='MapTask.html'><span>Map Task</span></a></li>
+                     <li><a href='ReduceTask.html'><span>Reduce Task</span></a></li>
+                     <li class='last'><a href='MapReduceMerge.html'><span>Merger</span></a></li>
+                  </ul>
+               </li>
+               <li class='has-sub'><a href='#'><span>Model of Computation</span></a>
+                  <ul>
+                     <li><a href='Job.html'><span>Job</span></a></li>
+                     <li><a href='Task.html'><span>Task</span></a></li>
+                     <li><a href='TaskAttempt.html'><span>Task Attempt</span></a></li>
+                     <li><a href='Container.html'><span>Container</span></a></li>
+                     <li class='last'><a href='Application.html'><span>Application</span></a></li>
+                  </ul>
+               </li>
+               <li class='has-sub'><a href='#'><span>Extra</span></a>
+                  <ul>
+                     <li><a href='AsyncDispatcher.html'><span>Async Dispatcher</span></a></li>
+                     <li><a href='LocalizedResource.html'><span>Localized Resource</span></a></li>
+                     <li><a href='ContainerAllocator.html'><span>Container Allocator [AM]</span></a></li>
+                     <li><a href='ContainerLauncher.html'><span>Container Launcher [AM]</span></a></li>
+                     <li class='last'><a href='ContainersLauncher.html'><span>Containers Launcher [NM]</span></a></li>
+                  </ul>
+               </li>
+               <li class='last'><a href='HadoopConfigurationParameters.html'><span>Configuration Parameters</span></a></li>
+            </ul>
+        </div>
+
+        <div class="colophon">
+          <ul class="colophon-links">
+            
+            <li>
+              <a href="https://sites.google.com/a/di.uniroma1.it/coppa/">{{ site.author.name }}</a>
+            </li>
+            <li>{{ site.author.email }}</li>
+            <li>
+              <a href="https://github.com/ercoppa/HadoopDiagrams">GitHub project</a>
+            </li>
+          </ul>
+          <br />
+          <div class="center"><iframe src="http://ghbtns.com/github-btn.html?user=ercoppa&repo=hadoopdiagrams&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px"></iframe></div>
+        </div>
+
+      </div>
+    </header>
+
+    <a href="https://github.com/"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+
+    <div class="content container">
+      {{ content }}
+    </div>
+
+  </body>
+</html>
