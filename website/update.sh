@@ -1,6 +1,6 @@
 #!/bin/bash
 
-jeckyll build
+jekyll build
 
 git add ./*
 git commit -a -m "~"
