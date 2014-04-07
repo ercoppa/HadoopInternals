@@ -3,7 +3,7 @@
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
 <url>
-	<loc>http://ercoppa.github.io/HadoopDiagrams/ContainerAllocator</loc>
+	<loc>http://ercoppa.github.io/HadoopDiagrams/ContainerAllocator.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53305f84-2148-41e9-91d7-5de20a009433.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53305fb7-bab8-4db2-a85a-075a0a00da32.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53305fea-d334-4a5b-bcad-64240a00d013.png</image:loc></image:image>
@@ -12,7 +12,7 @@
 	<changefreq>daily</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopDiagrams/Task</loc>
+	<loc>http://ercoppa.github.io/HadoopDiagrams/Task.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53305696-1660-41a2-8080-75a50a009107.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/5330585f-a3ac-4399-8c7b-03e10a00d013.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/533056bc-1b94-48af-977b-15150a009433.png</image:loc></image:image>
@@ -21,13 +21,13 @@
 	<changefreq>daily</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopDiagrams/ContainersLauncher</loc>
+	<loc>http://ercoppa.github.io/HadoopDiagrams/ContainersLauncher.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53306128-fc64-4287-8f9f-4d080a00da8d.png</image:loc></image:image>
 	<priority>0.5</priority>
 	<changefreq>daily</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopDiagrams/Job</loc>
+	<loc>http://ercoppa.github.io/HadoopDiagrams/Job.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/5330528e-f8fc-47c3-a285-3b170a004683.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/533052cd-e434-4013-a881-31b60a00da32.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53305310-d370-491c-b842-2f320a009433.png</image:loc></image:image>
@@ -39,13 +39,13 @@
 	<changefreq>daily</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopDiagrams/ApplicationMaster</loc>
+	<loc>http://ercoppa.github.io/HadoopDiagrams/ApplicationMaster.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53304837-a6e0-47e8-b9b4-23110a00d013.png</image:loc></image:image>
 	<priority>0.5</priority>
 	<changefreq>daily</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopDiagrams/ReduceTask</loc>
+	<loc>http://ercoppa.github.io/HadoopDiagrams/ReduceTask.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53300d53-15e0-4614-b4ad-27020a00da8d.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53300d8a-1bf0-4836-b70f-015f0a009433.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53300db6-0708-4f09-b67c-4a430a00da8d.png</image:loc></image:image>
@@ -57,7 +57,7 @@
 	<changefreq>daily</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopDiagrams/Application</loc>
+	<loc>http://ercoppa.github.io/HadoopDiagrams/Application.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53304bf7-2904-481c-9a7a-3f890a00da32.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53304c35-a748-499c-bce7-25910a004cb7.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53304cde-0c94-44a3-a7b4-3fc60a00da32.png</image:loc></image:image>
@@ -70,7 +70,7 @@
 	<changefreq>daily</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopDiagrams/MapTask</loc>
+	<loc>http://ercoppa.github.io/HadoopDiagrams/MapTask.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53300c20-1764-4137-9036-656c0a009107.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53300c93-aa34-448d-91ac-44c80a009107.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53300d09-fad8-4078-b0be-26910a00da8d.png</image:loc></image:image>
@@ -79,7 +79,7 @@
 	<changefreq>daily</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopDiagrams/NodeManager</loc>
+	<loc>http://ercoppa.github.io/HadoopDiagrams/NodeManager.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53303229-027c-4028-a97d-1d740a009b9f.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/533045b5-3370-4531-94df-643b0a00da32.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/533046b6-aea8-408d-aafe-34c20a009b9f.png</image:loc></image:image>
@@ -90,19 +90,19 @@
 	<changefreq>daily</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopDiagrams/LocalizedResource</loc>
+	<loc>http://ercoppa.github.io/HadoopDiagrams/LocalizedResource.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53305ed2-15e4-444e-9c40-08480a009107.png</image:loc></image:image>
 	<priority>0.5</priority>
 	<changefreq>daily</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopDiagrams/ResourceManager</loc>
+	<loc>http://ercoppa.github.io/HadoopDiagrams/ResourceManager.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/533015e0-c19c-4fd3-8787-521a0a004cb7.png</image:loc></image:image>
 	<priority>0.5</priority>
 	<changefreq>daily</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopDiagrams/Container</loc>
+	<loc>http://ercoppa.github.io/HadoopDiagrams/Container.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53305c19-5c74-4f55-bba8-01b60a00da32.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53305c9a-b260-4b62-b3c3-017d0a00da32.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53305cc0-1b2c-4212-ab2a-3e890a00d013.png</image:loc></image:image>
@@ -113,30 +113,30 @@
 	<changefreq>daily</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopDiagrams/HadoopConfigurationParameters</loc>
+	<loc>http://ercoppa.github.io/HadoopDiagrams/HadoopConfigurationParameters.html</loc>
 	<priority>0.5</priority>
 	<changefreq>daily</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopDiagrams/JobSubmitter</loc>
+	<loc>http://ercoppa.github.io/HadoopDiagrams/JobSubmitter.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53301531-b380-4305-81ab-51c70a00da8d.png</image:loc></image:image>
 	<priority>0.5</priority>
 	<changefreq>daily</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopDiagrams/MapReduceMerge</loc>
+	<loc>http://ercoppa.github.io/HadoopDiagrams/MapReduceMerge.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53300b37-5a58-4e1d-8871-55340a00d013.png</image:loc></image:image>
 	<priority>0.5</priority>
 	<changefreq>daily</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopDiagrams/MapReduceInput</loc>
+	<loc>http://ercoppa.github.io/HadoopDiagrams/MapReduceInput.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53300bb3-feb8-49c9-b10d-7e330a004cb7.png</image:loc></image:image>
 	<priority>0.5</priority>
 	<changefreq>daily</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopDiagrams/TaskAttempt</loc>
+	<loc>http://ercoppa.github.io/HadoopDiagrams/TaskAttempt.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/5330591e-64f4-49d1-a118-54e30a004cb7.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53305997-5638-43c0-92e2-018c0a00da32.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/533059e9-9d18-4042-aae5-4ffe0a00da8d.png</image:loc></image:image>
@@ -147,7 +147,7 @@
 	<changefreq>daily</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopDiagrams/DiagramConventions</loc>
+	<loc>http://ercoppa.github.io/HadoopDiagrams/DiagramConventions.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/533009fb-55b0-4ed9-ac6e-2f8d0a009433.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/533a997c-192c-44a4-9e6d-7cef0a005bed.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53300a12-0a94-4528-aca1-41a50a009107.png</image:loc></image:image>
@@ -157,19 +157,19 @@
 	<changefreq>daily</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopDiagrams/ContainerLauncher</loc>
+	<loc>http://ercoppa.github.io/HadoopDiagrams/ContainerLauncher.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/533060b8-3138-485f-9ca0-4db40a00da8d.png</image:loc></image:image>
 	<priority>0.5</priority>
 	<changefreq>daily</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopDiagrams/AsyncDispatcher</loc>
+	<loc>http://ercoppa.github.io/HadoopDiagrams/AsyncDispatcher.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53304af3-2000-4f02-9d9b-2da80a00d013.png</image:loc></image:image>
 	<priority>0.5</priority>
 	<changefreq>daily</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopDiagrams/</loc>
+	<loc>http://ercoppa.github.io/HadoopDiagrams/.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopDiagrams/public/images/53302af2-7d38-412b-8275-6ffe0a009433.png</image:loc></image:image>
 	<priority>0.5</priority>
 	<changefreq>daily</changefreq>
