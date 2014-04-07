@@ -221,7 +221,7 @@ def process_page(f, out_dir):
 
 def refresh_images(in_dir, out_dir):
 
-    site_url = 'http://ercoppa.github.io/HadoopDiagrams/'
+    site_url = 'http://ercoppa.github.io/HadoopInternals/'
     data = []
     os.system('rm ' + image_save_dir + '/*.png 2>/dev/null')
     os.system('mkdir ' + image_save_dir + ' 2>/dev/null')
