@@ -2,7 +2,7 @@ HadoopDiagrams
 ==============
 
 This project contains several diagrams describing [Apache Hadoop](http://hadoop.apache.org/) internals (2.3.0 or later). Even if these diagrams are **NOT** specified in any formal or unambiguous language (e.g., UML), they should be reasonably understandable and useful for any person who want to grasp the main ideas behind Hadoop. Unfortunately, not all the internal details are covered by these diagrams. You are free to help :)
-# Ready? Go to the [wiki](https://github.com/ercoppa/HadoopDiagrams/wiki)
+# Ready? Go to the [project website](http://ercoppa.github.io/HadoopDiagrams/)
 
 Images linked in the wiki are dinamically generated (from LucidChart) but, in the source directory, you can find diagram snapshots in the following formats:
 * PNG
