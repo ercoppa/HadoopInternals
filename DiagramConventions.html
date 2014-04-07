@@ -7,7 +7,7 @@
   <link href="http://gmpg.org/xfn/11" rel="profile">
 
   <title>
-    
+    Diagram notation conventions &middot; 
     Hadoop Internals
   </title>
 
@@ -97,70 +97,26 @@
     <a href="https://github.com/"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
 
     <div class="content container">
-      
-
-<!--<a href="/Home.html"><h1>Home</h1></a>-->
-<h1>Home</h1>
-<br />
-<div class="post">
-<p>This project contains several diagrams describing <a href="http://hadoop.apache.org/.html">Apache Hadoop</a> internals (2.3.0 or later). Even if these diagrams are NOT specified in any formal or unambiguous language (e.g., UML), they should be reasonably understandable (here some <strong><a href="DiagramConventions.html">diagram notation conventions</a></strong>) and useful for any person who want to grasp the main ideas behind Hadoop. Unfortunately, not all the internal details are covered by these diagrams. You are free to help :)</p>
-
-<p><br /></p>
-
-<table>
-<tr>
-
-<th>Actors</th>
-<th>Tasks</th>
-<th>Model of computation</th>
-<th>Extra</th>
-
-</tr>
-<tr>
-
-<td>
-  <li><a href="JobSubmitter.html">Job Submitter</a></li>
-  <li><a href="NodeManager.html">Node Manager</a></li>
-  <li><a href="ResourceManager.html">Resource Manager</a></li>
-  <li><a href="ApplicationMaster.html">Application Master</a></li> 
-  <br /> 
-</td>
-
-<td>
-  <li><a href="MapTask.html">Map Task</a></li>
-  <li><a href="ReduceTask.html">Reduce Task</a></li>
-  <li><a href="MapReduceMerge.html">Merger</a></li>
-  <li><a href="MapReduceInput.html">Input</a></li>
+      <div class="post">
+  <h1 class="title">Diagram notation conventions</h1>
   <br />
-</td>
+  <p>The style of the diagrams is not very strict and formal but these are some conventions:</p>
 
-<td>
-  <li><a href="Job.html">Job</a></li>
-  <li><a href="Task.html">Task</a></li>
-  <li><a href="TaskAttempt.html">Task Attempt</a></li>
-  <li><a href="Application.html">Application</a></li>
-  <li><a href="Container.html">Container</a></li>
-</td>
+<h2><a href="#flow-diagram" id="flow-diagram">Flow diagram</a></h2>
 
-<td>
-  <li><a href="AsyncDispatcher.html">Async Dispatcher</a></li>
-  <li><a href="LocalizedResource.html">Localized Resource</a></li>
-  <li><a href="ContainerAllocator.html">Container Allocator [AM]</a></li>
-  <li><a href="ContainerLauncher.html">Container Launcher [AM]</a></li>
-  <li><a href="ContainersLauncher.html">Containers Launcher [NM]</a></li>
-</td>
-</tr>
-</table>
+<p><img src="public/images/533009fb-55b0-4ed9-ac6e-2f8d0a009433.png" alt="" />
+<img src="public/images/533a997c-192c-44a4-9e6d-7cef0a005bed.png" alt="" />
+<img src="public/images/53300a12-0a94-4528-aca1-41a50a009107.png" alt="" /></p>
 
+<h2><a href="#finite-state-machine-diagram" id="finite-state-machine-diagram">Finite State Machine diagram</a></h2>
 
-<p><br /></p>
+<p><img src="public/images/53300a29-eadc-4d01-b577-33090a009107.png" alt="" /></p>
 
-<h3><a href="#architecture-overview" id="architecture-overview">Architecture Overview</a></h3>
+<h2><a href="#class-diagram" id="class-diagram">Class diagram</a></h2>
 
-<p><img src="public/images/53302af2-7d38-412b-8275-6ffe0a009433.png" alt="Hadoop- Yarn MapReduce - Architecture Overview" /></p>
+<p><img src="public/images/53300a1e-13bc-4e71-a23c-31110a00d013.png" alt="" /></p>
 
 </div>
-
 
     </div>
 

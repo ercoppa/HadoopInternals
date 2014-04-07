@@ -7,7 +7,7 @@
   <link href="http://gmpg.org/xfn/11" rel="profile">
 
   <title>
-    
+    Container &middot; 
     Hadoop Internals
   </title>
 
@@ -97,70 +97,46 @@
     <a href="https://github.com/"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
 
     <div class="content container">
-      
-
-<!--<a href="/Home.html"><h1>Home</h1></a>-->
-<h1>Home</h1>
-<br />
-<div class="post">
-<p>This project contains several diagrams describing <a href="http://hadoop.apache.org/.html">Apache Hadoop</a> internals (2.3.0 or later). Even if these diagrams are NOT specified in any formal or unambiguous language (e.g., UML), they should be reasonably understandable (here some <strong><a href="DiagramConventions.html">diagram notation conventions</a></strong>) and useful for any person who want to grasp the main ideas behind Hadoop. Unfortunately, not all the internal details are covered by these diagrams. You are free to help :)</p>
-
-<p><br /></p>
-
-<table>
-<tr>
-
-<th>Actors</th>
-<th>Tasks</th>
-<th>Model of computation</th>
-<th>Extra</th>
-
-</tr>
-<tr>
-
-<td>
-  <li><a href="JobSubmitter.html">Job Submitter</a></li>
-  <li><a href="NodeManager.html">Node Manager</a></li>
-  <li><a href="ResourceManager.html">Resource Manager</a></li>
-  <li><a href="ApplicationMaster.html">Application Master</a></li> 
-  <br /> 
-</td>
-
-<td>
-  <li><a href="MapTask.html">Map Task</a></li>
-  <li><a href="ReduceTask.html">Reduce Task</a></li>
-  <li><a href="MapReduceMerge.html">Merger</a></li>
-  <li><a href="MapReduceInput.html">Input</a></li>
+      <div class="post">
+  <h1 class="title">Container</h1>
   <br />
-</td>
+  <h4>Table of contents:</h4>
 
-<td>
-  <li><a href="Job.html">Job</a></li>
-  <li><a href="Task.html">Task</a></li>
-  <li><a href="TaskAttempt.html">Task Attempt</a></li>
-  <li><a href="Application.html">Application</a></li>
-  <li><a href="Container.html">Container</a></li>
-</td>
-
-<td>
-  <li><a href="AsyncDispatcher.html">Async Dispatcher</a></li>
-  <li><a href="LocalizedResource.html">Localized Resource</a></li>
-  <li><a href="ContainerAllocator.html">Container Allocator [AM]</a></li>
-  <li><a href="ContainerLauncher.html">Container Launcher [AM]</a></li>
-  <li><a href="ContainersLauncher.html">Containers Launcher [NM]</a></li>
-</td>
-</tr>
-</table>
+<ul>
+<li><a href="#finite-state-machine">Finite State Machine</a></li>
+<li><a href="#new-localized-localizing-localization-failed-init-container"><em>NEW => {LOCALIZED; LOCALIZING, LOCALIZATION_FAILED}</em> [<em>INIT_CONTAINER</em>]</a></li>
+<li><a href="#localizing-localizing-localized-resource-localized"><em>LOCALIZING => {LOCALIZING, LOCALIZED}</em> [<em>RESOURCE_LOCALIZED</em>]</a></li>
+<li><a href="#localized-running-container-launched"><em>LOCALIZED => RUNNING</em> [<em>CONTAINER_LAUNCHED</em>]</a></li>
+<li><a href="#running-exited-with-success-container-exited-with-success"><em>RUNNING => EXITED_WITH_SUCCESS</em> [<em>CONTAINER_EXITED_WITH_SUCCESS</em>]</a></li>
+<li><a href="#exited-with-success-done-container-resources-cleanedup"><em>EXITED_WITH_SUCCESS => DONE</em> [<em>CONTAINER_RESOURCES_CLEANEDUP</em>]</a></li>
+</ul>
 
 
-<p><br /></p>
+<h3><a href="#finite-state-machine" id="finite-state-machine">Finite State Machine</a></h3>
 
-<h3><a href="#architecture-overview" id="architecture-overview">Architecture Overview</a></h3>
+<p><img src="public/images/53305c19-5c74-4f55-bba8-01b60a00da32.png" alt="Hadoop (MapReduce): Container - Finite State Machine" /></p>
 
-<p><img src="public/images/53302af2-7d38-412b-8275-6ffe0a009433.png" alt="Hadoop- Yarn MapReduce - Architecture Overview" /></p>
+<h3><a href="#new-localized-localizing-localization-failed-init-container" id="new-localized-localizing-localization-failed-init-container"><em>NEW => {LOCALIZED; LOCALIZING, LOCALIZATION_FAILED}</em> [<em>INIT_CONTAINER</em>]</a></h3>
+
+<p><img src="public/images/53305c9a-b260-4b62-b3c3-017d0a00da32.png" alt="Hadoop (MapReduce): Container - NEW =&gt; {LOCALIZED; LOCALIZING, LOCALIZATION_FAILED} - INIT_CONTAINER" /></p>
+
+<h3><a href="#localizing-localizing-localized-resource-localized" id="localizing-localizing-localized-resource-localized"><em>LOCALIZING => {LOCALIZING, LOCALIZED}</em> [<em>RESOURCE_LOCALIZED</em>]</a></h3>
+
+<p><img src="public/images/53305cc0-1b2c-4212-ab2a-3e890a00d013.png" alt="Hadoop (MapReduce): Container - LOCALIZING =&gt; {LOCALIZING, LOCALIZED} - RESOURCE_LOCALIZED" /></p>
+
+<h3><a href="#localized-running-container-launched" id="localized-running-container-launched"><em>LOCALIZED => RUNNING</em> [<em>CONTAINER_LAUNCHED</em>]</a></h3>
+
+<p><img src="public/images/53305d0e-1d28-408f-abea-742f0a004cb7.png" alt="Hadoop (MapReduce): Container - LOCALIZED =&gt; RUNNING - CONTAINER_LAUNCHED" /></p>
+
+<h3><a href="#running-exited-with-success-container-exited-with-success" id="running-exited-with-success-container-exited-with-success"><em>RUNNING => EXITED_WITH_SUCCESS</em> [<em>CONTAINER_EXITED_WITH_SUCCESS</em>]</a></h3>
+
+<p><img src="public/images/53305d4e-7d3c-47bc-9535-5dfd0a009107.png" alt="Hadoop (MapReduce): Container - RUNNING =&gt; EXITED_WITH_SUCCESS - CONTAINER_EXITED_WITH_SUCCESS" /></p>
+
+<h3><a href="#exited-with-success-done-container-resources-cleanedup" id="exited-with-success-done-container-resources-cleanedup"><em>EXITED_WITH_SUCCESS => DONE</em> [<em>CONTAINER_RESOURCES_CLEANEDUP</em>]</a></h3>
+
+<p><img src="public/images/53305d94-593c-4bed-ab56-297f0a00da8d.png" alt="Hadoop (MapReduce): Container - EXITED_WITH_SUCCESS =&gt; DONE - CONTAINER_RESOURCES_CLEANEDUP" /></p>
 
 </div>
-
 
     </div>
 
