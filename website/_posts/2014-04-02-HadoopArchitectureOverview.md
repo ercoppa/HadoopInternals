@@ -5,7 +5,7 @@ title: Hadoop Architecture Overview
 
 Apache Hadop is an open-source software framework for storage and large-scale processing of data-sets on clusters of commodity hardware. There are mainly four building blocks inside this runtime enviroment (see figure, from bottom to top):
 
-![Hadoop Architecture Oveview](public/images/53434015-fd58-4316-a097-39940a00558d.png)
+![Hadoop Architecture Oveview](public/images/hadoop-architecture-oveview_53434015-fd58-4316-a097-39940a00558d.png)
 
  * the **cluster** is the set of host machines or **nodes** (which may be orginized in subsets of them, called **racks**). This is the hardware part of the infrastructure.
  * the **YARN Infrastructure** is the framework responsible for providing the computational resources (e.g., CPUs, memory, etc.) needed for a program execution. Two important elements are:
@@ -20,4 +20,4 @@ The YARN infrastructure and the HDFS federation are completely decoupled and ind
 
 ### <a href="#hadoop-architecture-s-interactions" id="hadoop-architecture-s-interactions">Hadoop architecture's interactions</a>
 
-![Hadoop Architecture Workflow](public/images/53302af2-7d38-412b-8275-6ffe0a009433.png)
+![Hadoop Architecture Workflow](public/images/hadoop-architecture-workflow_53302af2-7d38-412b-8275-6ffe0a009433.png)

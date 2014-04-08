@@ -6,6 +6,8 @@ import urllib2
 import multiprocessing 
 import sys
 import os
+import traceback
+
 
 image_save_dir = 'public/images/'
 
@@ -18,6 +20,7 @@ def worker(args):
         return r
     except Exception as e:
         sys.stderr.write('Error worker ' + str(callback) + ' on input: ' + str(args) + '\nReason: ' + str(e) + '\n')
+        traceback.print_exc()
         return None
 
 def run(callback, input):
@@ -122,7 +125,7 @@ def check_and_parse(line, page):
         url = m[gindex * nindex + 2]
             
         #new_url = refresh_url(url)
-        new_url = fetch_image(url, page)
+        new_url = fetch_image(url, page, meta)
         if new_url == None:
             return None, None
 
@@ -141,7 +144,13 @@ def lucidchart_url(url, local):
         return url
     else:
         if local in url:
-            return lc_url_begin + url.replace(local, '').replace('.png', '') + '/image.png'
+            if '_' not in url:
+                return lc_url_begin + url.replace(local, '').replace('.png', '') + '/image.png'
+            else:
+                assert False
+                a = lc_url_begin + url.replace(local, '') 
+                a = a[a.index('_') + 1:-4]
+                return a + '/image.png'
         else:
             return lc_url_begin + url.replace('public/images', '').replace('.png', '') + '/image.png'
 
@@ -152,7 +161,29 @@ def lucidchart_id(url):
     name = name[:name.rfind('/')]
     return name
 
-def fetch_image(url, page):
+
+def clean(name):
+    
+    if len(name) == 0:
+        name = 'hadoop_internals'
+    
+    ids = ''
+    i = 0
+    while i < len(name):
+        if name[i].isalpha() or name[i].isdigit():
+            ids += name[i]
+        else:
+            ids += '-'    
+        
+        i += 1
+    
+    ids = re.sub('-+', '-', ids).lower()
+    if ids[0] == '-': ids = ids[1:]
+    if ids[len(ids) - 1] == '-': ids = ids[:len(ids) - 1]
+    
+    return ids
+
+def fetch_image(url, page, meta):
     
     global image_save_dir
     
@@ -165,7 +196,7 @@ def fetch_image(url, page):
     img_content = response.read()
     id = lucidchart_id(url)
     #print id
-    name = save_dir + id + '.png'
+    name = save_dir + clean(meta) + '_' + id + '.png'
     
     with open(name, 'wb') as o:
         o.write(img_content)
