@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2014-04-08T02:12:56+02:00</updated>
+ <updated>2014-04-08T02:34:01+02:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -508,6 +508,8 @@
    <id>http://ercoppa.org/HadoopArchitectureOverview</id>
    <content type="html">&lt;p&gt;Apache Hadop is an open-source software framework for storage and large-scale processing of data-sets on clusters of commodity hardware. There are mainly four building blocks inside this runtime enviroment (see figure, from bottom to top):&lt;/p&gt;
 
+&lt;p&gt;&lt;img src=&quot;public/images/53434015-fd58-4316-a097-39940a00558d.png&quot; alt=&quot;Hadoop Architecture Oveview&quot; /&gt;&lt;/p&gt;
+
 &lt;ul&gt;
 &lt;li&gt;the &lt;strong&gt;cluster&lt;/strong&gt; is the set of host machines or &lt;strong&gt;nodes&lt;/strong&gt; (which may be orginized in subsets of them, called &lt;strong&gt;racks&lt;/strong&gt;). This is the hardware part of the infrastructure.&lt;/li&gt;
 &lt;li&gt;the &lt;strong&gt;YARN Infrastructure&lt;/strong&gt; is the framework responsible for providing the computational resources (e.g., CPUs, memory, etc.) needed for a program execution. Two important elements are:
@@ -528,7 +530,9 @@
 &lt;/ul&gt;
 
 
-&lt;p&gt;&lt;img src=&quot;public/images/53433156-df70-42a6-85c7-15ec0a00da32.png&quot; alt=&quot;Hadoop Architecture Oveview&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;The YARN infrastructure and the HDFS federation are completely decoupled and independent: the first one provides resources for running an application while the second one provides storage. The MapReduce framework is only one of many possible framework which runs on top of YARN (although currently is the only one implemented).&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#hadoop-architecture-s-interactions&quot; id=&quot;hadoop-architecture-s-interactions&quot;&gt;Hadoop architecture&amp;rsquo;s interactions&lt;/a&gt;&lt;/h3&gt;
 
 &lt;p&gt;&lt;img src=&quot;public/images/53302af2-7d38-412b-8275-6ffe0a009433.png&quot; alt=&quot;Hadoop Architecture Workflow&quot; /&gt;&lt;/p&gt;
 </content>
