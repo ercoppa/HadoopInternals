@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2014-04-08T20:06:17+02:00</updated>
+ <updated>2014-04-08T20:43:11+02:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -533,6 +533,14 @@
 &lt;p&gt;The YARN infrastructure and the HDFS federation are completely decoupled and independent: the first one provides resources for running an application while the second one provides storage. The MapReduce framework is only one of many possible framework which runs on top of YARN (although currently is the only one implemented).&lt;/p&gt;
 
 &lt;h3&gt;&lt;a href=&quot;#hadoop-architecture-s-interactions&quot; id=&quot;hadoop-architecture-s-interactions&quot;&gt;Hadoop architecture&amp;rsquo;s interactions&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;The user submits a job using the &lt;strong&gt;Job Submitter&lt;/strong&gt; component. This software element connects to the &lt;strong&gt;Resource Manager&lt;/strong&gt; and starts their interaction using the &lt;em&gt;ClientProtocol&lt;/em&gt; and the &lt;em&gt;ApplicationClientProtocol&lt;/em&gt;. It sends the job configuration and the application jar. Finally, it waits until the job is completed.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;Resource Manager&lt;/strong&gt; when a user submit an application (the job) allocates and starts a new container for an &lt;strong&gt;Application Master&lt;/strong&gt;. This component is responsible for the execution of the application according to the MapReduce paradigm. It asks to the &lt;strong&gt;Resource Manager&lt;/strong&gt; the containers needed for executing the &lt;strong&gt;MapTasks&lt;/strong&gt;. When it obtains them from the &lt;strong&gt;Resource Scheduler&lt;/strong&gt;, it starts the execution on the related &lt;strong&gt;Node Managers&lt;/strong&gt;. When the majority of the &lt;strong&gt;MapTasks&lt;/strong&gt; has been started, it begins to ask more containers for executing the &lt;strong&gt;ReduceTasks&lt;/strong&gt;. When almost all &lt;strong&gt;MapTasks&lt;/strong&gt; have been completed, it starts the &lt;strong&gt;ReduceTasks&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Internally, the &lt;strong&gt;Application Master&lt;/strong&gt; tracks the status of an &lt;strong&gt;Application&lt;/strong&gt; using the concept of a &lt;strong&gt;Job&lt;/strong&gt; which is divided in &lt;strong&gt;Tasks&lt;/strong&gt;, each &lt;strong&gt;Task&lt;/strong&gt; may have several launched attempts (&lt;strong&gt;Task Attempt&lt;/strong&gt;). Each &lt;strong&gt;Task Attempt&lt;/strong&gt; is executed on a &lt;strong&gt;Container&lt;/strong&gt; of a specific &lt;strong&gt;Node Manager&lt;/strong&gt; and it can be a &lt;strong&gt;MapTask&lt;/strong&gt; or a &lt;strong&gt;ReduceTask&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Finally, when all the tasks are completed it notifies the &lt;strong&gt;Resource Manager&lt;/strong&gt; which in turn warns the user about the completion of the application.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;public/images/hadoop-architecture-workflow_53302af2-7d38-412b-8275-6ffe0a009433.png&quot; alt=&quot;Hadoop Architecture Workflow&quot; /&gt;&lt;/p&gt;
 </content>

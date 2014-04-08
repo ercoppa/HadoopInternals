@@ -128,6 +128,14 @@
 
 <h3><a href="#hadoop-architecture-s-interactions" id="hadoop-architecture-s-interactions">Hadoop architecture&rsquo;s interactions</a></h3>
 
+<p>The user submits a job using the <strong>Job Submitter</strong> component. This software element connects to the <strong>Resource Manager</strong> and starts their interaction using the <em>ClientProtocol</em> and the <em>ApplicationClientProtocol</em>. It sends the job configuration and the application jar. Finally, it waits until the job is completed.</p>
+
+<p>The <strong>Resource Manager</strong> when a user submit an application (the job) allocates and starts a new container for an <strong>Application Master</strong>. This component is responsible for the execution of the application according to the MapReduce paradigm. It asks to the <strong>Resource Manager</strong> the containers needed for executing the <strong>MapTasks</strong>. When it obtains them from the <strong>Resource Scheduler</strong>, it starts the execution on the related <strong>Node Managers</strong>. When the majority of the <strong>MapTasks</strong> has been started, it begins to ask more containers for executing the <strong>ReduceTasks</strong>. When almost all <strong>MapTasks</strong> have been completed, it starts the <strong>ReduceTasks</strong>.</p>
+
+<p>Internally, the <strong>Application Master</strong> tracks the status of an <strong>Application</strong> using the concept of a <strong>Job</strong> which is divided in <strong>Tasks</strong>, each <strong>Task</strong> may have several launched attempts (<strong>Task Attempt</strong>). Each <strong>Task Attempt</strong> is executed on a <strong>Container</strong> of a specific <strong>Node Manager</strong> and it can be a <strong>MapTask</strong> or a <strong>ReduceTask</strong>.</p>
+
+<p>Finally, when all the tasks are completed it notifies the <strong>Resource Manager</strong> which in turn warns the user about the completion of the application.</p>
+
 <p><img src="public/images/hadoop-architecture-workflow_53302af2-7d38-412b-8275-6ffe0a009433.png" alt="Hadoop Architecture Workflow" /></p>
 
 </div>
