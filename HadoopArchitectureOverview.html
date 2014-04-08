@@ -99,15 +99,27 @@
       <div class="post">
   <h1 class="title">Hadoop Architecture Overview</h1>
   <br />
-  <p>Apache Hadop is an open-source software framework for storage and large-scale processing of data-sets on clusters of commodity hardware. There are mainly four building blocks inside this runtime enviroment (see figure, from bottom to top):
- * the <strong>cluster</strong> is the set of host machines or <strong>nodes</strong> (which may be orginized in subsets of them, called <strong>racks</strong>). This is the hardware part of the infrastructure.
- * the <strong>YARN Infrastructure</strong> is the framework responsible for providing the computational resources (e.g., CPUs, memory, etc.) needed for a program execution. Two important elements are:
-   * <strong>Node Manager</strong> (many per cluster) which offers resources and uses them to execute a program related to an application. Each Node Manager typically offers one or more <strong>Container</strong>, an abstraction for one or more resources. Each container is composed by a number of cores and by a specific amount of primary memory.
-   * the <strong>Resource Manager</strong> (one per cluster) which runs a <strong>Resource Scheduler</strong> (who assigns Containers to applications) and an <strong>Application Manager</strong> (who tracks the states of all launched applications).
- * the <strong>HDFS Federation</strong> is the framework responsible for providing permanent, reliable and distrubuted storage. This is typically used for storing inputs and output (but not intermediate ones).
- * the <strong>MapReduce Framework</strong> is the software layer implementing the MapReduce paradigm. It is composed by the following elements:
-  * the <strong>Application Master</strong> which is responsible for launching computations on assigned resources (by the Resource Manager) and for tracking the state of the application (what has been done, what still needs to be executed) using several <em>abstract concepts</em>: a <strong>Job</strong> requires to run several <strong>Tasks</strong>, each one may have one or more <strong>Task Attempt</strong> (an attempt to run it on an assigned container).
-  * the <strong>Tasks</strong> (<strong>MapTask</strong> or <strong>ReduceTask</strong>) are two types of computations needed by the <em>classical</em> MapReduce paradigm.</p>
+  <p>Apache Hadop is an open-source software framework for storage and large-scale processing of data-sets on clusters of commodity hardware. There are mainly four building blocks inside this runtime enviroment (see figure, from bottom to top):</p>
+
+<ul>
+<li>the <strong>cluster</strong> is the set of host machines or <strong>nodes</strong> (which may be orginized in subsets of them, called <strong>racks</strong>). This is the hardware part of the infrastructure.</li>
+<li>the <strong>YARN Infrastructure</strong> is the framework responsible for providing the computational resources (e.g., CPUs, memory, etc.) needed for a program execution. Two important elements are:
+
+<ul>
+<li><strong>Node Manager</strong> (many per cluster) which offers resources and uses them to execute a program related to an application. Each Node Manager typically offers one or more <strong>Container</strong>, an abstraction for one or more resources. Each container is composed by a number of cores and by a specific amount of primary memory.</li>
+<li>the <strong>Resource Manager</strong> (one per cluster) which runs a <strong>Resource Scheduler</strong> (who assigns Containers to applications) and an <strong>Application Manager</strong> (who tracks the states of all launched applications).</li>
+</ul>
+</li>
+<li>the <strong>HDFS Federation</strong> is the framework responsible for providing permanent, reliable and distrubuted storage. This is typically used for storing inputs and output (but not intermediate ones).</li>
+<li>the <strong>MapReduce Framework</strong> is the software layer implementing the MapReduce paradigm. It is composed by the following elements:
+
+<ul>
+<li>the <strong>Application Master</strong> which is responsible for launching computations on assigned resources (by the Resource Manager) and for tracking the state of the application (what has been done, what still needs to be executed) using several <em>abstract concepts</em>: a <strong>Job</strong> requires to run several <strong>Tasks</strong>, each one may have one or more <strong>Task Attempt</strong> (an attempt to run it on an assigned container).</li>
+<li>the <strong>Tasks</strong> (<strong>MapTask</strong> or <strong>ReduceTask</strong>) are two types of computations needed by the <em>classical</em> MapReduce paradigm.</li>
+</ul>
+</li>
+</ul>
+
 
 <p><img src="public/images/53433156-df70-42a6-85c7-15ec0a00da32.png" alt="Hadoop Architecture Oveview" /></p>
 
