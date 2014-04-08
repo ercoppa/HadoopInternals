@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2014-04-08T20:43:11+02:00</updated>
+ <updated>2014-04-08T20:44:28+02:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -532,7 +532,7 @@
 
 &lt;p&gt;The YARN infrastructure and the HDFS federation are completely decoupled and independent: the first one provides resources for running an application while the second one provides storage. The MapReduce framework is only one of many possible framework which runs on top of YARN (although currently is the only one implemented).&lt;/p&gt;
 
-&lt;h3&gt;&lt;a href=&quot;#hadoop-architecture-s-interactions&quot; id=&quot;hadoop-architecture-s-interactions&quot;&gt;Hadoop architecture&amp;rsquo;s interactions&lt;/a&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a href=&quot;#hadoop-architecture-workflow-interactions&quot; id=&quot;hadoop-architecture-workflow-interactions&quot;&gt;Hadoop Architecture Workflow (interactions)&lt;/a&gt;&lt;/h3&gt;
 
 &lt;p&gt;The user submits a job using the &lt;strong&gt;Job Submitter&lt;/strong&gt; component. This software element connects to the &lt;strong&gt;Resource Manager&lt;/strong&gt; and starts their interaction using the &lt;em&gt;ClientProtocol&lt;/em&gt; and the &lt;em&gt;ApplicationClientProtocol&lt;/em&gt;. It sends the job configuration and the application jar. Finally, it waits until the job is completed.&lt;/p&gt;
 

@@ -126,7 +126,7 @@
 
 <p>The YARN infrastructure and the HDFS federation are completely decoupled and independent: the first one provides resources for running an application while the second one provides storage. The MapReduce framework is only one of many possible framework which runs on top of YARN (although currently is the only one implemented).</p>
 
-<h3><a href="#hadoop-architecture-s-interactions" id="hadoop-architecture-s-interactions">Hadoop architecture&rsquo;s interactions</a></h3>
+<h3><a href="#hadoop-architecture-workflow-interactions" id="hadoop-architecture-workflow-interactions">Hadoop Architecture Workflow (interactions)</a></h3>
 
 <p>The user submits a job using the <strong>Job Submitter</strong> component. This software element connects to the <strong>Resource Manager</strong> and starts their interaction using the <em>ClientProtocol</em> and the <em>ApplicationClientProtocol</em>. It sends the job configuration and the application jar. Finally, it waits until the job is completed.</p>
 
