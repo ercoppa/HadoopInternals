@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2014-04-08T02:34:01+02:00</updated>
+ <updated>2014-04-08T02:35:08+02:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -767,12 +767,6 @@
 &lt;/tr&gt;
 &lt;/table&gt;
 
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3&gt;&lt;a href=&quot;#architecture-overview&quot; id=&quot;architecture-overview&quot;&gt;Architecture Overview&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;public/images/53302af2-7d38-412b-8275-6ffe0a009433.png&quot; alt=&quot;Hadoop- Yarn MapReduce - Architecture Overview&quot; /&gt;&lt;/p&gt;
 </content>
  </entry>
  

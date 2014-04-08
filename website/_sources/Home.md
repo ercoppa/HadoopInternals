@@ -46,7 +46,3 @@ This project contains several diagrams describing [Apache Hadoop](http://hadoop.
 </td>
 </tr>
 </table>
-
-<br />
-### Architecture Overview
-![Hadoop- Yarn MapReduce - Architecture Overview](https://www.lucidchart.com/publicSegments/view/53302af2-7d38-412b-8275-6ffe0a009433/image.png)
