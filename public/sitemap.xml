@@ -3,6 +3,13 @@
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
 <url>
+	<loc>http://ercoppa.github.io/HadoopInternals/HadoopArchitectureOverview.html</loc>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/53433156-df70-42a6-85c7-15ec0a00da32.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/53302af2-7d38-412b-8275-6ffe0a009433.png</image:loc></image:image>
+	<priority>0.5</priority>
+	<changefreq>daily</changefreq>
+</url>
+<url>
 	<loc>http://ercoppa.github.io/HadoopInternals/ContainerAllocator.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/53305f84-2148-41e9-91d7-5de20a009433.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/53305fb7-bab8-4db2-a85a-075a0a00da32.png</image:loc></image:image>

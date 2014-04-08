@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2014-04-08T02:04:13+02:00</updated>
+ <updated>2014-04-08T02:06:55+02:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -498,6 +498,27 @@
 &lt;/tbody&gt;
 &lt;/table&gt;
 
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Hadoop Architecture Overview</title>
+   <link href="http://ercoppa.org/HadoopArchitectureOverview.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/HadoopArchitectureOverview</id>
+   <content type="html">&lt;p&gt;Apache Hadop is an open-source software framework for storage and large-scale processing of data-sets on clusters of commodity hardware. There are mainly four building blocks inside this runtime enviroment (see figure, from bottom to top):
+ * the &lt;strong&gt;cluster&lt;/strong&gt; is the set of host machines or &lt;strong&gt;nodes&lt;/strong&gt; (which may be orginized in subsets of them, called &lt;strong&gt;racks&lt;/strong&gt;). This is the hardware part of the infrastructure.
+ * the &lt;strong&gt;YARN Infrastructure&lt;/strong&gt; is the framework responsible for providing the computational resources (e.g., CPUs, memory, etc.) needed for a program execution. Two important elements are:
+   * &lt;strong&gt;Node Manager&lt;/strong&gt; (many per cluster) which offers resources and uses them to execute a program related to an application. Each Node Manager typically offers one or more &lt;strong&gt;Container&lt;/strong&gt;, an abstraction for one or more resources. Each container is composed by a number of cores and by a specific amount of primary memory.
+   * the &lt;strong&gt;Resource Manager&lt;/strong&gt; (one per cluster) which runs a &lt;strong&gt;Resource Scheduler&lt;/strong&gt; (who assigns Containers to applications) and an &lt;strong&gt;Application Manager&lt;/strong&gt; (who tracks the states of all launched applications).
+ * the &lt;strong&gt;HDFS Federation&lt;/strong&gt; is the framework responsible for providing permanent, reliable and distrubuted storage. This is typically used for storing inputs and output (but not intermediate ones).
+ * the &lt;strong&gt;MapReduce Framework&lt;/strong&gt; is the software layer implementing the MapReduce paradigm. It is composed by the following elements:
+  * the &lt;strong&gt;Application Master&lt;/strong&gt; which is responsible for launching computations on assigned resources (by the Resource Manager) and for tracking the state of the application (what has been done, what still needs to be executed) using several &lt;em&gt;abstract concepts&lt;/em&gt;: a &lt;strong&gt;Job&lt;/strong&gt; requires to run several &lt;strong&gt;Tasks&lt;/strong&gt;, each one may have one or more &lt;strong&gt;Task Attempt&lt;/strong&gt; (an attempt to run it on an assigned container).
+  * the &lt;strong&gt;Tasks&lt;/strong&gt; (&lt;strong&gt;MapTask&lt;/strong&gt; or &lt;strong&gt;ReduceTask&lt;/strong&gt;) are two types of computations needed by the &lt;em&gt;classical&lt;/em&gt; MapReduce paradigm.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53433156-df70-42a6-85c7-15ec0a00da32.png&quot; alt=&quot;Hadoop Architecture Oveview&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/53302af2-7d38-412b-8275-6ffe0a009433.png&quot; alt=&quot;Hadoop Architecture Workflow&quot; /&gt;&lt;/p&gt;
 </content>
  </entry>
  
