@@ -17,4 +17,12 @@ The YARN infrastructure and the HDFS federation are completely decoupled and ind
 
 ### Hadoop architecture's interactions
 
+The user submits a job using the **Job Submitter** component. This software element connects to the **Resource Manager** and starts their interaction using the *ClientProtocol* and the *ApplicationClientProtocol*. It sends the job configuration and the application jar. Finally, it waits until the job is completed.
+
+The **Resource Manager** when a user submit an application (the job) allocates and starts a new container for an **Application Master**. This component is responsible for the execution of the application according to the MapReduce paradigm. It asks to the **Resource Manager** the containers needed for executing the **MapTasks**. When it obtains them from the **Resource Scheduler**, it starts the execution on the related **Node Managers**. When the majority of the **MapTasks** has been started, it begins to ask more containers for executing the **ReduceTasks**. When almost all **MapTasks** have been completed, it starts the **ReduceTasks**. 
+
+Internally, the **Application Master** tracks the status of an **Application** using the concept of a **Job** which is divided in **Tasks**, each **Task** may have several launched attempts (**Task Attempt**). Each **Task Attempt** is executed on a **Container** of a specific **Node Manager** and it can be a **MapTask** or a **ReduceTask**.
+
+Finally, when all the tasks are completed it notifies the **Resource Manager** which in turn warns the user about the completion of the application.
+
 ![Hadoop Architecture Workflow](https://www.lucidchart.com/publicSegments/view/53302af2-7d38-412b-8275-6ffe0a009433/image.png)
