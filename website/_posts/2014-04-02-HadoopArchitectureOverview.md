@@ -18,7 +18,7 @@ Apache Hadop is an open-source software framework for storage and large-scale pr
 
 The YARN infrastructure and the HDFS federation are completely decoupled and independent: the first one provides resources for running an application while the second one provides storage. The MapReduce framework is only one of many possible framework which runs on top of YARN (although currently is the only one implemented).
 
-### <a href="#hadoop-architecture-s-interactions" id="hadoop-architecture-s-interactions">Hadoop architecture's interactions</a>
+### <a href="#hadoop-architecture-workflow-interactions" id="hadoop-architecture-workflow-interactions">Hadoop Architecture Workflow (interactions)</a>
 
 The user submits a job using the **Job Submitter** component. This software element connects to the **Resource Manager** and starts their interaction using the *ClientProtocol* and the *ApplicationClientProtocol*. It sends the job configuration and the application jar. Finally, it waits until the job is completed.
 
