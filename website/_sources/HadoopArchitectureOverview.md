@@ -2,6 +2,8 @@
 
 Apache Hadop is an open-source software framework for storage and large-scale processing of data-sets on clusters of commodity hardware. There are mainly four building blocks inside this runtime enviroment (see figure, from bottom to top):
 
+![Hadoop Architecture Oveview](https://www.lucidchart.com/publicSegments/view/53434015-fd58-4316-a097-39940a00558d/image.png)
+
  * the **cluster** is the set of host machines or **nodes** (which may be orginized in subsets of them, called **racks**). This is the hardware part of the infrastructure.
  * the **YARN Infrastructure** is the framework responsible for providing the computational resources (e.g., CPUs, memory, etc.) needed for a program execution. Two important elements are:
    * **Node Manager** (many per cluster) which offers resources and uses them to execute a program related to an application. Each Node Manager typically offers one or more **Container**, an abstraction for one or more resources. Each container is composed by a number of cores and by a specific amount of primary memory.
@@ -11,6 +13,8 @@ Apache Hadop is an open-source software framework for storage and large-scale pr
    * the **Application Master** which is responsible for launching computations on assigned resources (by the Resource Manager) and for tracking the state of the application (what has been done, what still needs to be executed) using several *abstract concepts*: a **Job** requires to run several **Tasks**, each one may have one or more **Task Attempt** (an attempt to run it on an assigned container).
    * the **Tasks** (**MapTask** or **ReduceTask**) are two types of computations needed by the *classical* MapReduce paradigm.
 
-![Hadoop Architecture Oveview](https://www.lucidchart.com/publicSegments/view/53433156-df70-42a6-85c7-15ec0a00da32/image.png)
+The YARN infrastructure and the HDFS federation are completely decoupled and independent: the first one provides resources for running an application while the second one provides storage. The MapReduce framework is only one of many possible framework which runs on top of YARN (although currently is the only one implemented).
+
+### Hadoop architecture's interactions
 
 ![Hadoop Architecture Workflow](https://www.lucidchart.com/publicSegments/view/53302af2-7d38-412b-8275-6ffe0a009433/image.png)
