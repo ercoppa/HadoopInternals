@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2014-04-29T16:14:52+02:00</updated>
+ <updated>2014-04-29T16:19:13+02:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -727,6 +727,13 @@
    <updated>2014-04-01T00:00:00+02:00</updated>
    <id>http://ercoppa.org/Home</id>
    <content type="html">&lt;p&gt;This project contains several diagrams describing &lt;a href=&quot;http://hadoop.apache.org/.html&quot;&gt;Apache Hadoop&lt;/a&gt; internals (2.3.0 or later). Even if these diagrams are NOT specified in any formal or unambiguous language (e.g., UML), they should be reasonably understandable (here some &lt;strong&gt;&lt;a href=&quot;DiagramConventions.html&quot;&gt;diagram notation conventions&lt;/a&gt;&lt;/strong&gt;) and useful for any person who want to grasp the main ideas behind Hadoop. Unfortunately, not all the internal details are covered by these diagrams. You are free to help :)&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;iframe src=&quot;http://www.slideshare.net/slideshow/embed_code/34080760&quot; width=&quot;512&quot; height=&quot;421&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot; style=&quot;border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;&quot; allowfullscreen&gt; &lt;/iframe&gt;
+
+
+&lt;p&gt; &lt;div style=&quot;margin-bottom:5px&quot;&gt; &lt;strong&gt; &lt;a href=&quot;https://www.slideshare.net/EmilioCoppa/hadoop-internals&quot; title=&quot;Hadoop Internals (2.3.0 or later)&quot; target=&quot;_blank&quot;&gt;Hadoop Internals (2.3.0 or later)&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href=&quot;http://www.slideshare.net/EmilioCoppa&quot; target=&quot;_blank&quot;&gt;Emilio Coppa&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
