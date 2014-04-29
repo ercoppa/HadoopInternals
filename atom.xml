@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2014-04-29T16:19:13+02:00</updated>
+ <updated>2014-04-29T16:25:07+02:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -508,7 +508,7 @@
    <id>http://ercoppa.org/HadoopArchitectureOverview</id>
    <content type="html">&lt;p&gt;Apache Hadop is an open-source software framework for storage and large-scale processing of data-sets on clusters of commodity hardware. There are mainly four building blocks inside this runtime enviroment (see figure, from bottom to top):&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;public/images/hadoop-architecture-oveview_53434015-fd58-4316-a097-39940a00558d.png&quot; alt=&quot;Hadoop Architecture Oveview&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;public/images/hadoop-architecture-oveview_535fb575-6fcc-4a71-a3c7-71a80a0057dd.png&quot; alt=&quot;Hadoop Architecture Oveview&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;the &lt;strong&gt;cluster&lt;/strong&gt; is the set of host machines or &lt;strong&gt;nodes&lt;/strong&gt; (which may be orginized in subsets of them, called &lt;strong&gt;racks&lt;/strong&gt;). This is the hardware part of the infrastructure.&lt;/li&gt;
@@ -730,10 +730,10 @@
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;iframe src=&quot;http://www.slideshare.net/slideshow/embed_code/34080760&quot; width=&quot;512&quot; height=&quot;421&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot; style=&quot;border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;&quot; allowfullscreen&gt; &lt;/iframe&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+&lt;iframe src=&quot;http://www.slideshare.net/slideshow/embed_code/34080760&quot; width=&quot;597&quot; height=&quot;486&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot; style=&quot;border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;&quot; allowfullscreen&gt; &lt;/iframe&gt; &lt;div style=&quot;margin-bottom:5px&quot;&gt; &lt;strong&gt; &lt;a href=&quot;https://www.slideshare.net/EmilioCoppa/hadoop-internals&quot; title=&quot;Hadoop Internals (2.3.0 or later)&quot; target=&quot;_blank&quot;&gt;Hadoop Internals (2.3.0 or later)&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href=&quot;http://www.slideshare.net/EmilioCoppa&quot; target=&quot;_blank&quot;&gt;Emilio Coppa&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;
+&lt;/div&gt;
 
-
-&lt;p&gt; &lt;div style=&quot;margin-bottom:5px&quot;&gt; &lt;strong&gt; &lt;a href=&quot;https://www.slideshare.net/EmilioCoppa/hadoop-internals&quot; title=&quot;Hadoop Internals (2.3.0 or later)&quot; target=&quot;_blank&quot;&gt;Hadoop Internals (2.3.0 or later)&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href=&quot;http://www.slideshare.net/EmilioCoppa&quot; target=&quot;_blank&quot;&gt;Emilio Coppa&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
