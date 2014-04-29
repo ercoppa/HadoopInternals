@@ -2,7 +2,7 @@
 
 Apache Hadop is an open-source software framework for storage and large-scale processing of data-sets on clusters of commodity hardware. There are mainly four building blocks inside this runtime enviroment (see figure, from bottom to top):
 
-![Hadoop Architecture Oveview](https://www.lucidchart.com/publicSegments/view/53434015-fd58-4316-a097-39940a00558d/image.png)
+![Hadoop Architecture Oveview](https://www.lucidchart.com/publicSegments/view/535fb575-6fcc-4a71-a3c7-71a80a0057dd/image.png)
 
  * the **cluster** is the set of host machines or **nodes** (which may be orginized in subsets of them, called **racks**). This is the hardware part of the infrastructure.
  * the **YARN Infrastructure** is the framework responsible for providing the computational resources (e.g., CPUs, memory, etc.) needed for a program execution. Two important elements are:
