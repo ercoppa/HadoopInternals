@@ -90,6 +90,11 @@
 	<changefreq>daily</changefreq>
 </url>
 <url>
+	<loc>http://ercoppa.github.io/HadoopInternals/AnatomyMapReduceJob.html</loc>
+	<priority>0.5</priority>
+	<changefreq>daily</changefreq>
+</url>
+<url>
 	<loc>http://ercoppa.github.io/HadoopInternals/NodeManager.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-node-manager-startup_53303229-027c-4028-a97d-1d740a009b9f.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-node-manager-start-containers_533045b5-3370-4531-94df-643b0a00da32.png</image:loc></image:image>
