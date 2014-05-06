@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2014-05-06T18:01:57+02:00</updated>
+ <updated>2014-05-06T18:08:48+02:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -745,6 +745,15 @@ Finally, when all the tasks are completed it notifies the **Resource Manager** w
 &lt;h3&gt;&lt;a href=&quot;#finishing-containers-wait-application-container-finished-application-resources-cleaningup-application-container-finished&quot; id=&quot;finishing-containers-wait-application-container-finished-application-resources-cleaningup-application-container-finished&quot;&gt;&lt;em&gt;FINISHING_CONTAINERS_WAIT =&gt; {APPLICATION_CONTAINER_FINISHED, APPLICATION_RESOURCES_CLEANINGUP} &lt;/em&gt; [&lt;em&gt;APPLICATION_CONTAINER_FINISHED&lt;/em&gt;]&lt;/a&gt;&lt;/h3&gt;
 
 &lt;p&gt;&lt;img src=&quot;public/images/hadoop-mapreduce-application-finishing-containers-wait-application-container-finished-application-resources-cleaningup-application-container-finished_53304f82-e294-4565-9eb8-21eb0a00da32.png&quot; alt=&quot;Hadoop (MapReduce): Application - FINISHING_CONTAINERS_WAIT =&amp;gt; {APPLICATION_CONTAINER_FINISHED, APPLICATION_RESOURCES_CLEANINGUP} - APPLICATION_CONTAINER_FINISHED&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Anatomy of a MapReduce Job</title>
+   <link href="http://ercoppa.org/AnatomyMapReduceJob.html"/>
+   <updated>2014-04-02T00:00:00+02:00</updated>
+   <id>http://ercoppa.org/AnatomyMapReduceJob</id>
+   <content type="html">
 </content>
  </entry>
  
