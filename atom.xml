@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2014-05-06T18:29:43+02:00</updated>
+ <updated>2014-05-06T18:56:28+02:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -747,46 +747,35 @@ Finally, when all the tasks are completed it notifies the **Resource Manager** w
  </entry>
  
  <entry>
-   <title>Anatomy of a MapReduce Job</title>
+   <title>AnatomyMapReduceJob</title>
    <link href="http://ercoppa.org/AnatomyMapReduceJob.html"/>
    <updated>2014-04-02T00:00:00+02:00</updated>
    <id>http://ercoppa.org/AnatomyMapReduceJob</id>
-   <content type="html">&lt;h4&gt;Table of contents:&lt;/h4&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#timeline-of-a-mapreduce-job&quot;&gt;Timeline of a MapReduce Job&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#map-phase&quot;&gt;Map Phase&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#what-does-the-user-give-us&quot;&gt;What does the user give us?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#how-many-map-tasks&quot;&gt;How many Map Tasks?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#reduce-phase&quot;&gt;Reduce Phase&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#yarn-and-mapreduce-interaction&quot;&gt;YARN and MapReduce interaction&lt;/a&gt;
-&lt;br /&gt;
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;In MapReduce, a YARN application is called a &lt;strong&gt;Job&lt;/strong&gt;. The implementation of the Application Master provided by the MapReduce framework is called &lt;strong&gt;&lt;code&gt;MRAppMaster&lt;/code&gt;&lt;/strong&gt;.&lt;/p&gt;
+   <content type="html">&lt;p&gt;In MapReduce, a YARN application is called a &lt;strong&gt;Job&lt;/strong&gt;. The implementation of the Application Master provided by the MapReduce framework is called &lt;strong&gt;&lt;code&gt;MRAppMaster&lt;/code&gt;&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;h3&gt;&lt;a href=&quot;#timeline-of-a-mapreduce-job&quot; id=&quot;timeline-of-a-mapreduce-job&quot;&gt;Timeline of a MapReduce Job&lt;/a&gt;&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;public/images/timeline-mapreduce-job_534c0041-2498-44cd-9480-18910a008c0f.png&quot; alt=&quot;Timeline MapReduce Job&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;This is the timeline of a MapReduce Job execution:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;public/images/timeline-mapreduce-job_534c0041-2498-44cd-9480-18910a008c0f.png&quot; alt=&quot;Timeline MapReduce Job&quot; /&gt;
+This is the timeline of a MapReduce Job execution:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Map Phase&lt;/strong&gt;: executed several &lt;strong&gt;Map Tasks&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Reduce Phase&lt;/strong&gt;: executed several &lt;strong&gt;Reduce Tasks&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Map Phase&lt;/strong&gt;: several &lt;strong&gt;Map Tasks&lt;/strong&gt; are executed&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Reduce Phase&lt;/strong&gt;: several &lt;strong&gt;Reduce Tasks&lt;/strong&gt; are executed&lt;/li&gt;
 &lt;/ul&gt;
 
 
+&lt;p&gt;Notice that the Reduce Phase may start before the end of Map Phase. Hence, an interleaving between them is possible.&lt;/p&gt;
+
 &lt;h3&gt;&lt;a href=&quot;#map-phase&quot; id=&quot;map-phase&quot;&gt;Map Phase&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;We now focus our discussion on the Map Phase. A key decision is how many map task the Application Master needs to start for the current job.&lt;/p&gt;
 
 &lt;h4&gt;&lt;a href=&quot;#what-does-the-user-give-us&quot; id=&quot;what-does-the-user-give-us&quot;&gt;What does the user give us?&lt;/a&gt;&lt;/h4&gt;
 
-&lt;p&gt;A Job submitted by a user is composed by:&lt;/p&gt;
+&lt;p&gt;When a client submits an application, several kinds of information are provided to the YARN infrastucture. In particular:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;a configuration: if partial then global/default values are used&lt;/li&gt;
+&lt;li&gt;a configuration: this may be partial (some parameters are not specified by the user) and in this case the default values are used for running the job. Notice that these default values may be the ones chosen by a Hadoop provider like Amanzon.&lt;/li&gt;
 &lt;li&gt;a JAR containing:
 
 &lt;ul&gt;
@@ -795,14 +784,21 @@ Finally, when all the tasks are completed it notifies the **Resource Manager** w
 &lt;li&gt;a &lt;code&gt;reduce()&lt;/code&gt; implementation&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;input and output information: input directory: are they on HDFS? S3? &lt;strong&gt;How many files?&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;output directory: where? HDFS? S3?&lt;/li&gt;
+&lt;li&gt;input and output information:
+
+&lt;ul&gt;
+&lt;li&gt;input directory: is the input directory on HDFS? On S3? &lt;strong&gt;How many files?&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;output directory: where do we will store the output? On HDFS? On S3?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 
 
+&lt;p&gt;The number of files inside the input directory is used for deciding the number of Map Tasks of a job.&lt;/p&gt;
+
 &lt;h4&gt;&lt;a href=&quot;#how-many-map-tasks&quot; id=&quot;how-many-map-tasks&quot;&gt;How many Map Tasks?&lt;/a&gt;&lt;/h4&gt;
 
-&lt;p&gt;One Map Task for each input split (Job Submitter):&lt;/p&gt;
+&lt;p&gt;The Application Master will launch one MapTask for each map split. Typically, there is a map split for each input file. If the input file is too big (bigger than the HDFS block size) then we have two or more map splits associated to the same input file. This is the pseudocode used inside the method &lt;code&gt;getSplits()&lt;/code&gt; of the &lt;code&gt;FileInputFormat&lt;/code&gt; class:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;num_splits = 0
 for each input file f:
@@ -818,9 +814,15 @@ for each input file f:
 split_size =~ dfs.blocksize
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Notice that &lt;code&gt;mapreduce.job.maps&lt;/code&gt; is ignored in MRv2 (before it was an hint)!&lt;/p&gt;
+&lt;p&gt;Notice that the configuration parameter &lt;code&gt;mapreduce.job.maps&lt;/code&gt; is ignored in MRv2 (in the past it was jusr an hint).&lt;/p&gt;
+
+&lt;h4&gt;&lt;a href=&quot;#maptask-launch&quot; id=&quot;maptask-launch&quot;&gt;MapTask Launch&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;[&amp;hellip;]&lt;/p&gt;
 
 &lt;h3&gt;&lt;a href=&quot;#reduce-phase&quot; id=&quot;reduce-phase&quot;&gt;Reduce Phase&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;[&amp;hellip;]&lt;/p&gt;
 
 &lt;h3&gt;&lt;a href=&quot;#yarn-and-mapreduce-interaction&quot; id=&quot;yarn-and-mapreduce-interaction&quot;&gt;YARN and MapReduce interaction&lt;/a&gt;&lt;/h3&gt;
 

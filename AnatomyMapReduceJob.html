@@ -7,7 +7,7 @@
   <link href="http://gmpg.org/xfn/11" rel="profile">
 
   <title>
-    Anatomy of a MapReduce Job &middot;  Hadoop Internals
+    AnatomyMapReduceJob &middot;  Hadoop Internals
   </title>
 
   <!-- CSS -->
@@ -99,44 +99,33 @@
 
     <div class="content container">
       <div class="post">
-  <h1 class="title">Anatomy of a MapReduce Job</h1>
+  <h1 class="title">AnatomyMapReduceJob</h1>
   <br />
-  <h4>Table of contents:</h4>
-
-<ul>
-<li><a href="#timeline-of-a-mapreduce-job">Timeline of a MapReduce Job</a></li>
-<li><a href="#map-phase">Map Phase</a></li>
-<li><a href="#what-does-the-user-give-us">What does the user give us?</a></li>
-<li><a href="#how-many-map-tasks">How many Map Tasks?</a></li>
-<li><a href="#reduce-phase">Reduce Phase</a></li>
-<li><a href="#yarn-and-mapreduce-interaction">YARN and MapReduce interaction</a>
-<br />
-<br /></li>
-</ul>
-
-
-<p>In MapReduce, a YARN application is called a <strong>Job</strong>. The implementation of the Application Master provided by the MapReduce framework is called <strong><code>MRAppMaster</code></strong>.</p>
+  <p>In MapReduce, a YARN application is called a <strong>Job</strong>. The implementation of the Application Master provided by the MapReduce framework is called <strong><code>MRAppMaster</code></strong>.</p>
 
 <h3><a href="#timeline-of-a-mapreduce-job" id="timeline-of-a-mapreduce-job">Timeline of a MapReduce Job</a></h3>
 
-<p><img src="public/images/timeline-mapreduce-job_534c0041-2498-44cd-9480-18910a008c0f.png" alt="Timeline MapReduce Job" /></p>
-
-<p>This is the timeline of a MapReduce Job execution:</p>
+<p><img src="public/images/timeline-mapreduce-job_534c0041-2498-44cd-9480-18910a008c0f.png" alt="Timeline MapReduce Job" />
+This is the timeline of a MapReduce Job execution:</p>
 
 <ul>
-<li><strong>Map Phase</strong>: executed several <strong>Map Tasks</strong></li>
-<li><strong>Reduce Phase</strong>: executed several <strong>Reduce Tasks</strong></li>
+<li><strong>Map Phase</strong>: several <strong>Map Tasks</strong> are executed</li>
+<li><strong>Reduce Phase</strong>: several <strong>Reduce Tasks</strong> are executed</li>
 </ul>
 
 
+<p>Notice that the Reduce Phase may start before the end of Map Phase. Hence, an interleaving between them is possible.</p>
+
 <h3><a href="#map-phase" id="map-phase">Map Phase</a></h3>
+
+<p>We now focus our discussion on the Map Phase. A key decision is how many map task the Application Master needs to start for the current job.</p>
 
 <h4><a href="#what-does-the-user-give-us" id="what-does-the-user-give-us">What does the user give us?</a></h4>
 
-<p>A Job submitted by a user is composed by:</p>
+<p>When a client submits an application, several kinds of information are provided to the YARN infrastucture. In particular:</p>
 
 <ul>
-<li>a configuration: if partial then global/default values are used</li>
+<li>a configuration: this may be partial (some parameters are not specified by the user) and in this case the default values are used for running the job. Notice that these default values may be the ones chosen by a Hadoop provider like Amanzon.</li>
 <li>a JAR containing:
 
 <ul>
@@ -145,14 +134,21 @@
 <li>a <code>reduce()</code> implementation</li>
 </ul>
 </li>
-<li>input and output information: input directory: are they on HDFS? S3? <strong>How many files?</strong></li>
-<li>output directory: where? HDFS? S3?</li>
+<li>input and output information:
+
+<ul>
+<li>input directory: is the input directory on HDFS? On S3? <strong>How many files?</strong></li>
+<li>output directory: where do we will store the output? On HDFS? On S3?</li>
+</ul>
+</li>
 </ul>
 
 
+<p>The number of files inside the input directory is used for deciding the number of Map Tasks of a job.</p>
+
 <h4><a href="#how-many-map-tasks" id="how-many-map-tasks">How many Map Tasks?</a></h4>
 
-<p>One Map Task for each input split (Job Submitter):</p>
+<p>The Application Master will launch one MapTask for each map split. Typically, there is a map split for each input file. If the input file is too big (bigger than the HDFS block size) then we have two or more map splits associated to the same input file. This is the pseudocode used inside the method <code>getSplits()</code> of the <code>FileInputFormat</code> class:</p>
 
 <pre><code>num_splits = 0
 for each input file f:
@@ -168,9 +164,15 @@ for each input file f:
 split_size =~ dfs.blocksize
 </code></pre>
 
-<p>Notice that <code>mapreduce.job.maps</code> is ignored in MRv2 (before it was an hint)!</p>
+<p>Notice that the configuration parameter <code>mapreduce.job.maps</code> is ignored in MRv2 (in the past it was jusr an hint).</p>
+
+<h4><a href="#maptask-launch" id="maptask-launch">MapTask Launch</a></h4>
+
+<p>[&hellip;]</p>
 
 <h3><a href="#reduce-phase" id="reduce-phase">Reduce Phase</a></h3>
+
+<p>[&hellip;]</p>
 
 <h3><a href="#yarn-and-mapreduce-interaction" id="yarn-and-mapreduce-interaction">YARN and MapReduce interaction</a></h3>
 
