@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2014-05-06T19:01:07+02:00</updated>
+ <updated>2014-05-06T19:02:47+02:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -788,7 +788,7 @@ This is the timeline of a MapReduce Job execution:&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;input directory: is the input directory on HDFS? On S3? &lt;strong&gt;How many files?&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;output directory: where do we will store the output? On HDFS? On S3?&lt;/li&gt;
+&lt;li&gt;output directory: where will we store the output? On HDFS? On S3?&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
