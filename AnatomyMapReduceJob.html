@@ -118,11 +118,11 @@ This is the timeline of a MapReduce Job execution:</p>
 
 <h3><a href="#map-phase" id="map-phase">Map Phase</a></h3>
 
-<p>We now focus our discussion on the Map Phase. A key decision is how many map task the Application Master needs to start for the current job.</p>
+<p>We now focus our discussion on the Map Phase. A key decision is how many MapTasks the Application Master needs to start for the current job.</p>
 
 <h4><a href="#what-does-the-user-give-us" id="what-does-the-user-give-us">What does the user give us?</a></h4>
 
-<p>When a client submits an application, several kinds of information are provided to the YARN infrastucture. In particular:</p>
+<p>Let&rsquo;s take a step back. When a client submits an application, several kinds of information are provided to the YARN infrastucture. In particular:</p>
 
 <ul>
 <li>a configuration: this may be partial (some parameters are not specified by the user) and in this case the default values are used for running the job. Notice that these default values may be the ones chosen by a Hadoop provider like Amanzon.</li>
