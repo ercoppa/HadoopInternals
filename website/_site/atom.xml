@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2014-05-06T18:57:40+02:00</updated>
+ <updated>2014-05-06T19:00:00+02:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -768,11 +768,11 @@ This is the timeline of a MapReduce Job execution:&lt;/p&gt;
 
 &lt;h3&gt;&lt;a href=&quot;#map-phase&quot; id=&quot;map-phase&quot;&gt;Map Phase&lt;/a&gt;&lt;/h3&gt;
 
-&lt;p&gt;We now focus our discussion on the Map Phase. A key decision is how many map task the Application Master needs to start for the current job.&lt;/p&gt;
+&lt;p&gt;We now focus our discussion on the Map Phase. A key decision is how many MapTasks the Application Master needs to start for the current job.&lt;/p&gt;
 
 &lt;h4&gt;&lt;a href=&quot;#what-does-the-user-give-us&quot; id=&quot;what-does-the-user-give-us&quot;&gt;What does the user give us?&lt;/a&gt;&lt;/h4&gt;
 
-&lt;p&gt;When a client submits an application, several kinds of information are provided to the YARN infrastucture. In particular:&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s take a step back. When a client submits an application, several kinds of information are provided to the YARN infrastucture. In particular:&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;a configuration: this may be partial (some parameters are not specified by the user) and in this case the default values are used for running the job. Notice that these default values may be the ones chosen by a Hadoop provider like Amanzon.&lt;/li&gt;
