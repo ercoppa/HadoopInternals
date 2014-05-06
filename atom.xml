@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2014-05-06T17:57:11+02:00</updated>
+ <updated>2014-05-06T18:01:57+02:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -521,13 +521,13 @@
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;the &lt;strong&gt;HDFS Federation&lt;/strong&gt; is the framework responsible for providing permanent, reliable and distributed storage. This is typically used for storing inputs and output (but not intermediate ones).&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;other alternative storage solutions. For instance, Amazon uses the Simple Storage Service (S3).&lt;/li&gt;
-&lt;li&gt;the &lt;strong&gt;MapReduce Framework&lt;/strong&gt; is the software layer implementing the MapReduce paradigm.&lt;/li&gt;
+&lt;li&gt;the &lt;strong&gt;MapReduce Framework&lt;/strong&gt; is the software layer implementing the &lt;a href=&quot;http://en.wikipedia.org/wiki/MapReduce.html&quot;&gt;MapReduce paradigm&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 
 
 &lt;p&gt;The YARN infrastructure and the HDFS federation are completely decoupled and independent: the first one provides resources for running an application while the second one provides storage. The MapReduce framework is only one of many possible framework which runs on top of YARN (although currently is the only one implemented).&lt;/p&gt;
 
-&lt;h3&gt;&lt;a href=&quot;#hadoop-architecture-workflow-interactions&quot; id=&quot;hadoop-architecture-workflow-interactions&quot;&gt;Hadoop Architecture Workflow (interactions)&lt;/a&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a href=&quot;#yarn-application-startup&quot; id=&quot;yarn-application-startup&quot;&gt;YARN: Application Startup&lt;/a&gt;&lt;/h3&gt;
 
 &lt;p&gt;&lt;img src=&quot;public/images/yarn-architecture_5356ab97-2bd8-4f19-b30e-1ef60a00dcc0.png&quot; alt=&quot;YARN Architecture&quot; /&gt;&lt;/p&gt;
 
@@ -540,7 +540,7 @@
 &lt;/ul&gt;
 
 
-&lt;p&gt;The application startup:&lt;/p&gt;
+&lt;p&gt;The application startup process is the following:&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;a client submits an application to the Resource Manager&lt;/li&gt;
@@ -555,7 +555,7 @@
 
 &lt;p&gt;The Application Master is responsible for the execution of a single application. It asks for containers to the Resource Scheduler (Resource Manager) and executes specific programs (e.g., the main of a Java class) on the obtained containers. The Application Master knows the application logic and thus it is framework-specific. The MapReduce framework provides its own implementation of an Application Master.&lt;/p&gt;
 
-&lt;p&gt;The Resource Manager is a single point of failure in YARN. Using Application Masters, YARN is spreading over the cluster the metadata related to running applications. This reduce the load of the Resource Manager and makes it fast recoverable.&lt;/p&gt;
+&lt;p&gt;The Resource Manager is a single point of failure in YARN. Using Application Masters, YARN is spreading over the cluster the metadata related to running applications. This reduces the load of the Resource Manager and makes it fast recoverable.&lt;/p&gt;
 
 &lt;!--
 The user submits a job using the **Job Submitter** component. This software element connects to the **Resource Manager** and starts their interaction using the *ClientProtocol* and the *ApplicationClientProtocol*. It sends the job configuration and the application jar. Finally, it waits until the job is completed.
