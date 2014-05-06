@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2014-05-06T18:27:27+02:00</updated>
+ <updated>2014-05-06T18:28:46+02:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -767,8 +767,9 @@ Finally, when all the tasks are completed it notifies the **Resource Manager** w
 
 &lt;h3&gt;&lt;a href=&quot;#timeline-of-a-mapreduce-job&quot; id=&quot;timeline-of-a-mapreduce-job&quot;&gt;Timeline of a MapReduce Job&lt;/a&gt;&lt;/h3&gt;
 
-&lt;p&gt;This is the timeline of a MapReduce Job execution:
-&lt;img src=&quot;public/images/timeline-mapreduce-job_534c0041-2498-44cd-9480-18910a008c0f.png&quot; alt=&quot;Timeline MapReduce Job&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;public/images/timeline-mapreduce-job_534c0041-2498-44cd-9480-18910a008c0f.png&quot; alt=&quot;Timeline MapReduce Job&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This is the timeline of a MapReduce Job execution:&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Map Phase&lt;/strong&gt;: executed several &lt;strong&gt;Map Tasks&lt;/strong&gt;&lt;/li&gt;
