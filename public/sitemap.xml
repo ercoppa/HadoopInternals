@@ -9,7 +9,6 @@
 	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/node-manager-overview_534beb08-0c0c-4d84-bf75-3a670a00c014.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/yarn-architecture_5356ab97-2bd8-4f19-b30e-1ef60a00dcc0.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/yarn-application-startup_534bf195-890c-4c7a-95eb-13cb0a008d03.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-architecture-workflow_53302af2-7d38-412b-8275-6ffe0a009433.png</image:loc></image:image>
 	<priority>0.5</priority>
 	<changefreq>daily</changefreq>
 </url>
@@ -91,6 +90,8 @@
 </url>
 <url>
 	<loc>http://ercoppa.github.io/HadoopInternals/AnatomyMapReduceJob.html</loc>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/timeline-mapreduce-job_534c0041-2498-44cd-9480-18910a008c0f.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/yarn-and-mapreduce-interaction_53302af2-7d38-412b-8275-6ffe0a009433.png</image:loc></image:image>
 	<priority>0.5</priority>
 	<changefreq>daily</changefreq>
 </url>

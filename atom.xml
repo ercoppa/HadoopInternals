@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2014-05-06T18:08:48+02:00</updated>
+ <updated>2014-05-06T18:25:50+02:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -566,8 +566,6 @@ Internally, the **Application Master** tracks the status of an **Application** u
 
 Finally, when all the tasks are completed it notifies the **Resource Manager** which in turn warns the user about the completion of the application.
 
-![Hadoop Architecture Workflow](public/images/hadoop-architecture-workflow_53302af2-7d38-412b-8275-6ffe0a009433.png)
-
 --&gt;
 
 </content>
@@ -753,7 +751,65 @@ Finally, when all the tasks are completed it notifies the **Resource Manager** w
    <link href="http://ercoppa.org/AnatomyMapReduceJob.html"/>
    <updated>2014-04-02T00:00:00+02:00</updated>
    <id>http://ercoppa.org/AnatomyMapReduceJob</id>
-   <content type="html">
+   <content type="html">&lt;p&gt;In MapReduce, a YARN application is called a &lt;strong&gt;Job&lt;/strong&gt;. The implementation of the Application Master provided by the MapReduce framework is called &lt;strong&gt;&lt;code&gt;MRAppMaster&lt;/code&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#timeline-of-a-mapreduce-job&quot; id=&quot;timeline-of-a-mapreduce-job&quot;&gt;Timeline of a MapReduce Job&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;This is the timeline of a MapReduce Job execution:
+&lt;img src=&quot;public/images/timeline-mapreduce-job_534c0041-2498-44cd-9480-18910a008c0f.png&quot; alt=&quot;Timeline MapReduce Job&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Map Phase&lt;/strong&gt;: executed several &lt;strong&gt;Map Tasks&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Reduce Phase&lt;/strong&gt;: executed several &lt;strong&gt;Reduce Tasks&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;&lt;a href=&quot;#map-phase&quot; id=&quot;map-phase&quot;&gt;Map Phase&lt;/a&gt;&lt;/h3&gt;
+
+&lt;h4&gt;&lt;a href=&quot;#what-does-the-user-give-us&quot; id=&quot;what-does-the-user-give-us&quot;&gt;What does the user give us?&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;A Job submitted by a user is composed by:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;a configuration: if partial then global/default values are used&lt;/li&gt;
+&lt;li&gt;a JAR containing:
+
+&lt;ul&gt;
+&lt;li&gt;a &lt;code&gt;map()&lt;/code&gt; implementation&lt;/li&gt;
+&lt;li&gt;a combiner implementation&lt;/li&gt;
+&lt;li&gt;a &lt;code&gt;reduce()&lt;/code&gt; implementation&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;input and output information: input directory: are they on HDFS? S3? &lt;strong&gt;How many files?&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;output directory: where? HDFS? S3?&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h4&gt;&lt;a href=&quot;#how-many-map-tasks&quot; id=&quot;how-many-map-tasks&quot;&gt;How many Map Tasks?&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;One Map Task for each input split (Job Submitter):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;num_splits = 0
+for each input file f:
+   remaining = f.length
+   while remaining / split_size &amp;gt; split_slope:
+      num_splits += 1
+      remaining -= split_size
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;where:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;split_slope = 1.1
+split_size =~ dfs.blocksize
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Notice that &lt;code&gt;mapreduce.job.maps&lt;/code&gt; is ignored in MRv2 (before it was an hint)!&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#reduce-phase&quot; id=&quot;reduce-phase&quot;&gt;Reduce Phase&lt;/a&gt;&lt;/h3&gt;
+
+&lt;h3&gt;&lt;a href=&quot;#yarn-and-mapreduce-interaction&quot; id=&quot;yarn-and-mapreduce-interaction&quot;&gt;YARN and MapReduce interaction&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/yarn-and-mapreduce-interaction_53302af2-7d38-412b-8275-6ffe0a009433.png&quot; alt=&quot;YARN and MapReduce interaction&quot; /&gt;&lt;/p&gt;
 </content>
  </entry>
  
