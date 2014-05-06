@@ -5,6 +5,10 @@
 <url>
 	<loc>http://ercoppa.github.io/HadoopInternals/HadoopArchitectureOverview.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-architecture-oveview_535fb575-6fcc-4a71-a3c7-71a80a0057dd.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/resource-manager_534be06c-eb4c-4516-a178-5ff00a005d90.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/node-manager-overview_534beb08-0c0c-4d84-bf75-3a670a00c014.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/yarn-architecture_5356ab97-2bd8-4f19-b30e-1ef60a00dcc0.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/yarn-application-startup_534bf195-890c-4c7a-95eb-13cb0a008d03.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-architecture-workflow_53302af2-7d38-412b-8275-6ffe0a009433.png</image:loc></image:image>
 	<priority>0.5</priority>
 	<changefreq>daily</changefreq>
