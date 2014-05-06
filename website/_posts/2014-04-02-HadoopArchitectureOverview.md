@@ -16,11 +16,11 @@ title: Hadoop Architecture Overview
   
  * the **HDFS Federation** is the framework responsible for providing permanent, reliable and distributed storage. This is typically used for storing inputs and output (but not intermediate ones).
  * other alternative storage solutions. For instance, Amazon uses the Simple Storage Service (S3).
- * the **MapReduce Framework** is the software layer implementing the MapReduce paradigm. 
+ * the **MapReduce Framework** is the software layer implementing the [MapReduce paradigm](http://en.wikipedia.org/wiki/MapReduce.html). 
 
 The YARN infrastructure and the HDFS federation are completely decoupled and independent: the first one provides resources for running an application while the second one provides storage. The MapReduce framework is only one of many possible framework which runs on top of YARN (although currently is the only one implemented).
 
-### <a href="#hadoop-architecture-workflow-interactions" id="hadoop-architecture-workflow-interactions">Hadoop Architecture Workflow (interactions)</a>
+### <a href="#yarn-application-startup" id="yarn-application-startup">YARN: Application Startup</a>
 ![YARN Architecture](public/images/yarn-architecture_5356ab97-2bd8-4f19-b30e-1ef60a00dcc0.png)
 
 In YARN, there are at least three actors:
@@ -29,7 +29,7 @@ In YARN, there are at least three actors:
  * the **Resource Manager** (the master)
  * the **Node Manager** (the slave)
 
-The application startup:
+The application startup process is the following:
 
  1. a client submits an application to the Resource Manager
  2. the Resource Manager allocates a container
@@ -41,7 +41,7 @@ The application startup:
 
 The Application Master is responsible for the execution of a single application. It asks for containers to the Resource Scheduler (Resource Manager) and executes specific programs (e.g., the main of a Java class) on the obtained containers. The Application Master knows the application logic and thus it is framework-specific. The MapReduce framework provides its own implementation of an Application Master.
 
-The Resource Manager is a single point of failure in YARN. Using Application Masters, YARN is spreading over the cluster the metadata related to running applications. This reduce the load of the Resource Manager and makes it fast recoverable.
+The Resource Manager is a single point of failure in YARN. Using Application Masters, YARN is spreading over the cluster the metadata related to running applications. This reduces the load of the Resource Manager and makes it fast recoverable.
 
 <!--
 The user submits a job using the **Job Submitter** component. This software element connects to the **Resource Manager** and starts their interaction using the *ClientProtocol* and the *ApplicationClientProtocol*. It sends the job configuration and the application jar. Finally, it waits until the job is completed.
