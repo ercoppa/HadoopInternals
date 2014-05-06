@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2014-05-06T18:57:06+02:00</updated>
+ <updated>2014-05-06T18:57:40+02:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -747,7 +747,7 @@ Finally, when all the tasks are completed it notifies the **Resource Manager** w
  </entry>
  
  <entry>
-   <title>AnatomyMapReduceJob</title>
+   <title>Anatomy of a MapReduce Job</title>
    <link href="http://ercoppa.org/AnatomyMapReduceJob.html"/>
    <updated>2014-04-02T00:00:00+02:00</updated>
    <id>http://ercoppa.org/AnatomyMapReduceJob</id>
