@@ -101,7 +101,19 @@
       <div class="post">
   <h1 class="title">Anatomy of a MapReduce Job</h1>
   <br />
-  <p>In MapReduce, a YARN application is called a <strong>Job</strong>. The implementation of the Application Master provided by the MapReduce framework is called <strong><code>MRAppMaster</code></strong>.</p>
+  <h4>Table of contents:</h4>
+
+<ul>
+<li><a href="#timeline-of-a-mapreduce-job">Timeline of a MapReduce Job</a></li>
+<li><a href="#map-phase">Map Phase</a></li>
+<li><a href="#what-does-the-user-give-us">What does the user give us?</a></li>
+<li><a href="#how-many-map-tasks">How many Map Tasks?</a></li>
+<li><a href="#reduce-phase">Reduce Phase</a></li>
+<li><a href="#yarn-and-mapreduce-interaction">YARN and MapReduce interaction</a></li>
+</ul>
+
+
+<p>In MapReduce, a YARN application is called a <strong>Job</strong>. The implementation of the Application Master provided by the MapReduce framework is called <strong><code>MRAppMaster</code></strong>.</p>
 
 <h3><a href="#timeline-of-a-mapreduce-job" id="timeline-of-a-mapreduce-job">Timeline of a MapReduce Job</a></h3>
 

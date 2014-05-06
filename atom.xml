@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2014-05-06T18:25:50+02:00</updated>
+ <updated>2014-05-06T18:26:50+02:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -751,7 +751,19 @@ Finally, when all the tasks are completed it notifies the **Resource Manager** w
    <link href="http://ercoppa.org/AnatomyMapReduceJob.html"/>
    <updated>2014-04-02T00:00:00+02:00</updated>
    <id>http://ercoppa.org/AnatomyMapReduceJob</id>
-   <content type="html">&lt;p&gt;In MapReduce, a YARN application is called a &lt;strong&gt;Job&lt;/strong&gt;. The implementation of the Application Master provided by the MapReduce framework is called &lt;strong&gt;&lt;code&gt;MRAppMaster&lt;/code&gt;&lt;/strong&gt;.&lt;/p&gt;
+   <content type="html">&lt;h4&gt;Table of contents:&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#timeline-of-a-mapreduce-job&quot;&gt;Timeline of a MapReduce Job&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#map-phase&quot;&gt;Map Phase&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#what-does-the-user-give-us&quot;&gt;What does the user give us?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#how-many-map-tasks&quot;&gt;How many Map Tasks?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#reduce-phase&quot;&gt;Reduce Phase&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#yarn-and-mapreduce-interaction&quot;&gt;YARN and MapReduce interaction&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;In MapReduce, a YARN application is called a &lt;strong&gt;Job&lt;/strong&gt;. The implementation of the Application Master provided by the MapReduce framework is called &lt;strong&gt;&lt;code&gt;MRAppMaster&lt;/code&gt;&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;h3&gt;&lt;a href=&quot;#timeline-of-a-mapreduce-job&quot; id=&quot;timeline-of-a-mapreduce-job&quot;&gt;Timeline of a MapReduce Job&lt;/a&gt;&lt;/h3&gt;
 
