@@ -225,7 +225,7 @@ def generate_sitemap(site_url, pages = []):
             im = im.replace(site_url, '')
             print '\t<image:image><image:loc>' + site_url + im + '</image:loc></image:image>'
         print '\t<priority>0.5</priority>'
-        print '\t<changefreq>daily</changefreq>'
+        print '\t<changefreq>weekly</changefreq>'
         print '</url>'
         
     print '</urlset>'
