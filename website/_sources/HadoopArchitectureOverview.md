@@ -49,6 +49,4 @@ Internally, the **Application Master** tracks the status of an **Application** u
 
 Finally, when all the tasks are completed it notifies the **Resource Manager** which in turn warns the user about the completion of the application.
 
-![Hadoop Architecture Workflow](https://www.lucidchart.com/publicSegments/view/53302af2-7d38-412b-8275-6ffe0a009433/image.png)
-
 -->
