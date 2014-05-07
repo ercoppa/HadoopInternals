@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2014-05-07T12:44:20+02:00</updated>
+ <updated>2014-05-07T12:46:49+02:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -835,12 +835,12 @@ split_size =~ dfs.blocksize
 
 &lt;h4&gt;&lt;a href=&quot;#map-phase-example-of-an-execution-scenario&quot; id=&quot;map-phase-example-of-an-execution-scenario&quot;&gt;Map Phase: example of an execution scenario&lt;/a&gt;&lt;/h4&gt;
 
-&lt;p&gt;This is a possible execution scenario of the Map Phase. In the cluster we have:&lt;/p&gt;
+&lt;p&gt;This is a possible execution scenario of the Map Phase:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;two Node Managers: each Node Manager has 2GB of RAM (NM capacity) and each MapTask requires 1GB, we can run in parallel 2 containers on each Node Manager (this is the best scenario, the Resource Scheduler may decide differently)&lt;/li&gt;
+&lt;li&gt;there are two Node Managers: each Node Manager has 2GB of RAM (NM capacity) and each MapTask requires 1GB, we can run in parallel 2 containers on each Node Manager (this is the best scenario, the Resource Scheduler may decide differently)&lt;/li&gt;
 &lt;li&gt;there are no other YARN applications running in the cluster&lt;/li&gt;
-&lt;li&gt;our job has 8 map splits (e.g., there 7 files inside the input directory, but only one of them is bigger than the HDFS block size so we split it into 2 map splits): we need to run 8 Map Tasks.&lt;/li&gt;
+&lt;li&gt;our job has 8 map splits (e.g., there are 7 files inside the input directory, but only one of them is bigger than the HDFS block size so we split it into 2 map splits): we need to run 8 Map Tasks.&lt;/li&gt;
 &lt;/ul&gt;
 
 
