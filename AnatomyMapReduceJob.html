@@ -168,7 +168,54 @@ split_size =~ dfs.blocksize
 
 <h4><a href="#maptask-launch" id="maptask-launch">MapTask Launch</a></h4>
 
-<p>[&hellip;]</p>
+<p>The MapReduce Application Master asks to the Resource Manager for Containers needed by the Job: one MapTask container request for each MapTask (map split).</p>
+
+<p>A container request for a MapTask tries to exploit data locality of the map split. The Application Master asks for:</p>
+
+<ul>
+<li>a container located on the same Node Manager where the map split is stored (a map split may be stored on multiple nodes due to the HDFS replication factor);</li>
+<li>otherwise, a container located on a Node Manager in the same rack where the the map split is stored;</li>
+<li>otherwise, a container on any other Node Manager of the cluster</li>
+</ul>
+
+
+<p>This is just an hint to the Resource Scheduler. The Resource Scheduler is free to ignore data locality if the suggested assignment is in conflict with the Resouce Scheduler&rsquo;s goal.</p>
+
+<p>When a Container is assigned to the Application Master, the MapTask is launched.</p>
+
+<h4><a href="#map-phase-example-of-an-execution-scenario" id="map-phase-example-of-an-execution-scenario">Map Phase: example of an execution scenario</a></h4>
+
+<p>This is a possible execution scenario of the Map Phase. In the cluster we have:</p>
+
+<ul>
+<li>two Node Managers: each Node Manager has 2GB of RAM (NM capacity) and each MapTask requires 1GB, we can run in parallel 2 containers on each Node Manager (this is the best scenario, the Resource Scheduler may decide differently)</li>
+<li>there are no other YARN applications running in the cluster</li>
+<li>our job has 8 map splits (e.g., there 7 files inside the input directory, but only one of them is bigger than the HDFS block size so we split it into 2 map splits): we need to run 8 Map Tasks.</li>
+</ul>
+
+
+<p><img src="public/images/map-phase-execution_536a0a11-2ac8-4721-9bfb-3c730a004de9.png" alt="Map Phase execution" /></p>
+
+<h4><a href="#map-task-execution-timeline" id="map-task-execution-timeline">Map Task Execution Timeline</a></h4>
+
+<p><img src="public/images/map-task-execution-timeline_534c1cfb-be48-4146-bbe3-040a0a005d90.png" alt="Map Task Execution Timeline" />
+Let&rsquo;s now focus on a single Map Task. This is the Map Task execution timeline:</p>
+
+<ul>
+<li>INIT phase: we setup the Map Task</li>
+<li>EXECUTION phase: for each (key, value) tuple inside the map split we execute them <code>map()</code> function</li>
+<li>SPILLING phase: the map output is stored in an in-memory buffer; when this buffer is <em>almost</em> full then we start (in parallel) the spilling phase in order to remove data from it</li>
+<li>SHUFFLE phase: at the end of the spilling phase, we merge all the map outputs and package them for the reduce phase</li>
+</ul>
+
+
+<h4><a href="#maptask-init" id="maptask-init">MapTask: INIT</a></h4>
+
+<h4><a href="#maptask-execution" id="maptask-execution">MapTask: EXECUTION</a></h4>
+
+<h4><a href="#maptask-spilling" id="maptask-spilling">MapTask: SPILLING</a></h4>
+
+<h4><a href="#maptask-shuffle" id="maptask-shuffle">MapTask: SHUFFLE</a></h4>
 
 <h3><a href="#reduce-phase" id="reduce-phase">Reduce Phase</a></h3>
 
