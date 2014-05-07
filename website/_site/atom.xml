@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2014-05-06T19:06:05+02:00</updated>
+ <updated>2014-05-07T12:44:20+02:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -818,7 +818,54 @@ split_size =~ dfs.blocksize
 
 &lt;h4&gt;&lt;a href=&quot;#maptask-launch&quot; id=&quot;maptask-launch&quot;&gt;MapTask Launch&lt;/a&gt;&lt;/h4&gt;
 
-&lt;p&gt;[&amp;hellip;]&lt;/p&gt;
+&lt;p&gt;The MapReduce Application Master asks to the Resource Manager for Containers needed by the Job: one MapTask container request for each MapTask (map split).&lt;/p&gt;
+
+&lt;p&gt;A container request for a MapTask tries to exploit data locality of the map split. The Application Master asks for:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;a container located on the same Node Manager where the map split is stored (a map split may be stored on multiple nodes due to the HDFS replication factor);&lt;/li&gt;
+&lt;li&gt;otherwise, a container located on a Node Manager in the same rack where the the map split is stored;&lt;/li&gt;
+&lt;li&gt;otherwise, a container on any other Node Manager of the cluster&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;This is just an hint to the Resource Scheduler. The Resource Scheduler is free to ignore data locality if the suggested assignment is in conflict with the Resouce Scheduler&amp;rsquo;s goal.&lt;/p&gt;
+
+&lt;p&gt;When a Container is assigned to the Application Master, the MapTask is launched.&lt;/p&gt;
+
+&lt;h4&gt;&lt;a href=&quot;#map-phase-example-of-an-execution-scenario&quot; id=&quot;map-phase-example-of-an-execution-scenario&quot;&gt;Map Phase: example of an execution scenario&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;This is a possible execution scenario of the Map Phase. In the cluster we have:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;two Node Managers: each Node Manager has 2GB of RAM (NM capacity) and each MapTask requires 1GB, we can run in parallel 2 containers on each Node Manager (this is the best scenario, the Resource Scheduler may decide differently)&lt;/li&gt;
+&lt;li&gt;there are no other YARN applications running in the cluster&lt;/li&gt;
+&lt;li&gt;our job has 8 map splits (e.g., there 7 files inside the input directory, but only one of them is bigger than the HDFS block size so we split it into 2 map splits): we need to run 8 Map Tasks.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;&lt;img src=&quot;public/images/map-phase-execution_536a0a11-2ac8-4721-9bfb-3c730a004de9.png&quot; alt=&quot;Map Phase execution&quot; /&gt;&lt;/p&gt;
+
+&lt;h4&gt;&lt;a href=&quot;#map-task-execution-timeline&quot; id=&quot;map-task-execution-timeline&quot;&gt;Map Task Execution Timeline&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/images/map-task-execution-timeline_534c1cfb-be48-4146-bbe3-040a0a005d90.png&quot; alt=&quot;Map Task Execution Timeline&quot; /&gt;
+Let&amp;rsquo;s now focus on a single Map Task. This is the Map Task execution timeline:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;INIT phase: we setup the Map Task&lt;/li&gt;
+&lt;li&gt;EXECUTION phase: for each (key, value) tuple inside the map split we execute them &lt;code&gt;map()&lt;/code&gt; function&lt;/li&gt;
+&lt;li&gt;SPILLING phase: the map output is stored in an in-memory buffer; when this buffer is &lt;em&gt;almost&lt;/em&gt; full then we start (in parallel) the spilling phase in order to remove data from it&lt;/li&gt;
+&lt;li&gt;SHUFFLE phase: at the end of the spilling phase, we merge all the map outputs and package them for the reduce phase&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h4&gt;&lt;a href=&quot;#maptask-init&quot; id=&quot;maptask-init&quot;&gt;MapTask: INIT&lt;/a&gt;&lt;/h4&gt;
+
+&lt;h4&gt;&lt;a href=&quot;#maptask-execution&quot; id=&quot;maptask-execution&quot;&gt;MapTask: EXECUTION&lt;/a&gt;&lt;/h4&gt;
+
+&lt;h4&gt;&lt;a href=&quot;#maptask-spilling&quot; id=&quot;maptask-spilling&quot;&gt;MapTask: SPILLING&lt;/a&gt;&lt;/h4&gt;
+
+&lt;h4&gt;&lt;a href=&quot;#maptask-shuffle&quot; id=&quot;maptask-shuffle&quot;&gt;MapTask: SHUFFLE&lt;/a&gt;&lt;/h4&gt;
 
 &lt;h3&gt;&lt;a href=&quot;#reduce-phase&quot; id=&quot;reduce-phase&quot;&gt;Reduce Phase&lt;/a&gt;&lt;/h3&gt;
 
