@@ -185,12 +185,12 @@ split_size =~ dfs.blocksize
 
 <h4><a href="#map-phase-example-of-an-execution-scenario" id="map-phase-example-of-an-execution-scenario">Map Phase: example of an execution scenario</a></h4>
 
-<p>This is a possible execution scenario of the Map Phase. In the cluster we have:</p>
+<p>This is a possible execution scenario of the Map Phase:</p>
 
 <ul>
-<li>two Node Managers: each Node Manager has 2GB of RAM (NM capacity) and each MapTask requires 1GB, we can run in parallel 2 containers on each Node Manager (this is the best scenario, the Resource Scheduler may decide differently)</li>
+<li>there are two Node Managers: each Node Manager has 2GB of RAM (NM capacity) and each MapTask requires 1GB, we can run in parallel 2 containers on each Node Manager (this is the best scenario, the Resource Scheduler may decide differently)</li>
 <li>there are no other YARN applications running in the cluster</li>
-<li>our job has 8 map splits (e.g., there 7 files inside the input directory, but only one of them is bigger than the HDFS block size so we split it into 2 map splits): we need to run 8 Map Tasks.</li>
+<li>our job has 8 map splits (e.g., there are 7 files inside the input directory, but only one of them is bigger than the HDFS block size so we split it into 2 map splits): we need to run 8 Map Tasks.</li>
 </ul>
 
 
