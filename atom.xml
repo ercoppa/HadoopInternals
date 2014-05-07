@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2014-05-07T12:46:49+02:00</updated>
+ <updated>2014-05-07T12:47:42+02:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -853,7 +853,7 @@ Let&amp;rsquo;s now focus on a single Map Task. This is the Map Task execution t
 
 &lt;ul&gt;
 &lt;li&gt;INIT phase: we setup the Map Task&lt;/li&gt;
-&lt;li&gt;EXECUTION phase: for each (key, value) tuple inside the map split we execute them &lt;code&gt;map()&lt;/code&gt; function&lt;/li&gt;
+&lt;li&gt;EXECUTION phase: for each (key, value) tuple inside the map split we run the &lt;code&gt;map()&lt;/code&gt; function&lt;/li&gt;
 &lt;li&gt;SPILLING phase: the map output is stored in an in-memory buffer; when this buffer is &lt;em&gt;almost&lt;/em&gt; full then we start (in parallel) the spilling phase in order to remove data from it&lt;/li&gt;
 &lt;li&gt;SHUFFLE phase: at the end of the spilling phase, we merge all the map outputs and package them for the reduce phase&lt;/li&gt;
 &lt;/ul&gt;

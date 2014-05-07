@@ -203,7 +203,7 @@ Let&rsquo;s now focus on a single Map Task. This is the Map Task execution timel
 
 <ul>
 <li>INIT phase: we setup the Map Task</li>
-<li>EXECUTION phase: for each (key, value) tuple inside the map split we execute them <code>map()</code> function</li>
+<li>EXECUTION phase: for each (key, value) tuple inside the map split we run the <code>map()</code> function</li>
 <li>SPILLING phase: the map output is stored in an in-memory buffer; when this buffer is <em>almost</em> full then we start (in parallel) the spilling phase in order to remove data from it</li>
 <li>SHUFFLE phase: at the end of the spilling phase, we merge all the map outputs and package them for the reduce phase</li>
 </ul>
