@@ -185,6 +185,8 @@ split_size =~ dfs.blocksize
 
 <h4><a href="#map-phase-example-of-an-execution-scenario" id="map-phase-example-of-an-execution-scenario">Map Phase: example of an execution scenario</a></h4>
 
+<p><img src="public/images/map-phase-execution_536a0a11-2ac8-4721-9bfb-3c730a004de9.png" alt="Map Phase execution" /></p>
+
 <p>This is a possible execution scenario of the Map Phase:</p>
 
 <ul>
@@ -193,8 +195,6 @@ split_size =~ dfs.blocksize
 <li>our job has 8 map splits (e.g., there are 7 files inside the input directory, but only one of them is bigger than the HDFS block size so we split it into 2 map splits): we need to run 8 Map Tasks.</li>
 </ul>
 
-
-<p><img src="public/images/map-phase-execution_536a0a11-2ac8-4721-9bfb-3c730a004de9.png" alt="Map Phase execution" /></p>
 
 <h4><a href="#map-task-execution-timeline" id="map-task-execution-timeline">Map Task Execution Timeline</a></h4>
 
