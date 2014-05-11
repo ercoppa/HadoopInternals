@@ -220,7 +220,10 @@ def generate_sitemap(site_url, pages = []):
         if p == 'Home': p = ''
         
         print '<url>'
-        print '\t<loc>' + site_url + p + '.html</loc>'
+        if len(p) > 0:
+            print '\t<loc>' + site_url + p + '.html</loc>'
+        else:
+            print '\t<loc>' + site_url + '</loc>'
         for im in images:
             im = im.replace(site_url, '')
             print '\t<image:image><image:loc>' + site_url + im + '</image:loc></image:image>'
