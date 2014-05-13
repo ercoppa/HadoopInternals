@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2014-05-13T17:03:54+02:00</updated>
+ <updated>2014-05-13T17:08:56+02:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -905,7 +905,7 @@ sort.spill.percent&lt;/code&gt;: 80% by default), the SPILLING phase is performe
 &lt;/ol&gt;
 
 
-&lt;h5&gt;&lt;a href=&quot;#how-many-reduce-tasks&quot; id=&quot;how-many-reduce-tasks&quot;&gt;How Many Reduce Tasks&lt;/a&gt;&lt;/h5&gt;
+&lt;h5&gt;&lt;a href=&quot;#how-many-reduce-tasks&quot; id=&quot;how-many-reduce-tasks&quot;&gt;How Many Reduce Tasks?&lt;/a&gt;&lt;/h5&gt;
 
 &lt;p&gt;The number of ReduceTasks for the job is decided by the configuration parameter &lt;code&gt;mapreduce.job.reduces&lt;/code&gt;.&lt;/p&gt;
 
@@ -934,7 +934,7 @@ standard &lt;code&gt;reduce()&lt;/code&gt; function and thus can be seen as a lo
 
 &lt;h3&gt;&lt;a href=&quot;#maptask-end-of-execution&quot; id=&quot;maptask-end-of-execution&quot;&gt;MapTask: end of EXECUTION&lt;/a&gt;&lt;/h3&gt;
 
-&lt;p&gt;At the end of the EXECUTION phase, the SPILLING thread is triggered on the unspilled tuples stored in the circular buffer:&lt;/p&gt;
+&lt;p&gt;At the end of the EXECUTION phase, the SPILLING thread is triggered for the last time. In more detail, we:&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;sort and spill the remaining unspilled tuples&lt;/li&gt;

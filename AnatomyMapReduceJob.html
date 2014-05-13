@@ -255,7 +255,7 @@ sort.spill.percent</code>: 80% by default), the SPILLING phase is performed (in 
 </ol>
 
 
-<h5><a href="#how-many-reduce-tasks" id="how-many-reduce-tasks">How Many Reduce Tasks</a></h5>
+<h5><a href="#how-many-reduce-tasks" id="how-many-reduce-tasks">How Many Reduce Tasks?</a></h5>
 
 <p>The number of ReduceTasks for the job is decided by the configuration parameter <code>mapreduce.job.reduces</code>.</p>
 
@@ -284,7 +284,7 @@ standard <code>reduce()</code> function and thus can be seen as a local reducer.
 
 <h3><a href="#maptask-end-of-execution" id="maptask-end-of-execution">MapTask: end of EXECUTION</a></h3>
 
-<p>At the end of the EXECUTION phase, the SPILLING thread is triggered on the unspilled tuples stored in the circular buffer:</p>
+<p>At the end of the EXECUTION phase, the SPILLING thread is triggered for the last time. In more detail, we:</p>
 
 <ol>
 <li>sort and spill the remaining unspilled tuples</li>
