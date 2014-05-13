@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2014-05-13T17:01:09+02:00</updated>
+ <updated>2014-05-13T17:03:54+02:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -909,14 +909,14 @@ sort.spill.percent&lt;/code&gt;: 80% by default), the SPILLING phase is performe
 
 &lt;p&gt;The number of ReduceTasks for the job is decided by the configuration parameter &lt;code&gt;mapreduce.job.reduces&lt;/code&gt;.&lt;/p&gt;
 
-&lt;h4&gt;&lt;a href=&quot;#how-do-we-decided-the-partitionidx-of-an-output-tuple&quot; id=&quot;how-do-we-decided-the-partitionidx-of-an-output-tuple&quot;&gt;How do we decided the partitionIdx of an output tuple?&lt;/a&gt;&lt;/h4&gt;
+&lt;h4&gt;&lt;a href=&quot;#what-is-the-partitionidx-associated-to-an-output-tuple&quot; id=&quot;what-is-the-partitionidx-associated-to-an-output-tuple&quot;&gt;What is the partitionIdx associated to an output tuple?&lt;/a&gt;&lt;/h4&gt;
 
-&lt;p&gt;The paritionIdx of an output tuple is decided inside &lt;code&gt;Mapper.Context.write()&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;The paritionIdx of an output tuple is the index of a partition. It is decided inside the &lt;code&gt;Mapper.Context.write()&lt;/code&gt;:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;partitionIdx = (key.hashCode() &amp;amp; Integer.MAX_VALUE) % numReducers
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;It is stored as metadata in circular buffer alongside the output tuple. The user can customize the partitioner by setting the configuration parameter &lt;code&gt;mapreduce.job.partitioner.class&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;It is stored as metadata in the circular buffer alongside the output tuple. The user can customize the partitioner by setting the configuration parameter &lt;code&gt;mapreduce.job.partitioner.class&lt;/code&gt;.&lt;/p&gt;
 
 &lt;h4&gt;&lt;a href=&quot;#when-do-we-apply-the-combiner&quot; id=&quot;when-do-we-apply-the-combiner&quot;&gt;When do we apply the combiner?&lt;/a&gt;&lt;/h4&gt;
 

@@ -259,14 +259,14 @@ sort.spill.percent</code>: 80% by default), the SPILLING phase is performed (in 
 
 <p>The number of ReduceTasks for the job is decided by the configuration parameter <code>mapreduce.job.reduces</code>.</p>
 
-<h4><a href="#how-do-we-decided-the-partitionidx-of-an-output-tuple" id="how-do-we-decided-the-partitionidx-of-an-output-tuple">How do we decided the partitionIdx of an output tuple?</a></h4>
+<h4><a href="#what-is-the-partitionidx-associated-to-an-output-tuple" id="what-is-the-partitionidx-associated-to-an-output-tuple">What is the partitionIdx associated to an output tuple?</a></h4>
 
-<p>The paritionIdx of an output tuple is decided inside <code>Mapper.Context.write()</code>:</p>
+<p>The paritionIdx of an output tuple is the index of a partition. It is decided inside the <code>Mapper.Context.write()</code>:</p>
 
 <pre><code>partitionIdx = (key.hashCode() &amp; Integer.MAX_VALUE) % numReducers
 </code></pre>
 
-<p>It is stored as metadata in circular buffer alongside the output tuple. The user can customize the partitioner by setting the configuration parameter <code>mapreduce.job.partitioner.class</code>.</p>
+<p>It is stored as metadata in the circular buffer alongside the output tuple. The user can customize the partitioner by setting the configuration parameter <code>mapreduce.job.partitioner.class</code>.</p>
 
 <h4><a href="#when-do-we-apply-the-combiner" id="when-do-we-apply-the-combiner">When do we apply the combiner?</a></h4>
 
