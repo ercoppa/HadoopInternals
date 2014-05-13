@@ -93,6 +93,8 @@
 	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/timeline-mapreduce-job_534c0041-2498-44cd-9480-18910a008c0f.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/map-phase-execution_536a0a11-2ac8-4721-9bfb-3c730a004de9.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/map-task-execution-timeline_534c1cfb-be48-4146-bbe3-040a0a005d90.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/maptask-execution_534fb31a-ae3c-4373-ae87-30b60a00c52e.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/spilling-phase_534fcae9-b818-4e6f-bb3e-380f0a00c52e.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/yarn-and-mapreduce-interaction_53302af2-7d38-412b-8275-6ffe0a009433.png</image:loc></image:image>
 	<priority>0.5</priority>
 	<changefreq>weekly</changefreq>
