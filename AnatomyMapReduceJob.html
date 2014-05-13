@@ -202,18 +202,97 @@ split_size =~ dfs.blocksize
 Let&rsquo;s now focus on a single Map Task. This is the Map Task execution timeline:</p>
 
 <ul>
-<li>INIT phase: we setup the Map Task</li>
-<li>EXECUTION phase: for each (key, value) tuple inside the map split we run the <code>map()</code> function</li>
-<li>SPILLING phase: the map output is stored in an in-memory buffer; when this buffer is <em>almost</em> full then we start (in parallel) the spilling phase in order to remove data from it</li>
-<li>SHUFFLE phase: at the end of the spilling phase, we merge all the map outputs and package them for the reduce phase</li>
+<li><strong>INIT</strong> phase: we setup the Map Task</li>
+<li><strong>EXECUTION</strong> phase: for each (key, value) tuple inside the map split we run the <code>map()</code> function</li>
+<li><strong>SPILLING</strong> phase: the map output is stored in an in-memory buffer; when this buffer is <em>almost</em> full then we start (in parallel) the spilling phase in order to remove data from it</li>
+<li><strong>SHUFFLE</strong> phase: at the end of the spilling phase, we merge all the map outputs and package them for the reduce phase</li>
 </ul>
 
 
 <h4><a href="#maptask-init" id="maptask-init">MapTask: INIT</a></h4>
 
+<p>During the INIT phase, we:</p>
+
+<ol>
+<li>create a context (<code>TaskAttemptContext.class</code>)</li>
+<li>create an instance of the user <code>Mapper.class</code></li>
+<li>setup the input (e.g., <code>InputFormat.class</code>, <code>InputSplit.class</code>, <code>RecordReader.class</code>)</li>
+<li>setup the output (<code>NewOutputCollector.class</code>)</li>
+<li>create a mapper context (<code>MapContext.class</code>, <code>Mapper.Context.class</code>)</li>
+<li>initialize the input, e.g.:</li>
+<li> create a <code>SplitLineReader.class</code> object</li>
+<li> create a <code>HdfsDataInputStream.class</code> object</li>
+</ol>
+
+
 <h4><a href="#maptask-execution" id="maptask-execution">MapTask: EXECUTION</a></h4>
 
+<p><img src="public/images/maptask-execution_534fb31a-ae3c-4373-ae87-30b60a00c52e.png" alt="MapTask execution" /></p>
+
+<p>The EXECUTION phase is performed by the <code>run</code> method of the <code>Mapper</code> class. The user can override it, but by default it will start by calling the <code>setup</code> method: this function by default does  not do anything useful but can be override by the user in order to setup the Task (e.g., initialize class variables).
+After the setup, for each &lt;key, value> tuple contained in the map split, the <code>map()</code> is invoked. Therefore, <code>map()</code> receives: a key a value, and a mapper context. Using the context, a <code>map</code> stores its  output to a buffer.</p>
+
+<p>Notice that the map split is fetched chuck by chunk (e.g., 64KB) and each chunk is split in several (key, value) tuples (e.g., using <code>SplitLineReader.class</code>). This is done inside the <code>Mapper.Context.nextKeyValue</code> method.</p>
+
+<p>When the map split has been completely processed, the <code>run</code> function calls the <code>clean</code> method: by default, no action is performed but the user may decide to override it.</p>
+
 <h4><a href="#maptask-spilling" id="maptask-spilling">MapTask: SPILLING</a></h4>
+
+<p><img src="public/images/spilling-phase_534fcae9-b818-4e6f-bb3e-380f0a00c52e.png" alt="Spilling phase" /></p>
+
+<p>As seen in the EXECUTING phase, the <code>map</code> will write (using <code>Mapper.Context.write()</code>) its output into a circular in-memory buffer (<code>MapTask.MapOutputBuffer</code>). The size of this buffer is fixed and determined by the configuration parameter <code>mapreduce.task.io.sort.mb</code> (default: 100MB).</p>
+
+<p>Whenever this circular buffer is <em>almost</em> full (<code>mapreduce.map.
+sort.spill.percent</code>: 80% by default), the SPILLING phase is performed (in parallel using a separate thread). Notice that if the splilling thread is too slow and the buffer is 100% full, then the <code>map()</code> cannot be executed and thus it has to wait.</p>
+
+<p>The SPILLING thread performs the following actions:</p>
+
+<ol>
+<li>it creates a <code>SpillRecord</code> and <code>FSOutputStream</code> (local filesystem)</li>
+<li>in-memory sorts the used chunk of the buffer: the output tuples are sorted by (partitionIdx, key) using a quicksort algorithm.</li>
+<li>the sorted output is split into partitions: one partition for each ReduceTask of the job (see later).</li>
+<li>Partitions are sequentially written into the local file.</li>
+</ol>
+
+
+<h5><a href="#how-many-reduce-tasks" id="how-many-reduce-tasks">How Many Reduce Tasks</a></h5>
+
+<p>The number of ReduceTasks for the job is decided by the configuration parameter <code>mapreduce.job.reduces</code>.</p>
+
+<h4><a href="#how-do-we-decided-the-partitionidx-of-an-output-tuple" id="how-do-we-decided-the-partitionidx-of-an-output-tuple">How do we decided the partitionIdx of an output tuple?</a></h4>
+
+<p>The paritionIdx of an output tuple is decided inside <code>Mapper.Context.write()</code>:</p>
+
+<pre><code>partitionIdx = (key.hashCode() &amp; Integer.MAX_VALUE) % numReducers
+</code></pre>
+
+<p>It is stored as metadata in circular buffer alongside the output tuple. The user can customize the partitioner by setting the configuration parameter <code>mapreduce.job.partitioner.class</code>.</p>
+
+<h4><a href="#when-do-we-apply-the-combiner" id="when-do-we-apply-the-combiner">When do we apply the combiner?</a></h4>
+
+<p>If the user specifies a combiner then the SPILLING thread, before writing the tuples to the file (4), executes the combiner on the tuples contained in each partition. Basically, we:</p>
+
+<ol>
+<li>create an instance of the user <code>Reducer.class</code> (the one specified for the combiner!)</li>
+<li>create a <code>Reducer.Context</code>: the output will be stored on the local filesystem</li>
+<li>execute <code>Reduce.run()</code>: see Reduce Task description</li>
+</ol>
+
+
+<p>The combiner typically use the same implementation of the
+standard <code>reduce()</code> function and thus can be seen as a local reducer.</p>
+
+<h3><a href="#maptask-end-of-execution" id="maptask-end-of-execution">MapTask: end of EXECUTION</a></h3>
+
+<p>At the end of the EXECUTION phase, the SPILLING thread is triggered on the unspilled tuples stored in the circular buffer:</p>
+
+<ol>
+<li>sort and spill the remaining unspilled tuples</li>
+<li>start the SHUFFLE phase</li>
+</ol>
+
+
+<p>Notice that for each time the buffer was almost full, we get one spill file (<code>SpillReciord</code> + output file). Each Spill file contains several partitions (segments).</p>
 
 <h4><a href="#maptask-shuffle" id="maptask-shuffle">MapTask: SHUFFLE</a></h4>
 
