@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+
+  <title>
+    Anatomy of a MapReduce Job &middot;  Hadoop Internals
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="public/css/hyde.css">
+  <link rel="stylesheet" href="public/css/syntax.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400italic,400,600,700|Abril+Fatface">
+
+  <!-- Icons -->
+  <link rel="shortcut icon" href="public/favicon.png">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="atom.xml">
+
+  <!-- CSS menu -->
+  <link href="public/menu_source/styles.css" rel="stylesheet" type="text/css">
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script type='text/javascript' src='public/menu_source/menu_jquery.js'></script>
+  
+</head>
+
+
+  <body>
+
+    <header class="masthead">
+      <div class="masthead-inner">
+        <div class="center"><h1>Hadoop Internals</h1></div>
+        <div id='cssmenu'>
+            <ul>
+               <li class='active'><a href='./'><span>Home</span></a></li>
+               <li><a href='HadoopArchitectureOverview.html'><span>Architecture Overview</span></a></li>
+               <li><a href='AnatomyMapReduceJob.html'><span>Anatomy of a MapReduce Job</span></a></li>
+               <li class='has-sub'><a href='#'><span>Actors</span></a>
+                  <ul>
+                     <li><a href='JobSubmitter.html'><span>Job Submitter</span></a></li>
+                     <li><a href='NodeManager.html'><span>Node Manager</span></a></li>
+                     <li><a href='ResourceManager.html'><span>Resource Manager</span></a></li>
+                     <li class='last'><a href='ApplicationMaster.html'><span>Application Master</span></a></li>
+                  </ul>
+               </li>
+               <li class='has-sub'><a href='#'><span>Tasks</span></a>
+                  <ul>
+                     <li><a href='MapTask.html'><span>Map Task</span></a></li>
+                     <li><a href='ReduceTask.html'><span>Reduce Task</span></a></li>
+                     <li class='last'><a href='MapReduceMerge.html'><span>Merger</span></a></li>
+                  </ul>
+               </li>
+               <li class='has-sub'><a href='#'><span>Model of Computation</span></a>
+                  <ul>
+                     <li><a href='Job.html'><span>Job</span></a></li>
+                     <li><a href='Task.html'><span>Task</span></a></li>
+                     <li><a href='TaskAttempt.html'><span>Task Attempt</span></a></li>
+                     <li><a href='Container.html'><span>Container</span></a></li>
+                     <li class='last'><a href='Application.html'><span>Application</span></a></li>
+                  </ul>
+               </li>
+               <li class='has-sub'><a href='#'><span>Extra</span></a>
+                  <ul>
+                     <li><a href='AsyncDispatcher.html'><span>Async Dispatcher</span></a></li>
+                     <li><a href='LocalizedResource.html'><span>Localized Resource</span></a></li>
+                     <li><a href='ContainerAllocator.html'><span>Container Allocator [AM]</span></a></li>
+                     <li><a href='ContainerLauncher.html'><span>Container Launcher [AM]</span></a></li>
+                     <li class='last'><a href='ContainersLauncher.html'><span>Containers Launcher [NM]</span></a></li>
+                  </ul>
+               </li>
+               <li class='last'><a href='HadoopConfigurationParameters.html'><span>Configuration Parameters</span></a></li>
+            </ul>
+        </div>
+
+        <div class="colophon">
+          <ul class="colophon-links">
+            
+            <li>
+              <a href="https://sites.google.com/a/di.uniroma1.it/coppa/">Emilio Coppa</a>
+            </li>
+            <li>ercoppa [at] gmail [dot] com</li>
+            <li>
+              <a href="https://github.com/ercoppa/HadoopDiagrams">GitHub project</a>
+            </li>
+          </ul>
+          <br />
+          <div class="center"><iframe src="http://ghbtns.com/github-btn.html?user=ercoppa&repo=hadoopinternals&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px"></iframe></div>
+        </div>
+
+      </div>
+    </header>
+
+    <a href="https://github.com/ercoppa/HadoopInternals/"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="title">Anatomy of a MapReduce Job</h1>
+  <br />
+  <p>In MapReduce, a YARN application is called a <strong>Job</strong>. The implementation of the Application Master provided by the MapReduce framework is called <strong><code>MRAppMaster</code></strong>.</p>
+
+<h3><a href="#timeline-of-a-mapreduce-job" id="timeline-of-a-mapreduce-job">Timeline of a MapReduce Job</a></h3>
+
+<p><img src="public/images/timeline-mapreduce-job_534c0041-2498-44cd-9480-18910a008c0f.png" alt="Timeline MapReduce Job" />
+This is the timeline of a MapReduce Job execution:</p>
+
+<ul>
+<li><strong>Map Phase</strong>: several <strong>Map Tasks</strong> are executed</li>
+<li><strong>Reduce Phase</strong>: several <strong>Reduce Tasks</strong> are executed</li>
+</ul>
+
+
+<p>Notice that the Reduce Phase may start before the end of Map Phase. Hence, an interleaving between them is possible.</p>
+
+<h3><a href="#map-phase" id="map-phase">Map Phase</a></h3>
+
+<p>We now focus our discussion on the Map Phase. A key decision is how many MapTasks the Application Master needs to start for the current job.</p>
+
+<h4><a href="#what-does-the-user-give-us" id="what-does-the-user-give-us">What does the user give us?</a></h4>
+
+<p>Let&rsquo;s take a step back. When a client submits an application, several kinds of information are provided to the YARN infrastucture. In particular:</p>
+
+<ul>
+<li>a configuration: this may be partial (some parameters are not specified by the user) and in this case the default values are used for the job. Notice that these default values may be the ones chosen by a Hadoop provider like Amanzon.</li>
+<li>a JAR containing:
+
+<ul>
+<li>a <code>map()</code> implementation</li>
+<li>a combiner implementation</li>
+<li>a <code>reduce()</code> implementation</li>
+</ul>
+</li>
+<li>input and output information:
+
+<ul>
+<li>input directory: is the input directory on HDFS? On S3? <strong>How many files?</strong></li>
+<li>output directory: where will we store the output? On HDFS? On S3?</li>
+</ul>
+</li>
+</ul>
+
+
+<p>The number of files inside the input directory is used for deciding the number of Map Tasks of a job.</p>
+
+<h4><a href="#how-many-map-tasks" id="how-many-map-tasks">How many Map Tasks?</a></h4>
+
+<p>The Application Master will launch one MapTask for each map split. Typically, there is a map split for each input file. If the input file is too big (bigger than the HDFS block size) then we have two or more map splits associated to the same input file. This is the pseudocode used inside the method <code>getSplits()</code> of the <code>FileInputFormat</code> class:</p>
+
+<pre><code>num_splits = 0
+for each input file f:
+   remaining = f.length
+   while remaining / split_size &gt; split_slope:
+      num_splits += 1
+      remaining -= split_size
+</code></pre>
+
+<p>where:</p>
+
+<pre><code>split_slope = 1.1
+split_size =~ dfs.blocksize
+</code></pre>
+
+<p>Notice that the configuration parameter <code>mapreduce.job.maps</code> is ignored in MRv2 (in the past it was just an hint).</p>
+
+<h4><a href="#maptask-launch" id="maptask-launch">MapTask Launch</a></h4>
+
+<p>The MapReduce Application Master asks to the Resource Manager for Containers needed by the Job: one MapTask container request for each MapTask (map split).</p>
+
+<p>A container request for a MapTask tries to exploit data locality of the map split. The Application Master asks for:</p>
+
+<ul>
+<li>a container located on the same Node Manager where the map split is stored (a map split may be stored on multiple nodes due to the HDFS replication factor);</li>
+<li>otherwise, a container located on a Node Manager in the same rack where the the map split is stored;</li>
+<li>otherwise, a container on any other Node Manager of the cluster</li>
+</ul>
+
+
+<p>This is just an hint to the Resource Scheduler. The Resource Scheduler is free to ignore data locality if the suggested assignment is in conflict with the Resouce Scheduler&rsquo;s goal.</p>
+
+<p>When a Container is assigned to the Application Master, the MapTask is launched.</p>
+
+<h4><a href="#map-phase-example-of-an-execution-scenario" id="map-phase-example-of-an-execution-scenario">Map Phase: example of an execution scenario</a></h4>
+
+<p><img src="public/images/map-phase-execution_536a0a11-2ac8-4721-9bfb-3c730a004de9.png" alt="Map Phase execution" /></p>
+
+<p>This is a possible execution scenario of the Map Phase:</p>
+
+<ul>
+<li>there are two Node Managers: each Node Manager has 2GB of RAM (NM capacity) and each MapTask requires 1GB, we can run in parallel 2 containers on each Node Manager (this is the best scenario, the Resource Scheduler may decide differently)</li>
+<li>there are no other YARN applications running in the cluster</li>
+<li>our job has 8 map splits (e.g., there are 7 files inside the input directory, but only one of them is bigger than the HDFS block size so we split it into 2 map splits): we need to run 8 Map Tasks.</li>
+</ul>
+
+
+<h4><a href="#map-task-execution-timeline" id="map-task-execution-timeline">Map Task Execution Timeline</a></h4>
+
+<p><img src="public/images/map-task-execution-timeline_534c1cfb-be48-4146-bbe3-040a0a005d90.png" alt="Map Task Execution Timeline" />
+Let&rsquo;s now focus on a single Map Task. This is the Map Task execution timeline:</p>
+
+<ul>
+<li><strong>INIT</strong> phase: we setup the Map Task</li>
+<li><strong>EXECUTION</strong> phase: for each (key, value) tuple inside the map split we run the <code>map()</code> function</li>
+<li><strong>SPILLING</strong> phase: the map output is stored in an in-memory buffer; when this buffer is <em>almost</em> full then we start (in parallel) the spilling phase in order to remove data from it</li>
+<li><strong>SHUFFLE</strong> phase: at the end of the spilling phase, we merge all the map outputs and package them for the reduce phase</li>
+</ul>
+
+
+<h4><a href="#maptask-init" id="maptask-init">MapTask: INIT</a></h4>
+
+<p>During the INIT phase, we:</p>
+
+<ol>
+<li>create a context (<code>TaskAttemptContext.class</code>)</li>
+<li>create an instance of the user <code>Mapper.class</code></li>
+<li>setup the input (e.g., <code>InputFormat.class</code>, <code>InputSplit.class</code>, <code>RecordReader.class</code>)</li>
+<li>setup the output (<code>NewOutputCollector.class</code>)</li>
+<li>create a mapper context (<code>MapContext.class</code>, <code>Mapper.Context.class</code>)</li>
+<li>initialize the input, e.g.:</li>
+<li> create a <code>SplitLineReader.class</code> object</li>
+<li> create a <code>HdfsDataInputStream.class</code> object</li>
+</ol>
+
+
+<h4><a href="#maptask-execution" id="maptask-execution">MapTask: EXECUTION</a></h4>
+
+<p><img src="public/images/maptask-execution_534fb31a-ae3c-4373-ae87-30b60a00c52e.png" alt="MapTask execution" /></p>
+
+<p>The EXECUTION phase is performed by the <code>run</code> method of the <code>Mapper</code> class. The user can override it, but by default it will start by calling the <code>setup</code> method: this function by default does  not do anything useful but can be override by the user in order to setup the Task (e.g., initialize class variables).
+After the setup, for each &lt;key, value> tuple contained in the map split, the <code>map()</code> is invoked. Therefore, <code>map()</code> receives: a key a value, and a mapper context. Using the context, a <code>map</code> stores its  output to a buffer.</p>
+
+<p>Notice that the map split is fetched chuck by chunk (e.g., 64KB) and each chunk is split in several (key, value) tuples (e.g., using <code>SplitLineReader.class</code>). This is done inside the <code>Mapper.Context.nextKeyValue</code> method.</p>
+
+<p>When the map split has been completely processed, the <code>run</code> function calls the <code>clean</code> method: by default, no action is performed but the user may decide to override it.</p>
+
+<h4><a href="#maptask-spilling" id="maptask-spilling">MapTask: SPILLING</a></h4>
+
+<p><img src="public/images/spilling-phase_534fcae9-b818-4e6f-bb3e-380f0a00c52e.png" alt="Spilling phase" /></p>
+
+<p>As seen in the EXECUTING phase, the <code>map</code> will write (using <code>Mapper.Context.write()</code>) its output into a circular in-memory buffer (<code>MapTask.MapOutputBuffer</code>). The size of this buffer is fixed and determined by the configuration parameter <code>mapreduce.task.io.sort.mb</code> (default: 100MB).</p>
+
+<p>Whenever this circular buffer is <em>almost</em> full (<code>mapreduce.map.
+sort.spill.percent</code>: 80% by default), the SPILLING phase is performed (in parallel using a separate thread). Notice that if the splilling thread is too slow and the buffer is 100% full, then the <code>map()</code> cannot be executed and thus it has to wait.</p>
+
+<p>The SPILLING thread performs the following actions:</p>
+
+<ol>
+<li>it creates a <code>SpillRecord</code> and <code>FSOutputStream</code> (local filesystem)</li>
+<li>in-memory sorts the used chunk of the buffer: the output tuples are sorted by (partitionIdx, key) using a quicksort algorithm.</li>
+<li>the sorted output is split into partitions: one partition for each ReduceTask of the job (see later).</li>
+<li>Partitions are sequentially written into the local file.</li>
+</ol>
+
+
+<h5><a href="#how-many-reduce-tasks" id="how-many-reduce-tasks">How Many Reduce Tasks?</a></h5>
+
+<p>The number of ReduceTasks for the job is decided by the configuration parameter <code>mapreduce.job.reduces</code>.</p>
+
+<h4><a href="#what-is-the-partitionidx-associated-to-an-output-tuple" id="what-is-the-partitionidx-associated-to-an-output-tuple">What is the partitionIdx associated to an output tuple?</a></h4>
+
+<p>The paritionIdx of an output tuple is the index of a partition. It is decided inside the <code>Mapper.Context.write()</code>:</p>
+
+<pre><code>partitionIdx = (key.hashCode() &amp; Integer.MAX_VALUE) % numReducers
+</code></pre>
+
+<p>It is stored as metadata in the circular buffer alongside the output tuple. The user can customize the partitioner by setting the configuration parameter <code>mapreduce.job.partitioner.class</code>.</p>
+
+<h4><a href="#when-do-we-apply-the-combiner" id="when-do-we-apply-the-combiner">When do we apply the combiner?</a></h4>
+
+<p>If the user specifies a combiner then the SPILLING thread, before writing the tuples to the file (4), executes the combiner on the tuples contained in each partition. Basically, we:</p>
+
+<ol>
+<li>create an instance of the user <code>Reducer.class</code> (the one specified for the combiner!)</li>
+<li>create a <code>Reducer.Context</code>: the output will be stored on the local filesystem</li>
+<li>execute <code>Reduce.run()</code>: see Reduce Task description</li>
+</ol>
+
+
+<p>The combiner typically use the same implementation of the
+standard <code>reduce()</code> function and thus can be seen as a local reducer.</p>
+
+<h3><a href="#maptask-end-of-execution" id="maptask-end-of-execution">MapTask: end of EXECUTION</a></h3>
+
+<p>At the end of the EXECUTION phase, the SPILLING thread is triggered for the last time. In more detail, we:</p>
+
+<ol>
+<li>sort and spill the remaining unspilled tuples</li>
+<li>start the SHUFFLE phase</li>
+</ol>
+
+
+<p>Notice that for each time the buffer was almost full, we get one spill file (<code>SpillReciord</code> + output file). Each Spill file contains several partitions (segments).</p>
+
+<h4><a href="#maptask-shuffle" id="maptask-shuffle">MapTask: SHUFFLE</a></h4>
+
+<h3><a href="#reduce-phase" id="reduce-phase">Reduce Phase</a></h3>
+
+<p>[&hellip;]</p>
+
+<h3><a href="#yarn-and-mapreduce-interaction" id="yarn-and-mapreduce-interaction">YARN and MapReduce interaction</a></h3>
+
+<p><img src="public/images/yarn-and-mapreduce-interaction_53302af2-7d38-412b-8275-6ffe0a009433.png" alt="YARN and MapReduce interaction" /></p>
+
+</div>
+
+    </div>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-49049378-1', 'ercoppa.github.io');
+      ga('send', 'pageview');
+
+    </script>
+
+  </body>
+</html>
