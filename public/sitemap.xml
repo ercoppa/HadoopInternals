@@ -13,38 +13,80 @@
 	<changefreq>weekly</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopInternals/ContainerAllocator.html</loc>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_53305f84-2148-41e9-91d7-5de20a009433.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_53305fb7-bab8-4db2-a85a-075a0a00da32.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_53305fea-d334-4a5b-bcad-64240a00d013.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_5330601e-86ac-444f-b4e4-54de0a004cb7.png</image:loc></image:image>
+	<loc>http://ercoppa.github.io/HadoopInternals/ReduceTask.html</loc>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-reducetask-startup_53300d53-15e0-4614-b4ad-27020a00da8d.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-reducetask-shuffle_53300d8a-1bf0-4836-b70f-015f0a009433.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-reducetask-local-fetcher_53300db6-0708-4f09-b67c-4a430a00da8d.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-reducetask-fetcher_53300e6a-7438-4871-b2cc-3f380a00da8d.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-reducetask-shuffle-merge_533aa18d-2f50-4d3a-a23f-66af0a00da32.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-reducetask-shuffle-merge-2_53396377-6e7c-4b02-9333-11c70a009b9f.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-reducetask-execution_53300e98-44d0-4c4f-8c6b-70d80a009433.png</image:loc></image:image>
 	<priority>0.5</priority>
 	<changefreq>weekly</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopInternals/Task.html</loc>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-task-finite-state-machine_53305696-1660-41a2-8080-75a50a009107.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-task-new-scheduled-t-schedule_5330585f-a3ac-4399-8c7b-03e10a00d013.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-task-scheduled-running-t-attempt-launched_533056bc-1b94-48af-977b-15150a009433.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-task-running-succedeed-t-attempt-succedeed_53305758-6ed8-415e-9513-46940a009107.png</image:loc></image:image>
+	<loc>http://ercoppa.github.io/HadoopInternals/HadoopConfigurationParameters.html</loc>
 	<priority>0.5</priority>
 	<changefreq>weekly</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopInternals/ContainersLauncher.html</loc>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_53306128-fc64-4287-8f9f-4d080a00da8d.png</image:loc></image:image>
+	<loc>http://ercoppa.github.io/HadoopInternals/</loc>
 	<priority>0.5</priority>
 	<changefreq>weekly</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopInternals/Job.html</loc>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-job-finite-state-machine_5330528e-f8fc-47c3-a285-3b170a004683.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-job-new-inited-job-init_533052cd-e434-4013-a881-31b60a00da32.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-job-initted-setup-job-start_53305310-d370-491c-b842-2f320a009433.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-job-setup-running-job-setup-completed_53305392-374c-4ab6-ab2a-7f660a009433.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-job-running-running-committing-fail-abort-job-task-completed_53305441-e19c-455d-9571-125a0a00da32.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-job-running-running-job-task-attempt-completed_53305406-7c44-463e-a456-33740a004cb7.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-job-committed-succeeded-job-commit-completed_53300917-07ac-4950-aa31-29d90a004cb7.png</image:loc></image:image>
+	<loc>http://ercoppa.github.io/HadoopInternals/NodeManager.html</loc>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-node-manager-startup_53303229-027c-4028-a97d-1d740a009b9f.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-node-manager-start-containers_533045b5-3370-4531-94df-643b0a00da32.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-node-manager-container-manager_533046b6-aea8-408d-aafe-34c20a009b9f.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-node-manager-resource-localization_5330460a-3b28-44f7-95da-63050a004cb7.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-node-manager-node-status-updater_53304648-6b6c-4226-8011-58bd0a00da8d.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-node-manager-non-aggregating-log-handler_53304678-16d4-4725-beec-28b80a009107.png</image:loc></image:image>
+	<priority>0.5</priority>
+	<changefreq>weekly</changefreq>
+</url>
+<url>
+	<loc>http://ercoppa.github.io/HadoopInternals/MapReduceMerge.html</loc>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-merger_53300b37-5a58-4e1d-8871-55340a00d013.png</image:loc></image:image>
+	<priority>0.5</priority>
+	<changefreq>weekly</changefreq>
+</url>
+<url>
+	<loc>http://ercoppa.github.io/HadoopInternals/ResourceManager.html</loc>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-resourcemanager_533015e0-c19c-4fd3-8787-521a0a004cb7.png</image:loc></image:image>
+	<priority>0.5</priority>
+	<changefreq>weekly</changefreq>
+</url>
+<url>
+	<loc>http://ercoppa.github.io/HadoopInternals/LocalizedResource.html</loc>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_53305ed2-15e4-444e-9c40-08480a009107.png</image:loc></image:image>
+	<priority>0.5</priority>
+	<changefreq>weekly</changefreq>
+</url>
+<url>
+	<loc>http://ercoppa.github.io/HadoopInternals/ContainerLauncher.html</loc>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_533060b8-3138-485f-9ca0-4db40a00da8d.png</image:loc></image:image>
+	<priority>0.5</priority>
+	<changefreq>weekly</changefreq>
+</url>
+<url>
+	<loc>http://ercoppa.github.io/HadoopInternals/DiagramConventions.html</loc>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_533009fb-55b0-4ed9-ac6e-2f8d0a009433.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_533a997c-192c-44a4-9e6d-7cef0a005bed.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_53300a12-0a94-4528-aca1-41a50a009107.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_53300a29-eadc-4d01-b577-33090a009107.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_53300a1e-13bc-4e71-a23c-31110a00d013.png</image:loc></image:image>
+	<priority>0.5</priority>
+	<changefreq>weekly</changefreq>
+</url>
+<url>
+	<loc>http://ercoppa.github.io/HadoopInternals/Container.html</loc>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-container-finite-state-machine_53305c19-5c74-4f55-bba8-01b60a00da32.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-container-new-localized-localizing-localization-failed-init-container_53305c9a-b260-4b62-b3c3-017d0a00da32.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-container-localizing-localizing-localized-resource-localized_53305cc0-1b2c-4212-ab2a-3e890a00d013.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-container-localized-running-container-launched_53305d0e-1d28-408f-abea-742f0a004cb7.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-container-running-exited-with-success-container-exited-with-success_53305d4e-7d3c-47bc-9535-5dfd0a009107.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-container-exited-with-success-done-container-resources-cleanedup_53305d94-593c-4bed-ab56-297f0a00da8d.png</image:loc></image:image>
 	<priority>0.5</priority>
 	<changefreq>weekly</changefreq>
 </url>
@@ -55,14 +97,11 @@
 	<changefreq>weekly</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopInternals/ReduceTask.html</loc>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-reducetask-startup_53300d53-15e0-4614-b4ad-27020a00da8d.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-reducetask-shuffle_53300d8a-1bf0-4836-b70f-015f0a009433.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-reducetask-local-fetcher_53300db6-0708-4f09-b67c-4a430a00da8d.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-reducetask-fetcher_53300e6a-7438-4871-b2cc-3f380a00da8d.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-reducetask-shuffle-merge_533aa18d-2f50-4d3a-a23f-66af0a00da32.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-reducetask-shuffle-merge-2_53396377-6e7c-4b02-9333-11c70a009b9f.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-reducetask-execution_53300e98-44d0-4c4f-8c6b-70d80a009433.png</image:loc></image:image>
+	<loc>http://ercoppa.github.io/HadoopInternals/ContainerAllocator.html</loc>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_53305f84-2148-41e9-91d7-5de20a009433.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_53305fb7-bab8-4db2-a85a-075a0a00da32.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_53305fea-d334-4a5b-bcad-64240a00d013.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_5330601e-86ac-444f-b4e4-54de0a004cb7.png</image:loc></image:image>
 	<priority>0.5</priority>
 	<changefreq>weekly</changefreq>
 </url>
@@ -80,11 +119,34 @@
 	<changefreq>weekly</changefreq>
 </url>
 <url>
+	<loc>http://ercoppa.github.io/HadoopInternals/TaskAttempt.html</loc>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-task-attempt-finite-state-machine_5330591e-64f4-49d1-a118-54e30a004cb7.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-task-attempt-new-unassigned-ta-schedule_53305997-5638-43c0-92e2-018c0a00da32.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-task-attempt-unassigned-assigned-ta-assigned_533059e9-9d18-4042-aae5-4ffe0a00da8d.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-task-attempt-assigned-running-ta-container-launched_53305a1a-1d10-4811-889d-2df60a00d013.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-task-attempt-running-success-container-cleanup-ta-done-commit-pending-success-container-cleanup_53305ad5-8d54-460e-893a-3a880a004683.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-task-attempt-success-container-cleanup-succeedeed-ta-container-cleaned_53305b06-4494-41e6-8baf-42c90a009b9f.png</image:loc></image:image>
+	<priority>0.5</priority>
+	<changefreq>weekly</changefreq>
+</url>
+<url>
+	<loc>http://ercoppa.github.io/HadoopInternals/AsyncDispatcher.html</loc>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_53304af3-2000-4f02-9d9b-2da80a00d013.png</image:loc></image:image>
+	<priority>0.5</priority>
+	<changefreq>weekly</changefreq>
+</url>
+<url>
 	<loc>http://ercoppa.github.io/HadoopInternals/MapTask.html</loc>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-maptask-startup_53300c20-1764-4137-9036-656c0a009107.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-maptask-execution_53300c93-aa34-448d-91ac-44c80a009107.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-maptask-shuffle_53300d09-fad8-4078-b0be-26910a00da8d.png</image:loc></image:image>
 	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-maptask-shuffle-2_53300ccc-c608-4d82-add0-4a9a0a00da8d.png</image:loc></image:image>
+	<priority>0.5</priority>
+	<changefreq>weekly</changefreq>
+</url>
+<url>
+	<loc>http://ercoppa.github.io/HadoopInternals/JobSubmitter.html</loc>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-job-submitter_53301531-b380-4305-81ab-51c70a00da8d.png</image:loc></image:image>
 	<priority>0.5</priority>
 	<changefreq>weekly</changefreq>
 </url>
@@ -100,53 +162,8 @@
 	<changefreq>weekly</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopInternals/NodeManager.html</loc>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-node-manager-startup_53303229-027c-4028-a97d-1d740a009b9f.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-node-manager-start-containers_533045b5-3370-4531-94df-643b0a00da32.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-node-manager-container-manager_533046b6-aea8-408d-aafe-34c20a009b9f.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-node-manager-resource-localization_5330460a-3b28-44f7-95da-63050a004cb7.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-node-manager-node-status-updater_53304648-6b6c-4226-8011-58bd0a00da8d.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-node-manager-non-aggregating-log-handler_53304678-16d4-4725-beec-28b80a009107.png</image:loc></image:image>
-	<priority>0.5</priority>
-	<changefreq>weekly</changefreq>
-</url>
-<url>
-	<loc>http://ercoppa.github.io/HadoopInternals/LocalizedResource.html</loc>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_53305ed2-15e4-444e-9c40-08480a009107.png</image:loc></image:image>
-	<priority>0.5</priority>
-	<changefreq>weekly</changefreq>
-</url>
-<url>
-	<loc>http://ercoppa.github.io/HadoopInternals/ResourceManager.html</loc>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-resourcemanager_533015e0-c19c-4fd3-8787-521a0a004cb7.png</image:loc></image:image>
-	<priority>0.5</priority>
-	<changefreq>weekly</changefreq>
-</url>
-<url>
-	<loc>http://ercoppa.github.io/HadoopInternals/Container.html</loc>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-container-finite-state-machine_53305c19-5c74-4f55-bba8-01b60a00da32.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-container-new-localized-localizing-localization-failed-init-container_53305c9a-b260-4b62-b3c3-017d0a00da32.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-container-localizing-localizing-localized-resource-localized_53305cc0-1b2c-4212-ab2a-3e890a00d013.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-container-localized-running-container-launched_53305d0e-1d28-408f-abea-742f0a004cb7.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-container-running-exited-with-success-container-exited-with-success_53305d4e-7d3c-47bc-9535-5dfd0a009107.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-container-exited-with-success-done-container-resources-cleanedup_53305d94-593c-4bed-ab56-297f0a00da8d.png</image:loc></image:image>
-	<priority>0.5</priority>
-	<changefreq>weekly</changefreq>
-</url>
-<url>
-	<loc>http://ercoppa.github.io/HadoopInternals/HadoopConfigurationParameters.html</loc>
-	<priority>0.5</priority>
-	<changefreq>weekly</changefreq>
-</url>
-<url>
-	<loc>http://ercoppa.github.io/HadoopInternals/JobSubmitter.html</loc>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-job-submitter_53301531-b380-4305-81ab-51c70a00da8d.png</image:loc></image:image>
-	<priority>0.5</priority>
-	<changefreq>weekly</changefreq>
-</url>
-<url>
-	<loc>http://ercoppa.github.io/HadoopInternals/MapReduceMerge.html</loc>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-merger_53300b37-5a58-4e1d-8871-55340a00d013.png</image:loc></image:image>
+	<loc>http://ercoppa.github.io/HadoopInternals/ContainersLauncher.html</loc>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_53306128-fc64-4287-8f9f-4d080a00da8d.png</image:loc></image:image>
 	<priority>0.5</priority>
 	<changefreq>weekly</changefreq>
 </url>
@@ -157,40 +174,23 @@
 	<changefreq>weekly</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopInternals/TaskAttempt.html</loc>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-task-attempt-finite-state-machine_5330591e-64f4-49d1-a118-54e30a004cb7.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-task-attempt-new-unassigned-ta-schedule_53305997-5638-43c0-92e2-018c0a00da32.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-task-attempt-unassigned-assigned-ta-assigned_533059e9-9d18-4042-aae5-4ffe0a00da8d.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-task-attempt-assigned-running-ta-container-launched_53305a1a-1d10-4811-889d-2df60a00d013.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-task-attempt-running-success-container-cleanup-ta-done-commit-pending-success-container-cleanup_53305ad5-8d54-460e-893a-3a880a004683.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-task-attempt-success-container-cleanup-succeedeed-ta-container-cleaned_53305b06-4494-41e6-8baf-42c90a009b9f.png</image:loc></image:image>
+	<loc>http://ercoppa.github.io/HadoopInternals/Job.html</loc>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-job-finite-state-machine_5330528e-f8fc-47c3-a285-3b170a004683.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-job-new-inited-job-init_533052cd-e434-4013-a881-31b60a00da32.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-job-initted-setup-job-start_53305310-d370-491c-b842-2f320a009433.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-job-setup-running-job-setup-completed_53305392-374c-4ab6-ab2a-7f660a009433.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-job-running-running-committing-fail-abort-job-task-completed_53305441-e19c-455d-9571-125a0a00da32.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-job-running-running-job-task-attempt-completed_53305406-7c44-463e-a456-33740a004cb7.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-job-committed-succeeded-job-commit-completed_53300917-07ac-4950-aa31-29d90a004cb7.png</image:loc></image:image>
 	<priority>0.5</priority>
 	<changefreq>weekly</changefreq>
 </url>
 <url>
-	<loc>http://ercoppa.github.io/HadoopInternals/DiagramConventions.html</loc>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_533009fb-55b0-4ed9-ac6e-2f8d0a009433.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_533a997c-192c-44a4-9e6d-7cef0a005bed.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_53300a12-0a94-4528-aca1-41a50a009107.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_53300a29-eadc-4d01-b577-33090a009107.png</image:loc></image:image>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_53300a1e-13bc-4e71-a23c-31110a00d013.png</image:loc></image:image>
-	<priority>0.5</priority>
-	<changefreq>weekly</changefreq>
-</url>
-<url>
-	<loc>http://ercoppa.github.io/HadoopInternals/ContainerLauncher.html</loc>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_533060b8-3138-485f-9ca0-4db40a00da8d.png</image:loc></image:image>
-	<priority>0.5</priority>
-	<changefreq>weekly</changefreq>
-</url>
-<url>
-	<loc>http://ercoppa.github.io/HadoopInternals/AsyncDispatcher.html</loc>
-	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-internals_53304af3-2000-4f02-9d9b-2da80a00d013.png</image:loc></image:image>
-	<priority>0.5</priority>
-	<changefreq>weekly</changefreq>
-</url>
-<url>
-	<loc>http://ercoppa.github.io/HadoopInternals/</loc>
+	<loc>http://ercoppa.github.io/HadoopInternals/Task.html</loc>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-task-finite-state-machine_53305696-1660-41a2-8080-75a50a009107.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-task-new-scheduled-t-schedule_5330585f-a3ac-4399-8c7b-03e10a00d013.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-task-scheduled-running-t-attempt-launched_533056bc-1b94-48af-977b-15150a009433.png</image:loc></image:image>
+	<image:image><image:loc>http://ercoppa.github.io/HadoopInternals/public/images/hadoop-mapreduce-task-running-succedeed-t-attempt-succedeed_53305758-6ed8-415e-9513-46940a009107.png</image:loc></image:image>
 	<priority>0.5</priority>
 	<changefreq>weekly</changefreq>
 </url>
