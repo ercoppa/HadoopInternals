@@ -3,7 +3,7 @@ layout: post
 title: Hadoop Architecture Overview
 ---
 
-[**Apache Hadoop**](http://hadoop.apache.org/) is an open-source software framework for storage and large-scale processing of data-sets on clusters of commodity hardware. There are mainly five building blocks inside this runtime envinroment (from bottom to top):
+[**Apache Hadoop**](http://hadoop.apache.org/) is an open-source software framework for storage and large-scale processing of data-sets on clusters of commodity hardware. There are mainly five building blocks inside this runtime environment (from bottom to top):
 
 ![Hadoop Architecture Oveview](public/images/hadoop-architecture-oveview_535fb575-6fcc-4a71-a3c7-71a80a0057dd.png)
 
