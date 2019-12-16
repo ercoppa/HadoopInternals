@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2019-12-16T10:56:44+01:00</updated>
+ <updated>2019-12-16T10:59:42+01:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -942,7 +942,7 @@ standard &lt;code&gt;reduce()&lt;/code&gt; function and thus can be seen as a lo
 &lt;/ol&gt;
 
 
-&lt;p&gt;Notice that for each time the buffer was almost full, we get one spill file (&lt;code&gt;SpillReciord&lt;/code&gt; + output file). Each Spill file contains several partitions (segments).&lt;/p&gt;
+&lt;p&gt;Notice that for each time the buffer was almost full, we get one spill file (&lt;code&gt;SpillRecord&lt;/code&gt; + output file). Each Spill file contains several partitions (segments).&lt;/p&gt;
 
 &lt;h4&gt;&lt;a href=&quot;#maptask-shuffle&quot; id=&quot;maptask-shuffle&quot;&gt;MapTask: SHUFFLE&lt;/a&gt;&lt;/h4&gt;
 
