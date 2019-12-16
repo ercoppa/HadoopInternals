@@ -20,7 +20,7 @@ We now focus our discussion on the Map Phase. A key decision is how many MapTask
 #### <a href="#what-does-the-user-give-us" id="what-does-the-user-give-us">What does the user give us?</a>
 Let's take a step back. When a client submits an application, several kinds of information are provided to the YARN infrastucture. In particular:
 
- * a configuration: this may be partial (some parameters are not specified by the user) and in this case the default values are used for the job. Notice that these default values may be the ones chosen by a Hadoop provider like Amanzon.
+ * a configuration: this may be partial (some parameters are not specified by the user) and in this case the default values are used for the job. Notice that these default values may be the ones chosen by a Hadoop provider like Amazon.
  * a JAR containing:
    * a `map()` implementation
    * a combiner implementation
