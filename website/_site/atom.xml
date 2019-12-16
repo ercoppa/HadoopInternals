@@ -4,7 +4,7 @@
  <title>Hadoop Internals</title>
  <link href="http://ercoppa.org/atom.xml" rel="self"/>
  <link href="http://ercoppa.org/"/>
- <updated>2019-12-16T10:56:00+01:00</updated>
+ <updated>2019-12-16T10:56:44+01:00</updated>
  <id>http://ercoppa.org</id>
  <author>
    <name>Emilio Coppa</name>
@@ -506,7 +506,7 @@
    <link href="http://ercoppa.org/HadoopArchitectureOverview.html"/>
    <updated>2014-04-02T00:00:00+02:00</updated>
    <id>http://ercoppa.org/HadoopArchitectureOverview</id>
-   <content type="html">&lt;p&gt;&lt;a href=&quot;http://hadoop.apache.org/&quot;&gt;&lt;strong&gt;Apache Hadoop&lt;/strong&gt;&lt;/a&gt; is an open-source software framework for storage and large-scale processing of data-sets on clusters of commodity hardware. There are mainly five building blocks inside this runtime envinroment (from bottom to top):&lt;/p&gt;
+   <content type="html">&lt;p&gt;&lt;a href=&quot;http://hadoop.apache.org/&quot;&gt;&lt;strong&gt;Apache Hadoop&lt;/strong&gt;&lt;/a&gt; is an open-source software framework for storage and large-scale processing of data-sets on clusters of commodity hardware. There are mainly five building blocks inside this runtime environment (from bottom to top):&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;public/images/hadoop-architecture-oveview_535fb575-6fcc-4a71-a3c7-71a80a0057dd.png&quot; alt=&quot;Hadoop Architecture Oveview&quot; /&gt;&lt;/p&gt;
 
@@ -775,7 +775,7 @@ This is the timeline of a MapReduce Job execution:&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s take a step back. When a client submits an application, several kinds of information are provided to the YARN infrastucture. In particular:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;a configuration: this may be partial (some parameters are not specified by the user) and in this case the default values are used for the job. Notice that these default values may be the ones chosen by a Hadoop provider like Amanzon.&lt;/li&gt;
+&lt;li&gt;a configuration: this may be partial (some parameters are not specified by the user) and in this case the default values are used for the job. Notice that these default values may be the ones chosen by a Hadoop provider like Amazon.&lt;/li&gt;
 &lt;li&gt;a JAR containing:
 
 &lt;ul&gt;
