@@ -149,7 +149,7 @@ At the end of the EXECUTION phase, the SPILLING thread is triggered for the last
  1. sort and spill the remaining unspilled tuples
  2. start the SHUFFLE phase
 
-Notice that for each time the buffer was almost full, we get one spill file (`SpillReciord` + output file). Each Spill file contains several partitions (segments).
+Notice that for each time the buffer was almost full, we get one spill file (`SpillRecord` + output file). Each Spill file contains several partitions (segments).
 
 #### <a href="#maptask-shuffle" id="maptask-shuffle">MapTask: SHUFFLE</a>
 
